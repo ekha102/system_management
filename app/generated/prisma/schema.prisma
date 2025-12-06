@@ -14,17 +14,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Issue {
-  issue_id     Int      @id @default(autoincrement())
-  issue_title  String   @db.VarChar(255)
-  issue_desc   String   @db.Text
-  issue_status Status   @default(OPEN)
-  issue_create DateTime @default(now())
-  issue_update DateTime @updatedAt
-}
-
-enum Status {
-  OPEN
-  IN_PROGRESS
-  CLOSED
+model Inventory {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  quantity    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

@@ -14,28 +14,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
- * Model Issue
+ * Model Inventory
  * 
  */
-export type Issue = $Result.DefaultSelection<Prisma.$IssuePayload>
-
-/**
- * Enums
- */
-export namespace $Enums {
-  export const Status: {
-  OPEN: 'OPEN',
-  IN_PROGRESS: 'IN_PROGRESS',
-  CLOSED: 'CLOSED'
-};
-
-export type Status = (typeof Status)[keyof typeof Status]
-
-}
-
-export type Status = $Enums.Status
-
-export const Status: typeof $Enums.Status
+export type Inventory = $Result.DefaultSelection<Prisma.$InventoryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -44,8 +26,8 @@ export const Status: typeof $Enums.Status
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Issues
- * const issues = await prisma.issue.findMany()
+ * // Fetch zero or more Inventories
+ * const inventories = await prisma.inventory.findMany()
  * ```
  *
  *
@@ -65,8 +47,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Issues
-   * const issues = await prisma.issue.findMany()
+   * // Fetch zero or more Inventories
+   * const inventories = await prisma.inventory.findMany()
    * ```
    *
    *
@@ -163,14 +145,14 @@ export class PrismaClient<
   }>>
 
       /**
-   * `prisma.issue`: Exposes CRUD operations for the **Issue** model.
+   * `prisma.inventory`: Exposes CRUD operations for the **Inventory** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Issues
-    * const issues = await prisma.issue.findMany()
+    * // Fetch zero or more Inventories
+    * const inventories = await prisma.inventory.findMany()
     * ```
     */
-  get issue(): Prisma.IssueDelegate<ExtArgs, ClientOptions>;
+  get inventory(): Prisma.InventoryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -611,7 +593,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Issue: 'Issue'
+    Inventory: 'Inventory'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -630,73 +612,73 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "issue"
+      modelProps: "inventory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
-      Issue: {
-        payload: Prisma.$IssuePayload<ExtArgs>
-        fields: Prisma.IssueFieldRefs
+      Inventory: {
+        payload: Prisma.$InventoryPayload<ExtArgs>
+        fields: Prisma.InventoryFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.IssueFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload> | null
+            args: Prisma.InventoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.IssueFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>
+            args: Prisma.InventoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>
           }
           findFirst: {
-            args: Prisma.IssueFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload> | null
+            args: Prisma.InventoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.IssueFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>
+            args: Prisma.InventoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>
           }
           findMany: {
-            args: Prisma.IssueFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>[]
+            args: Prisma.InventoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>[]
           }
           create: {
-            args: Prisma.IssueCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>
+            args: Prisma.InventoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>
           }
           createMany: {
-            args: Prisma.IssueCreateManyArgs<ExtArgs>
+            args: Prisma.InventoryCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           delete: {
-            args: Prisma.IssueDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>
+            args: Prisma.InventoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>
           }
           update: {
-            args: Prisma.IssueUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>
+            args: Prisma.InventoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>
           }
           deleteMany: {
-            args: Prisma.IssueDeleteManyArgs<ExtArgs>
+            args: Prisma.InventoryDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.IssueUpdateManyArgs<ExtArgs>
+            args: Prisma.InventoryUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.IssueUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$IssuePayload>
+            args: Prisma.InventoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryPayload>
           }
           aggregate: {
-            args: Prisma.IssueAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateIssue>
+            args: Prisma.InventoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInventory>
           }
           groupBy: {
-            args: Prisma.IssueGroupByArgs<ExtArgs>
-            result: $Utils.Optional<IssueGroupByOutputType>[]
+            args: Prisma.InventoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InventoryGroupByOutputType>[]
           }
           count: {
-            args: Prisma.IssueCountArgs<ExtArgs>
-            result: $Utils.Optional<IssueCountAggregateOutputType> | number
+            args: Prisma.InventoryCountArgs<ExtArgs>
+            result: $Utils.Optional<InventoryCountAggregateOutputType> | number
           }
         }
       }
@@ -784,7 +766,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
-    issue?: IssueOmit
+    inventory?: InventoryOmit
   }
 
   /* Types for Logging */
@@ -880,373 +862,377 @@ export namespace Prisma {
    */
 
   /**
-   * Model Issue
+   * Model Inventory
    */
 
-  export type AggregateIssue = {
-    _count: IssueCountAggregateOutputType | null
-    _avg: IssueAvgAggregateOutputType | null
-    _sum: IssueSumAggregateOutputType | null
-    _min: IssueMinAggregateOutputType | null
-    _max: IssueMaxAggregateOutputType | null
+  export type AggregateInventory = {
+    _count: InventoryCountAggregateOutputType | null
+    _avg: InventoryAvgAggregateOutputType | null
+    _sum: InventorySumAggregateOutputType | null
+    _min: InventoryMinAggregateOutputType | null
+    _max: InventoryMaxAggregateOutputType | null
   }
 
-  export type IssueAvgAggregateOutputType = {
-    issue_id: number | null
+  export type InventoryAvgAggregateOutputType = {
+    id: number | null
+    quantity: number | null
   }
 
-  export type IssueSumAggregateOutputType = {
-    issue_id: number | null
+  export type InventorySumAggregateOutputType = {
+    id: number | null
+    quantity: number | null
   }
 
-  export type IssueMinAggregateOutputType = {
-    issue_id: number | null
-    issue_title: string | null
-    issue_desc: string | null
-    issue_status: $Enums.Status | null
-    issue_create: Date | null
-    issue_update: Date | null
+  export type InventoryMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    quantity: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type IssueMaxAggregateOutputType = {
-    issue_id: number | null
-    issue_title: string | null
-    issue_desc: string | null
-    issue_status: $Enums.Status | null
-    issue_create: Date | null
-    issue_update: Date | null
+  export type InventoryMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    description: string | null
+    quantity: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type IssueCountAggregateOutputType = {
-    issue_id: number
-    issue_title: number
-    issue_desc: number
-    issue_status: number
-    issue_create: number
-    issue_update: number
+  export type InventoryCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    quantity: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
 
-  export type IssueAvgAggregateInputType = {
-    issue_id?: true
+  export type InventoryAvgAggregateInputType = {
+    id?: true
+    quantity?: true
   }
 
-  export type IssueSumAggregateInputType = {
-    issue_id?: true
+  export type InventorySumAggregateInputType = {
+    id?: true
+    quantity?: true
   }
 
-  export type IssueMinAggregateInputType = {
-    issue_id?: true
-    issue_title?: true
-    issue_desc?: true
-    issue_status?: true
-    issue_create?: true
-    issue_update?: true
+  export type InventoryMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    quantity?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
-  export type IssueMaxAggregateInputType = {
-    issue_id?: true
-    issue_title?: true
-    issue_desc?: true
-    issue_status?: true
-    issue_create?: true
-    issue_update?: true
+  export type InventoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    quantity?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
-  export type IssueCountAggregateInputType = {
-    issue_id?: true
-    issue_title?: true
-    issue_desc?: true
-    issue_status?: true
-    issue_create?: true
-    issue_update?: true
+  export type InventoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    quantity?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
-  export type IssueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Issue to aggregate.
+     * Filter which Inventory to aggregate.
      */
-    where?: IssueWhereInput
+    where?: InventoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Issues to fetch.
+     * Determine the order of Inventories to fetch.
      */
-    orderBy?: IssueOrderByWithRelationInput | IssueOrderByWithRelationInput[]
+    orderBy?: InventoryOrderByWithRelationInput | InventoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: IssueWhereUniqueInput
+    cursor?: InventoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Issues from the position of the cursor.
+     * Take `±n` Inventories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Issues.
+     * Skip the first `n` Inventories.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned Issues
+     * Count returned Inventories
     **/
-    _count?: true | IssueCountAggregateInputType
+    _count?: true | InventoryCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: IssueAvgAggregateInputType
+    _avg?: InventoryAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: IssueSumAggregateInputType
+    _sum?: InventorySumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: IssueMinAggregateInputType
+    _min?: InventoryMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: IssueMaxAggregateInputType
+    _max?: InventoryMaxAggregateInputType
   }
 
-  export type GetIssueAggregateType<T extends IssueAggregateArgs> = {
-        [P in keyof T & keyof AggregateIssue]: P extends '_count' | 'count'
+  export type GetInventoryAggregateType<T extends InventoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateInventory]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateIssue[P]>
-      : GetScalarType<T[P], AggregateIssue[P]>
+        : GetScalarType<T[P], AggregateInventory[P]>
+      : GetScalarType<T[P], AggregateInventory[P]>
   }
 
 
 
 
-  export type IssueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: IssueWhereInput
-    orderBy?: IssueOrderByWithAggregationInput | IssueOrderByWithAggregationInput[]
-    by: IssueScalarFieldEnum[] | IssueScalarFieldEnum
-    having?: IssueScalarWhereWithAggregatesInput
+  export type InventoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryWhereInput
+    orderBy?: InventoryOrderByWithAggregationInput | InventoryOrderByWithAggregationInput[]
+    by: InventoryScalarFieldEnum[] | InventoryScalarFieldEnum
+    having?: InventoryScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: IssueCountAggregateInputType | true
-    _avg?: IssueAvgAggregateInputType
-    _sum?: IssueSumAggregateInputType
-    _min?: IssueMinAggregateInputType
-    _max?: IssueMaxAggregateInputType
+    _count?: InventoryCountAggregateInputType | true
+    _avg?: InventoryAvgAggregateInputType
+    _sum?: InventorySumAggregateInputType
+    _min?: InventoryMinAggregateInputType
+    _max?: InventoryMaxAggregateInputType
   }
 
-  export type IssueGroupByOutputType = {
-    issue_id: number
-    issue_title: string
-    issue_desc: string
-    issue_status: $Enums.Status
-    issue_create: Date
-    issue_update: Date
-    _count: IssueCountAggregateOutputType | null
-    _avg: IssueAvgAggregateOutputType | null
-    _sum: IssueSumAggregateOutputType | null
-    _min: IssueMinAggregateOutputType | null
-    _max: IssueMaxAggregateOutputType | null
+  export type InventoryGroupByOutputType = {
+    id: number
+    name: string
+    description: string | null
+    quantity: number
+    createdAt: Date
+    updatedAt: Date
+    _count: InventoryCountAggregateOutputType | null
+    _avg: InventoryAvgAggregateOutputType | null
+    _sum: InventorySumAggregateOutputType | null
+    _min: InventoryMinAggregateOutputType | null
+    _max: InventoryMaxAggregateOutputType | null
   }
 
-  type GetIssueGroupByPayload<T extends IssueGroupByArgs> = Prisma.PrismaPromise<
+  type GetInventoryGroupByPayload<T extends InventoryGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<IssueGroupByOutputType, T['by']> &
+      PickEnumerable<InventoryGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof IssueGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof InventoryGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], IssueGroupByOutputType[P]>
-            : GetScalarType<T[P], IssueGroupByOutputType[P]>
+              : GetScalarType<T[P], InventoryGroupByOutputType[P]>
+            : GetScalarType<T[P], InventoryGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type IssueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    issue_id?: boolean
-    issue_title?: boolean
-    issue_desc?: boolean
-    issue_status?: boolean
-    issue_create?: boolean
-    issue_update?: boolean
-  }, ExtArgs["result"]["issue"]>
+  export type InventorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    quantity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["inventory"]>
 
 
 
-  export type IssueSelectScalar = {
-    issue_id?: boolean
-    issue_title?: boolean
-    issue_desc?: boolean
-    issue_status?: boolean
-    issue_create?: boolean
-    issue_update?: boolean
+  export type InventorySelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    quantity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type IssueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"issue_id" | "issue_title" | "issue_desc" | "issue_status" | "issue_create" | "issue_update", ExtArgs["result"]["issue"]>
+  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "quantity" | "createdAt" | "updatedAt", ExtArgs["result"]["inventory"]>
 
-  export type $IssuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Issue"
+  export type $InventoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Inventory"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      issue_id: number
-      issue_title: string
-      issue_desc: string
-      issue_status: $Enums.Status
-      issue_create: Date
-      issue_update: Date
-    }, ExtArgs["result"]["issue"]>
+      id: number
+      name: string
+      description: string | null
+      quantity: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["inventory"]>
     composites: {}
   }
 
-  type IssueGetPayload<S extends boolean | null | undefined | IssueDefaultArgs> = $Result.GetResult<Prisma.$IssuePayload, S>
+  type InventoryGetPayload<S extends boolean | null | undefined | InventoryDefaultArgs> = $Result.GetResult<Prisma.$InventoryPayload, S>
 
-  type IssueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<IssueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: IssueCountAggregateInputType | true
+  type InventoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InventoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InventoryCountAggregateInputType | true
     }
 
-  export interface IssueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Issue'], meta: { name: 'Issue' } }
+  export interface InventoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Inventory'], meta: { name: 'Inventory' } }
     /**
-     * Find zero or one Issue that matches the filter.
-     * @param {IssueFindUniqueArgs} args - Arguments to find a Issue
+     * Find zero or one Inventory that matches the filter.
+     * @param {InventoryFindUniqueArgs} args - Arguments to find a Inventory
      * @example
-     * // Get one Issue
-     * const issue = await prisma.issue.findUnique({
+     * // Get one Inventory
+     * const inventory = await prisma.inventory.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends IssueFindUniqueArgs>(args: SelectSubset<T, IssueFindUniqueArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends InventoryFindUniqueArgs>(args: SelectSubset<T, InventoryFindUniqueArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Issue that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Inventory that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {IssueFindUniqueOrThrowArgs} args - Arguments to find a Issue
+     * @param {InventoryFindUniqueOrThrowArgs} args - Arguments to find a Inventory
      * @example
-     * // Get one Issue
-     * const issue = await prisma.issue.findUniqueOrThrow({
+     * // Get one Inventory
+     * const inventory = await prisma.inventory.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends IssueFindUniqueOrThrowArgs>(args: SelectSubset<T, IssueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends InventoryFindUniqueOrThrowArgs>(args: SelectSubset<T, InventoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Issue that matches the filter.
+     * Find the first Inventory that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueFindFirstArgs} args - Arguments to find a Issue
+     * @param {InventoryFindFirstArgs} args - Arguments to find a Inventory
      * @example
-     * // Get one Issue
-     * const issue = await prisma.issue.findFirst({
+     * // Get one Inventory
+     * const inventory = await prisma.inventory.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends IssueFindFirstArgs>(args?: SelectSubset<T, IssueFindFirstArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends InventoryFindFirstArgs>(args?: SelectSubset<T, InventoryFindFirstArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Issue that matches the filter or
+     * Find the first Inventory that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueFindFirstOrThrowArgs} args - Arguments to find a Issue
+     * @param {InventoryFindFirstOrThrowArgs} args - Arguments to find a Inventory
      * @example
-     * // Get one Issue
-     * const issue = await prisma.issue.findFirstOrThrow({
+     * // Get one Inventory
+     * const inventory = await prisma.inventory.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends IssueFindFirstOrThrowArgs>(args?: SelectSubset<T, IssueFindFirstOrThrowArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends InventoryFindFirstOrThrowArgs>(args?: SelectSubset<T, InventoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Issues that matches the filter.
+     * Find zero or more Inventories that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {InventoryFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Issues
-     * const issues = await prisma.issue.findMany()
+     * // Get all Inventories
+     * const inventories = await prisma.inventory.findMany()
      * 
-     * // Get first 10 Issues
-     * const issues = await prisma.issue.findMany({ take: 10 })
+     * // Get first 10 Inventories
+     * const inventories = await prisma.inventory.findMany({ take: 10 })
      * 
-     * // Only select the `issue_id`
-     * const issueWithIssue_idOnly = await prisma.issue.findMany({ select: { issue_id: true } })
+     * // Only select the `id`
+     * const inventoryWithIdOnly = await prisma.inventory.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends IssueFindManyArgs>(args?: SelectSubset<T, IssueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends InventoryFindManyArgs>(args?: SelectSubset<T, InventoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Issue.
-     * @param {IssueCreateArgs} args - Arguments to create a Issue.
+     * Create a Inventory.
+     * @param {InventoryCreateArgs} args - Arguments to create a Inventory.
      * @example
-     * // Create one Issue
-     * const Issue = await prisma.issue.create({
+     * // Create one Inventory
+     * const Inventory = await prisma.inventory.create({
      *   data: {
-     *     // ... data to create a Issue
+     *     // ... data to create a Inventory
      *   }
      * })
      * 
      */
-    create<T extends IssueCreateArgs>(args: SelectSubset<T, IssueCreateArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends InventoryCreateArgs>(args: SelectSubset<T, InventoryCreateArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Issues.
-     * @param {IssueCreateManyArgs} args - Arguments to create many Issues.
+     * Create many Inventories.
+     * @param {InventoryCreateManyArgs} args - Arguments to create many Inventories.
      * @example
-     * // Create many Issues
-     * const issue = await prisma.issue.createMany({
+     * // Create many Inventories
+     * const inventory = await prisma.inventory.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends IssueCreateManyArgs>(args?: SelectSubset<T, IssueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends InventoryCreateManyArgs>(args?: SelectSubset<T, InventoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Delete a Issue.
-     * @param {IssueDeleteArgs} args - Arguments to delete one Issue.
+     * Delete a Inventory.
+     * @param {InventoryDeleteArgs} args - Arguments to delete one Inventory.
      * @example
-     * // Delete one Issue
-     * const Issue = await prisma.issue.delete({
+     * // Delete one Inventory
+     * const Inventory = await prisma.inventory.delete({
      *   where: {
-     *     // ... filter to delete one Issue
+     *     // ... filter to delete one Inventory
      *   }
      * })
      * 
      */
-    delete<T extends IssueDeleteArgs>(args: SelectSubset<T, IssueDeleteArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends InventoryDeleteArgs>(args: SelectSubset<T, InventoryDeleteArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Issue.
-     * @param {IssueUpdateArgs} args - Arguments to update one Issue.
+     * Update one Inventory.
+     * @param {InventoryUpdateArgs} args - Arguments to update one Inventory.
      * @example
-     * // Update one Issue
-     * const issue = await prisma.issue.update({
+     * // Update one Inventory
+     * const inventory = await prisma.inventory.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1256,30 +1242,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends IssueUpdateArgs>(args: SelectSubset<T, IssueUpdateArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends InventoryUpdateArgs>(args: SelectSubset<T, InventoryUpdateArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Issues.
-     * @param {IssueDeleteManyArgs} args - Arguments to filter Issues to delete.
+     * Delete zero or more Inventories.
+     * @param {InventoryDeleteManyArgs} args - Arguments to filter Inventories to delete.
      * @example
-     * // Delete a few Issues
-     * const { count } = await prisma.issue.deleteMany({
+     * // Delete a few Inventories
+     * const { count } = await prisma.inventory.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends IssueDeleteManyArgs>(args?: SelectSubset<T, IssueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends InventoryDeleteManyArgs>(args?: SelectSubset<T, InventoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Issues.
+     * Update zero or more Inventories.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {InventoryUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Issues
-     * const issue = await prisma.issue.updateMany({
+     * // Update many Inventories
+     * const inventory = await prisma.inventory.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1289,56 +1275,56 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends IssueUpdateManyArgs>(args: SelectSubset<T, IssueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends InventoryUpdateManyArgs>(args: SelectSubset<T, InventoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Issue.
-     * @param {IssueUpsertArgs} args - Arguments to update or create a Issue.
+     * Create or update one Inventory.
+     * @param {InventoryUpsertArgs} args - Arguments to update or create a Inventory.
      * @example
-     * // Update or create a Issue
-     * const issue = await prisma.issue.upsert({
+     * // Update or create a Inventory
+     * const inventory = await prisma.inventory.upsert({
      *   create: {
-     *     // ... data to create a Issue
+     *     // ... data to create a Inventory
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Issue we want to update
+     *     // ... the filter for the Inventory we want to update
      *   }
      * })
      */
-    upsert<T extends IssueUpsertArgs>(args: SelectSubset<T, IssueUpsertArgs<ExtArgs>>): Prisma__IssueClient<$Result.GetResult<Prisma.$IssuePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends InventoryUpsertArgs>(args: SelectSubset<T, InventoryUpsertArgs<ExtArgs>>): Prisma__InventoryClient<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Issues.
+     * Count the number of Inventories.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueCountArgs} args - Arguments to filter Issues to count.
+     * @param {InventoryCountArgs} args - Arguments to filter Inventories to count.
      * @example
-     * // Count the number of Issues
-     * const count = await prisma.issue.count({
+     * // Count the number of Inventories
+     * const count = await prisma.inventory.count({
      *   where: {
-     *     // ... the filter for the Issues we want to count
+     *     // ... the filter for the Inventories we want to count
      *   }
      * })
     **/
-    count<T extends IssueCountArgs>(
-      args?: Subset<T, IssueCountArgs>,
+    count<T extends InventoryCountArgs>(
+      args?: Subset<T, InventoryCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], IssueCountAggregateOutputType>
+          : GetScalarType<T['select'], InventoryCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Issue.
+     * Allows you to perform aggregations operations on a Inventory.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {InventoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -1358,13 +1344,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends IssueAggregateArgs>(args: Subset<T, IssueAggregateArgs>): Prisma.PrismaPromise<GetIssueAggregateType<T>>
+    aggregate<T extends InventoryAggregateArgs>(args: Subset<T, InventoryAggregateArgs>): Prisma.PrismaPromise<GetInventoryAggregateType<T>>
 
     /**
-     * Group by Issue.
+     * Group by Inventory.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {IssueGroupByArgs} args - Group by arguments.
+     * @param {InventoryGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -1379,14 +1365,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends IssueGroupByArgs,
+      T extends InventoryGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: IssueGroupByArgs['orderBy'] }
-        : { orderBy?: IssueGroupByArgs['orderBy'] },
+        ? { orderBy: InventoryGroupByArgs['orderBy'] }
+        : { orderBy?: InventoryGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -1435,20 +1421,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, IssueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetIssueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, InventoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInventoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Issue model
+   * Fields of the Inventory model
    */
-  readonly fields: IssueFieldRefs;
+  readonly fields: InventoryFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Issue.
+   * The delegate class that acts as a "Promise-like" for Inventory.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__IssueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__InventoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1476,333 +1462,333 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Issue model
+   * Fields of the Inventory model
    */
-  interface IssueFieldRefs {
-    readonly issue_id: FieldRef<"Issue", 'Int'>
-    readonly issue_title: FieldRef<"Issue", 'String'>
-    readonly issue_desc: FieldRef<"Issue", 'String'>
-    readonly issue_status: FieldRef<"Issue", 'Status'>
-    readonly issue_create: FieldRef<"Issue", 'DateTime'>
-    readonly issue_update: FieldRef<"Issue", 'DateTime'>
+  interface InventoryFieldRefs {
+    readonly id: FieldRef<"Inventory", 'Int'>
+    readonly name: FieldRef<"Inventory", 'String'>
+    readonly description: FieldRef<"Inventory", 'String'>
+    readonly quantity: FieldRef<"Inventory", 'Int'>
+    readonly createdAt: FieldRef<"Inventory", 'DateTime'>
+    readonly updatedAt: FieldRef<"Inventory", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Issue findUnique
+   * Inventory findUnique
    */
-  export type IssueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * Filter, which Issue to fetch.
+     * Filter, which Inventory to fetch.
      */
-    where: IssueWhereUniqueInput
+    where: InventoryWhereUniqueInput
   }
 
   /**
-   * Issue findUniqueOrThrow
+   * Inventory findUniqueOrThrow
    */
-  export type IssueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * Filter, which Issue to fetch.
+     * Filter, which Inventory to fetch.
      */
-    where: IssueWhereUniqueInput
+    where: InventoryWhereUniqueInput
   }
 
   /**
-   * Issue findFirst
+   * Inventory findFirst
    */
-  export type IssueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * Filter, which Issue to fetch.
+     * Filter, which Inventory to fetch.
      */
-    where?: IssueWhereInput
+    where?: InventoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Issues to fetch.
+     * Determine the order of Inventories to fetch.
      */
-    orderBy?: IssueOrderByWithRelationInput | IssueOrderByWithRelationInput[]
+    orderBy?: InventoryOrderByWithRelationInput | InventoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Issues.
+     * Sets the position for searching for Inventories.
      */
-    cursor?: IssueWhereUniqueInput
+    cursor?: InventoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Issues from the position of the cursor.
+     * Take `±n` Inventories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Issues.
+     * Skip the first `n` Inventories.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Issues.
+     * Filter by unique combinations of Inventories.
      */
-    distinct?: IssueScalarFieldEnum | IssueScalarFieldEnum[]
+    distinct?: InventoryScalarFieldEnum | InventoryScalarFieldEnum[]
   }
 
   /**
-   * Issue findFirstOrThrow
+   * Inventory findFirstOrThrow
    */
-  export type IssueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * Filter, which Issue to fetch.
+     * Filter, which Inventory to fetch.
      */
-    where?: IssueWhereInput
+    where?: InventoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Issues to fetch.
+     * Determine the order of Inventories to fetch.
      */
-    orderBy?: IssueOrderByWithRelationInput | IssueOrderByWithRelationInput[]
+    orderBy?: InventoryOrderByWithRelationInput | InventoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for Issues.
+     * Sets the position for searching for Inventories.
      */
-    cursor?: IssueWhereUniqueInput
+    cursor?: InventoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Issues from the position of the cursor.
+     * Take `±n` Inventories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Issues.
+     * Skip the first `n` Inventories.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of Issues.
+     * Filter by unique combinations of Inventories.
      */
-    distinct?: IssueScalarFieldEnum | IssueScalarFieldEnum[]
+    distinct?: InventoryScalarFieldEnum | InventoryScalarFieldEnum[]
   }
 
   /**
-   * Issue findMany
+   * Inventory findMany
    */
-  export type IssueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * Filter, which Issues to fetch.
+     * Filter, which Inventories to fetch.
      */
-    where?: IssueWhereInput
+    where?: InventoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of Issues to fetch.
+     * Determine the order of Inventories to fetch.
      */
-    orderBy?: IssueOrderByWithRelationInput | IssueOrderByWithRelationInput[]
+    orderBy?: InventoryOrderByWithRelationInput | InventoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing Issues.
+     * Sets the position for listing Inventories.
      */
-    cursor?: IssueWhereUniqueInput
+    cursor?: InventoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` Issues from the position of the cursor.
+     * Take `±n` Inventories from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` Issues.
+     * Skip the first `n` Inventories.
      */
     skip?: number
-    distinct?: IssueScalarFieldEnum | IssueScalarFieldEnum[]
+    distinct?: InventoryScalarFieldEnum | InventoryScalarFieldEnum[]
   }
 
   /**
-   * Issue create
+   * Inventory create
    */
-  export type IssueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * The data needed to create a Issue.
+     * The data needed to create a Inventory.
      */
-    data: XOR<IssueCreateInput, IssueUncheckedCreateInput>
+    data: XOR<InventoryCreateInput, InventoryUncheckedCreateInput>
   }
 
   /**
-   * Issue createMany
+   * Inventory createMany
    */
-  export type IssueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many Issues.
+     * The data used to create many Inventories.
      */
-    data: IssueCreateManyInput | IssueCreateManyInput[]
+    data: InventoryCreateManyInput | InventoryCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Issue update
+   * Inventory update
    */
-  export type IssueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * The data needed to update a Issue.
+     * The data needed to update a Inventory.
      */
-    data: XOR<IssueUpdateInput, IssueUncheckedUpdateInput>
+    data: XOR<InventoryUpdateInput, InventoryUncheckedUpdateInput>
     /**
-     * Choose, which Issue to update.
+     * Choose, which Inventory to update.
      */
-    where: IssueWhereUniqueInput
+    where: InventoryWhereUniqueInput
   }
 
   /**
-   * Issue updateMany
+   * Inventory updateMany
    */
-  export type IssueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update Issues.
+     * The data used to update Inventories.
      */
-    data: XOR<IssueUpdateManyMutationInput, IssueUncheckedUpdateManyInput>
+    data: XOR<InventoryUpdateManyMutationInput, InventoryUncheckedUpdateManyInput>
     /**
-     * Filter which Issues to update
+     * Filter which Inventories to update
      */
-    where?: IssueWhereInput
+    where?: InventoryWhereInput
     /**
-     * Limit how many Issues to update.
+     * Limit how many Inventories to update.
      */
     limit?: number
   }
 
   /**
-   * Issue upsert
+   * Inventory upsert
    */
-  export type IssueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * The filter to search for the Issue to update in case it exists.
+     * The filter to search for the Inventory to update in case it exists.
      */
-    where: IssueWhereUniqueInput
+    where: InventoryWhereUniqueInput
     /**
-     * In case the Issue found by the `where` argument doesn't exist, create a new Issue with this data.
+     * In case the Inventory found by the `where` argument doesn't exist, create a new Inventory with this data.
      */
-    create: XOR<IssueCreateInput, IssueUncheckedCreateInput>
+    create: XOR<InventoryCreateInput, InventoryUncheckedCreateInput>
     /**
-     * In case the Issue was found with the provided `where` argument, update it with this data.
+     * In case the Inventory was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<IssueUpdateInput, IssueUncheckedUpdateInput>
+    update: XOR<InventoryUpdateInput, InventoryUncheckedUpdateInput>
   }
 
   /**
-   * Issue delete
+   * Inventory delete
    */
-  export type IssueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
     /**
-     * Filter which Issue to delete.
+     * Filter which Inventory to delete.
      */
-    where: IssueWhereUniqueInput
+    where: InventoryWhereUniqueInput
   }
 
   /**
-   * Issue deleteMany
+   * Inventory deleteMany
    */
-  export type IssueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Issues to delete
+     * Filter which Inventories to delete
      */
-    where?: IssueWhereInput
+    where?: InventoryWhereInput
     /**
-     * Limit how many Issues to delete.
+     * Limit how many Inventories to delete.
      */
     limit?: number
   }
 
   /**
-   * Issue without action
+   * Inventory without action
    */
-  export type IssueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type InventoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Issue
+     * Select specific fields to fetch from the Inventory
      */
-    select?: IssueSelect<ExtArgs> | null
+    select?: InventorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Issue
+     * Omit specific fields from the Inventory
      */
-    omit?: IssueOmit<ExtArgs> | null
+    omit?: InventoryOmit<ExtArgs> | null
   }
 
 
@@ -1820,16 +1806,16 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-  export const IssueScalarFieldEnum: {
-    issue_id: 'issue_id',
-    issue_title: 'issue_title',
-    issue_desc: 'issue_desc',
-    issue_status: 'issue_status',
-    issue_create: 'issue_create',
-    issue_update: 'issue_update'
+  export const InventoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    quantity: 'quantity',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
-  export type IssueScalarFieldEnum = (typeof IssueScalarFieldEnum)[keyof typeof IssueScalarFieldEnum]
+  export type InventoryScalarFieldEnum = (typeof InventoryScalarFieldEnum)[keyof typeof InventoryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1840,12 +1826,20 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const IssueOrderByRelevanceFieldEnum: {
-    issue_title: 'issue_title',
-    issue_desc: 'issue_desc'
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
   };
 
-  export type IssueOrderByRelevanceFieldEnum = (typeof IssueOrderByRelevanceFieldEnum)[keyof typeof IssueOrderByRelevanceFieldEnum]
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const InventoryOrderByRelevanceFieldEnum: {
+    name: 'name',
+    description: 'description'
+  };
+
+  export type InventoryOrderByRelevanceFieldEnum = (typeof InventoryOrderByRelevanceFieldEnum)[keyof typeof InventoryOrderByRelevanceFieldEnum]
 
 
   /**
@@ -1868,13 +1862,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Status'
-   */
-  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1891,124 +1878,124 @@ export namespace Prisma {
    */
 
 
-  export type IssueWhereInput = {
-    AND?: IssueWhereInput | IssueWhereInput[]
-    OR?: IssueWhereInput[]
-    NOT?: IssueWhereInput | IssueWhereInput[]
-    issue_id?: IntFilter<"Issue"> | number
-    issue_title?: StringFilter<"Issue"> | string
-    issue_desc?: StringFilter<"Issue"> | string
-    issue_status?: EnumStatusFilter<"Issue"> | $Enums.Status
-    issue_create?: DateTimeFilter<"Issue"> | Date | string
-    issue_update?: DateTimeFilter<"Issue"> | Date | string
+  export type InventoryWhereInput = {
+    AND?: InventoryWhereInput | InventoryWhereInput[]
+    OR?: InventoryWhereInput[]
+    NOT?: InventoryWhereInput | InventoryWhereInput[]
+    id?: IntFilter<"Inventory"> | number
+    name?: StringFilter<"Inventory"> | string
+    description?: StringNullableFilter<"Inventory"> | string | null
+    quantity?: IntFilter<"Inventory"> | number
+    createdAt?: DateTimeFilter<"Inventory"> | Date | string
+    updatedAt?: DateTimeFilter<"Inventory"> | Date | string
   }
 
-  export type IssueOrderByWithRelationInput = {
-    issue_id?: SortOrder
-    issue_title?: SortOrder
-    issue_desc?: SortOrder
-    issue_status?: SortOrder
-    issue_create?: SortOrder
-    issue_update?: SortOrder
-    _relevance?: IssueOrderByRelevanceInput
+  export type InventoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _relevance?: InventoryOrderByRelevanceInput
   }
 
-  export type IssueWhereUniqueInput = Prisma.AtLeast<{
-    issue_id?: number
-    AND?: IssueWhereInput | IssueWhereInput[]
-    OR?: IssueWhereInput[]
-    NOT?: IssueWhereInput | IssueWhereInput[]
-    issue_title?: StringFilter<"Issue"> | string
-    issue_desc?: StringFilter<"Issue"> | string
-    issue_status?: EnumStatusFilter<"Issue"> | $Enums.Status
-    issue_create?: DateTimeFilter<"Issue"> | Date | string
-    issue_update?: DateTimeFilter<"Issue"> | Date | string
-  }, "issue_id">
+  export type InventoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: InventoryWhereInput | InventoryWhereInput[]
+    OR?: InventoryWhereInput[]
+    NOT?: InventoryWhereInput | InventoryWhereInput[]
+    name?: StringFilter<"Inventory"> | string
+    description?: StringNullableFilter<"Inventory"> | string | null
+    quantity?: IntFilter<"Inventory"> | number
+    createdAt?: DateTimeFilter<"Inventory"> | Date | string
+    updatedAt?: DateTimeFilter<"Inventory"> | Date | string
+  }, "id">
 
-  export type IssueOrderByWithAggregationInput = {
-    issue_id?: SortOrder
-    issue_title?: SortOrder
-    issue_desc?: SortOrder
-    issue_status?: SortOrder
-    issue_create?: SortOrder
-    issue_update?: SortOrder
-    _count?: IssueCountOrderByAggregateInput
-    _avg?: IssueAvgOrderByAggregateInput
-    _max?: IssueMaxOrderByAggregateInput
-    _min?: IssueMinOrderByAggregateInput
-    _sum?: IssueSumOrderByAggregateInput
+  export type InventoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: InventoryCountOrderByAggregateInput
+    _avg?: InventoryAvgOrderByAggregateInput
+    _max?: InventoryMaxOrderByAggregateInput
+    _min?: InventoryMinOrderByAggregateInput
+    _sum?: InventorySumOrderByAggregateInput
   }
 
-  export type IssueScalarWhereWithAggregatesInput = {
-    AND?: IssueScalarWhereWithAggregatesInput | IssueScalarWhereWithAggregatesInput[]
-    OR?: IssueScalarWhereWithAggregatesInput[]
-    NOT?: IssueScalarWhereWithAggregatesInput | IssueScalarWhereWithAggregatesInput[]
-    issue_id?: IntWithAggregatesFilter<"Issue"> | number
-    issue_title?: StringWithAggregatesFilter<"Issue"> | string
-    issue_desc?: StringWithAggregatesFilter<"Issue"> | string
-    issue_status?: EnumStatusWithAggregatesFilter<"Issue"> | $Enums.Status
-    issue_create?: DateTimeWithAggregatesFilter<"Issue"> | Date | string
-    issue_update?: DateTimeWithAggregatesFilter<"Issue"> | Date | string
+  export type InventoryScalarWhereWithAggregatesInput = {
+    AND?: InventoryScalarWhereWithAggregatesInput | InventoryScalarWhereWithAggregatesInput[]
+    OR?: InventoryScalarWhereWithAggregatesInput[]
+    NOT?: InventoryScalarWhereWithAggregatesInput | InventoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Inventory"> | number
+    name?: StringWithAggregatesFilter<"Inventory"> | string
+    description?: StringNullableWithAggregatesFilter<"Inventory"> | string | null
+    quantity?: IntWithAggregatesFilter<"Inventory"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
   }
 
-  export type IssueCreateInput = {
-    issue_title: string
-    issue_desc: string
-    issue_status?: $Enums.Status
-    issue_create?: Date | string
-    issue_update?: Date | string
+  export type InventoryCreateInput = {
+    name: string
+    description?: string | null
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type IssueUncheckedCreateInput = {
-    issue_id?: number
-    issue_title: string
-    issue_desc: string
-    issue_status?: $Enums.Status
-    issue_create?: Date | string
-    issue_update?: Date | string
+  export type InventoryUncheckedCreateInput = {
+    id?: number
+    name: string
+    description?: string | null
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type IssueUpdateInput = {
-    issue_title?: StringFieldUpdateOperationsInput | string
-    issue_desc?: StringFieldUpdateOperationsInput | string
-    issue_status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    issue_create?: DateTimeFieldUpdateOperationsInput | Date | string
-    issue_update?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InventoryUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type IssueUncheckedUpdateInput = {
-    issue_id?: IntFieldUpdateOperationsInput | number
-    issue_title?: StringFieldUpdateOperationsInput | string
-    issue_desc?: StringFieldUpdateOperationsInput | string
-    issue_status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    issue_create?: DateTimeFieldUpdateOperationsInput | Date | string
-    issue_update?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InventoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type IssueCreateManyInput = {
-    issue_id?: number
-    issue_title: string
-    issue_desc: string
-    issue_status?: $Enums.Status
-    issue_create?: Date | string
-    issue_update?: Date | string
+  export type InventoryCreateManyInput = {
+    id?: number
+    name: string
+    description?: string | null
+    quantity?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type IssueUpdateManyMutationInput = {
-    issue_title?: StringFieldUpdateOperationsInput | string
-    issue_desc?: StringFieldUpdateOperationsInput | string
-    issue_status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    issue_create?: DateTimeFieldUpdateOperationsInput | Date | string
-    issue_update?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InventoryUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type IssueUncheckedUpdateManyInput = {
-    issue_id?: IntFieldUpdateOperationsInput | number
-    issue_title?: StringFieldUpdateOperationsInput | string
-    issue_desc?: StringFieldUpdateOperationsInput | string
-    issue_status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
-    issue_create?: DateTimeFieldUpdateOperationsInput | Date | string
-    issue_update?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type InventoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2037,11 +2024,19 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.Status[]
-    notIn?: $Enums.Status[]
-    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -2055,45 +2050,52 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type IssueOrderByRelevanceInput = {
-    fields: IssueOrderByRelevanceFieldEnum | IssueOrderByRelevanceFieldEnum[]
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type InventoryOrderByRelevanceInput = {
+    fields: InventoryOrderByRelevanceFieldEnum | InventoryOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
   }
 
-  export type IssueCountOrderByAggregateInput = {
-    issue_id?: SortOrder
-    issue_title?: SortOrder
-    issue_desc?: SortOrder
-    issue_status?: SortOrder
-    issue_create?: SortOrder
-    issue_update?: SortOrder
+  export type InventoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type IssueAvgOrderByAggregateInput = {
-    issue_id?: SortOrder
+  export type InventoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
   }
 
-  export type IssueMaxOrderByAggregateInput = {
-    issue_id?: SortOrder
-    issue_title?: SortOrder
-    issue_desc?: SortOrder
-    issue_status?: SortOrder
-    issue_create?: SortOrder
-    issue_update?: SortOrder
+  export type InventoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type IssueMinOrderByAggregateInput = {
-    issue_id?: SortOrder
-    issue_title?: SortOrder
-    issue_desc?: SortOrder
-    issue_status?: SortOrder
-    issue_create?: SortOrder
-    issue_update?: SortOrder
+  export type InventoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    quantity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type IssueSumOrderByAggregateInput = {
-    issue_id?: SortOrder
+  export type InventorySumOrderByAggregateInput = {
+    id?: SortOrder
+    quantity?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -2130,14 +2132,22 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.Status[]
-    notIn?: $Enums.Status[]
-    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusFilter<$PrismaModel>
-    _max?: NestedEnumStatusFilter<$PrismaModel>
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -2158,12 +2168,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type EnumStatusFieldUpdateOperationsInput = {
-    set?: $Enums.Status
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2172,6 +2178,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2200,11 +2210,19 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedEnumStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.Status[]
-    notIn?: $Enums.Status[]
-    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -2263,14 +2281,33 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.Status[]
-    notIn?: $Enums.Status[]
-    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusFilter<$PrismaModel>
-    _max?: NestedEnumStatusFilter<$PrismaModel>
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
