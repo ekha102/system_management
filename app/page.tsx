@@ -1,7 +1,10 @@
-import Image from "next/image";
+import InventoryPage from "./inventory/page";
+
 
 export default function Home() {
   return (
-    <div>Hello World</div>
+    <div>
+      <InventoryPage/>
+    </div>
   );
 }
