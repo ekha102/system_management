@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
 
-    <TabNav.Root>
+    <TabNav.Root mb="2">
       <TabNav.Link asChild>
         <Link href="/"><span><FaHome/></span></Link>
       </TabNav.Link>
