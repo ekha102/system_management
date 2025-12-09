@@ -1,6 +1,7 @@
 import { ValidationInventoryCreateItem } from "@/app/_components/invalidationInventoryCreate";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import delay from "delay";
 
 
 export async function GET(request:NextRequest) {
@@ -9,6 +10,7 @@ export async function GET(request:NextRequest) {
 }
 
 export async function POST(request:NextRequest) {
+  // await delay(5000);
   const body = await request.json();
   // console.log("Body: ", body);
   const validation = ValidationInventoryCreateItem.safeParse(body);
@@ -21,7 +23,7 @@ export async function POST(request:NextRequest) {
   const {name, description, quantity} = validation.data;
 
   // Create new inventory item
-  const itemCreate = await prisma.inventory.create({
+  const itemCreated = await prisma.inventory.create({
     data: {
       name,
       description,
@@ -29,5 +31,5 @@ export async function POST(request:NextRequest) {
     }
   })
 
-  return NextResponse.json(itemCreate, {status: 201});
+  return NextResponse.json(itemCreated, {status: 201});
 }

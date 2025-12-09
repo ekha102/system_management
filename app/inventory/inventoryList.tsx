@@ -1,11 +1,14 @@
 import { prisma } from '@/prisma/client'
-import { Table } from '@radix-ui/themes'
+import { Flex, Table } from '@radix-ui/themes'
 import React from 'react'
+import ButtonDeleteItem from './deleteItem';
+import ButtonEditItem from './buttonEditItem';
+
+
 
 const InventoryList = async () => {
 
   const items = await prisma.inventory.findMany();
-
 
 
   return (
@@ -16,6 +19,7 @@ const InventoryList = async () => {
           <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
 
@@ -26,6 +30,14 @@ const InventoryList = async () => {
             <Table.Cell>{item.name}</Table.Cell>
             <Table.Cell>{item.description}</Table.Cell>
             <Table.Cell>{item.quantity}</Table.Cell>
+            <Table.Cell>
+              <Flex gap="2">
+                <ButtonEditItem itemId={item.id}/>
+                <ButtonDeleteItem itemId={item.id}/>
+              </Flex>
+              
+            </Table.Cell>
+            
           </Table.Row>
         ))}
 
