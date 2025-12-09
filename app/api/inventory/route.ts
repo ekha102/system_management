@@ -10,6 +10,7 @@ export async function GET(request:NextRequest) {
 
 export async function POST(request:NextRequest) {
   const body = await request.json();
+  // console.log("Body: ", body);
   const validation = ValidationInventoryCreateItem.safeParse(body);
 
   // Handle validation errors
@@ -18,7 +19,7 @@ export async function POST(request:NextRequest) {
 
   // Use validated data (quantity is coerced to number here)
   const {name, description, quantity} = validation.data;
-  
+
   // Create new inventory item
   const itemCreate = await prisma.inventory.create({
     data: {

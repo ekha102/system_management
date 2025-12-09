@@ -4,6 +4,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ValidationInventoryCreateItem } from '@/app/_components/invalidationInventoryCreate';
+import axios from 'axios';
 
 
 
@@ -22,7 +23,7 @@ const CreateItem = () => {
 
   const onSubmit = (values: any) => {
     console.log("submit: ", values);
-
+    axios.post('/api/inventory', values);
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
