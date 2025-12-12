@@ -14,12 +14,12 @@ const ButtonEditItem = ({itemId}:Props) => {
   const router = useRouter();
 
   const handleEditItem = (itemId:Inventory) => {
-    console.log("FontEnd Id:", itemId);
+    // console.log("FontEnd Id:", itemId);
     router.push('/inventory/edit/' + itemId);
   }
 
   return (
-    <Button size="1" color="green" onClick={()=>handleEditItem(itemId)}>Edit</Button>
+    <Button size="1" color="blue" onClick={()=>handleEditItem(itemId)}>Edit</Button>
   )
 }
 
