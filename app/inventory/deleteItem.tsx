@@ -15,7 +15,7 @@ const ButtonDeleteItem =  ({itemId}: Props) => {
   // console.log("passed in delete", typeof itemId);
 
 
-  const handleDelete = async (itemId:number) => {
+  const handleDelete = async (itemId: number) => {
     setIsDeleting(true);
     await axios.delete('/api/inventory/' + itemId);
     // This refreshes the Server Component table
