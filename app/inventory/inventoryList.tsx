@@ -1,8 +1,9 @@
 import { prisma } from '@/prisma/client'
-import { Flex, Table } from '@radix-ui/themes'
+import { Flex, Link, Table } from '@radix-ui/themes'
 import React from 'react'
 import ButtonDeleteItem from './deleteItem';
 import ButtonEditItem from './buttonEditItem';
+
 
 
 
@@ -27,7 +28,7 @@ const InventoryList = async () => {
         {items.map((item) => (
           <Table.Row key={item.id}>
             <Table.RowHeaderCell>{item.id}</Table.RowHeaderCell>
-            <Table.Cell>{item.name}</Table.Cell>
+            <Table.Cell><Link href={`/inventory/dataList/${item.id}`}>{item.name}</Link></Table.Cell>
             <Table.Cell>{item.description}</Table.Cell>
             <Table.Cell>{item.quantity}</Table.Cell>
             <Table.Cell>
