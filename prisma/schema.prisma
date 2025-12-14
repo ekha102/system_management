@@ -14,11 +14,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Inventory {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  quantity    Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Bin {
+  bin_id        Int         @id @default(autoincrement())
+  bin_name      String
+  bin_desc      String?
+  bin_createdAt DateTime    @default(now())
+  bin_updatedAt DateTime    @updatedAt
+
+  inventories   Inventory[] // One Bin → Many Inventory
 }
+
+enum InventoryStatus {
+  Active
+  Inactive
+}
+
+
+model Inventory {
+  inv_id        Int      @id @default(autoincrement())
+  inv_name      String
+  inv_desc      String?
+  inv_quantity  Int      @default(0)
+  inv_status    InventoryStatus @default(Active)
+  inv_createdAt DateTime @default(now())
+  inv_updatedAt DateTime @updatedAt
+
+  bin_id Int?
+  bin    Bin? @relation(fields: [bin_id], references: [bin_id])
+}
+

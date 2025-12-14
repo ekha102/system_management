@@ -25,13 +25,13 @@ const EditForm = ({ productItem }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
-  const { id, name, description, quantity } = productItem || {}
+  const { inv_id, inv_name, inv_desc, inv_quantity } = productItem || {}
 
   const onSubmit = async (values: Inventory) => {
     // console.log("submit: ", values);
     try {
       setIsSubmitting(true);
-      await axios.put("/api/inventory/" + productItem?.id, values);
+      await axios.put("/api/inventory/" + productItem?.inv_id, values);
       router.push('/inventory');
     } catch (error) {
       setIsSubmitting(false);
@@ -43,7 +43,7 @@ const EditForm = ({ productItem }: Props) => {
 
   return (
     <>
-      <Heading size="4" my="3">Edit Item ID: {id}</Heading>
+      <Heading size="4" my="3">Edit Item ID: {inv_id}</Heading>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex gap="3" direction="column" width="400px">
           {apiError &&
@@ -57,13 +57,13 @@ const EditForm = ({ productItem }: Props) => {
             </Callout.Root>
           }
           <Box>
-            <TextField.Root disabled={isSubmitting} defaultValue={name} placeholder="Name of product" {...register("name")} />
+            <TextField.Root disabled={isSubmitting} defaultValue={inv_name} placeholder="Name of product" {...register("inv_name")} />
           </Box>
           <Box>
-            <TextField.Root disabled={isSubmitting} defaultValue={description} placeholder="Name of product" {...register("description")} />
+            <TextField.Root disabled={isSubmitting} defaultValue={inv_desc} placeholder="Description" {...register("inv_desc")} />
           </Box>
           <Box>
-            <TextField.Root disabled={isSubmitting} defaultValue={quantity} placeholder="Name of product" {...register("quantity", { valueAsNumber: true })} />
+            <TextField.Root disabled={isSubmitting} defaultValue={inv_quantity} placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
           </Box>
           <Box>
             <Button disabled={isSubmitting}>{isSubmitting && <Spinner />}Submit</Button>

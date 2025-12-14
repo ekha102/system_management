@@ -120,13 +120,23 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.BinScalarFieldEnum = {
+  bin_id: 'bin_id',
+  bin_name: 'bin_name',
+  bin_desc: 'bin_desc',
+  bin_createdAt: 'bin_createdAt',
+  bin_updatedAt: 'bin_updatedAt'
+};
+
 exports.Prisma.InventoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  quantity: 'quantity',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  inv_id: 'inv_id',
+  inv_name: 'inv_name',
+  inv_desc: 'inv_desc',
+  inv_quantity: 'inv_quantity',
+  inv_status: 'inv_status',
+  inv_createdAt: 'inv_createdAt',
+  inv_updatedAt: 'inv_updatedAt',
+  bin_id: 'bin_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -139,13 +149,22 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.InventoryOrderByRelevanceFieldEnum = {
-  name: 'name',
-  description: 'description'
+exports.Prisma.BinOrderByRelevanceFieldEnum = {
+  bin_name: 'bin_name',
+  bin_desc: 'bin_desc'
 };
 
+exports.Prisma.InventoryOrderByRelevanceFieldEnum = {
+  inv_name: 'inv_name',
+  inv_desc: 'inv_desc'
+};
+exports.InventoryStatus = exports.$Enums.InventoryStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive'
+};
 
 exports.Prisma.ModelName = {
+  Bin: 'Bin',
   Inventory: 'Inventory'
 };
 

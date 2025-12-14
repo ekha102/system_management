@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { prisma } from '@/prisma/client';
-import { Item } from '@radix-ui/themes/components/checkbox-group.primitive';
 import ItemDetails from './ItemDetails';
 
 
@@ -16,9 +15,10 @@ const ItemDataDetail = async ({ params }: Props) => {
   const { id } = await params;
 
   const items = await prisma.inventory.findUnique({
-    where: { id: Number(id) },
+    where: { inv_id: Number(id) },
   });
-  // console.log("Item Detail:", items);
+
+  // if (!items) Loading();
 
   return (
     <ItemDetails items={items} />

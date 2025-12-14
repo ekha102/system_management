@@ -9,7 +9,11 @@ import ButtonEditItem from './buttonEditItem';
 
 const InventoryList = async () => {
 
-  const items = await prisma.inventory.findMany();
+  const items = await prisma.inventory.findMany({
+    where: {inv_status: "Active"}
+  });
+  // console.log("Inventory Items:", items);
+  
 
 
   return (
@@ -26,15 +30,15 @@ const InventoryList = async () => {
 
       <Table.Body>
         {items.map((item) => (
-          <Table.Row key={item.id}>
-            <Table.RowHeaderCell>{item.id}</Table.RowHeaderCell>
-            <Table.Cell><Link href={`/inventory/dataList/${item.id}`}>{item.name}</Link></Table.Cell>
-            <Table.Cell>{item.description}</Table.Cell>
-            <Table.Cell>{item.quantity}</Table.Cell>
+          <Table.Row key={item.inv_id}>
+            <Table.RowHeaderCell>{item.inv_id}</Table.RowHeaderCell>
+            <Table.Cell><Link href={`/inventory/dataList/${item.inv_id}`}>{item.inv_name}</Link></Table.Cell>
+            <Table.Cell>{item.inv_desc}</Table.Cell>
+            <Table.Cell>{item.inv_quantity}</Table.Cell>
             <Table.Cell>
               <Flex gap="2">
-                <ButtonEditItem itemId={item.id}/>
-                <ButtonDeleteItem itemId={item.id}/>
+                <ButtonEditItem itemId={item.inv_id}/>
+                <ButtonDeleteItem itemId={item.inv_id}/>
               </Flex>
               
             </Table.Cell>

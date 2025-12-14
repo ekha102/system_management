@@ -10,9 +10,9 @@ import { useRouter } from 'next/navigation';
 
 
 interface ItemForm {
-  name: string;
-  description: string;
-  quantity: number;
+  inv_name: string;
+  inv_desc: string;
+  inv_quantity: number;
 }
 
 const CreateItem = () => {
@@ -53,16 +53,16 @@ const CreateItem = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex direction="column" gap="3">
           <Box maxWidth="250px">
-            <TextField.Root disabled={isSubmiting} placeholder="Name of Item" {...register("name")} />
-            {errors.name && <Text color='red'>{errors.name.message}</Text>}
+            <TextField.Root disabled={isSubmiting} placeholder="Name of Item" {...register("inv_name")} />
+            {errors.inv_name && <Text color='red'>{errors.inv_name.message}</Text>}
           </Box>
           <Box maxWidth="250px">
-            <TextField.Root disabled={isSubmiting} placeholder="Description" {...register("description")} />
-            {errors.description && <Text color='red'>{errors.description.message}</Text>}
+            <TextField.Root disabled={isSubmiting} placeholder="Description" {...register("inv_desc")} />
+            {errors.inv_desc && <Text color='red'>{errors.inv_desc.message}</Text>}
           </Box>
           <Box maxWidth="250px">
-            <TextField.Root disabled={isSubmiting} type="number" placeholder="Quantity" {...register("quantity", { valueAsNumber: true })} />
-            {errors.quantity && <Text color='red'>{errors.quantity.message}</Text>}
+            <TextField.Root disabled={isSubmiting} type="number" placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
+            {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
           </Box>
 
           <Box>

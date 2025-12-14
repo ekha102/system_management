@@ -1,8 +1,6 @@
 
-import { Inventory } from '@/app/generated/prisma';
+
 import { prisma } from '@/prisma/client'
-
-
 import { notFound } from 'next/navigation';
 import React from 'react'
 import EditForm from './editForm';
@@ -19,7 +17,7 @@ const EditIventoryItem = async ({ params }: Props) => {
 
 
   const productItem = await prisma.inventory.findUnique({
-    where: { id: parseInt(id) }
+    where: { inv_id: parseInt(id) }
   })
 
   if (!productItem) notFound();
