@@ -65,9 +65,14 @@ const EditForm = ({ productItem }: Props) => {
           <Box>
             <TextField.Root disabled={isSubmitting} defaultValue={inv_quantity} placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
           </Box>
-          <Box>
-            <Button disabled={isSubmitting}>{isSubmitting && <Spinner />}Submit</Button>
-          </Box>
+          <Flex gap="2" direction="row">
+            <Box>
+              <Button disabled={isSubmitting}>{isSubmitting && <Spinner />}Update</Button>
+            </Box>
+            <Box>
+              <Button color="red" disabled={isSubmitting} onClick={() => router.push('/inventory')}>{isSubmitting && <Spinner />}Cancel</Button>
+            </Box>
+          </Flex>
         </Flex>
 
       </form>
