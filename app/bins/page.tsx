@@ -1,6 +1,7 @@
 import { prisma } from '@/prisma/client'
 import { Table } from '@radix-ui/themes'
 import React from 'react'
+import CreateButtonBin from './CreateButtonBin';
 
 const Bins = async () => {
 
@@ -9,6 +10,7 @@ const Bins = async () => {
 
   return (
     <>
+      <CreateButtonBin />
       <Table.Root>
         <Table.Header>
           <Table.Row>
