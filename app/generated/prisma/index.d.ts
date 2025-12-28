@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Location
+ * 
+ */
+export type Location = $Result.DefaultSelection<Prisma.$LocationPayload>
+/**
  * Model Bin
  * 
  */
@@ -48,8 +53,8 @@ export const InventoryStatus: typeof $Enums.InventoryStatus
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Bins
- * const bins = await prisma.bin.findMany()
+ * // Fetch zero or more Locations
+ * const locations = await prisma.location.findMany()
  * ```
  *
  *
@@ -69,8 +74,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Bins
-   * const bins = await prisma.bin.findMany()
+   * // Fetch zero or more Locations
+   * const locations = await prisma.location.findMany()
    * ```
    *
    *
@@ -167,6 +172,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.location`: Exposes CRUD operations for the **Location** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Locations
+    * const locations = await prisma.location.findMany()
+    * ```
+    */
+  get location(): Prisma.LocationDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.bin`: Exposes CRUD operations for the **Bin** model.
     * Example usage:
     * ```ts
@@ -625,6 +640,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Location: 'Location',
     Bin: 'Bin',
     Inventory: 'Inventory'
   };
@@ -645,10 +661,76 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "bin" | "inventory"
+      modelProps: "location" | "bin" | "inventory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Location: {
+        payload: Prisma.$LocationPayload<ExtArgs>
+        fields: Prisma.LocationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LocationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LocationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          findFirst: {
+            args: Prisma.LocationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LocationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          findMany: {
+            args: Prisma.LocationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>[]
+          }
+          create: {
+            args: Prisma.LocationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          createMany: {
+            args: Prisma.LocationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.LocationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          update: {
+            args: Prisma.LocationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          deleteMany: {
+            args: Prisma.LocationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LocationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LocationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          aggregate: {
+            args: Prisma.LocationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLocation>
+          }
+          groupBy: {
+            args: Prisma.LocationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LocationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LocationCountArgs<ExtArgs>
+            result: $Utils.Optional<LocationCountAggregateOutputType> | number
+          }
+        }
+      }
       Bin: {
         payload: Prisma.$BinPayload<ExtArgs>
         fields: Prisma.BinFieldRefs
@@ -865,6 +947,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    location?: LocationOmit
     bin?: BinOmit
     inventory?: InventoryOmit
   }
@@ -957,6 +1040,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type LocationCountOutputType
+   */
+
+  export type LocationCountOutputType = {
+    inventories: number
+  }
+
+  export type LocationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inventories?: boolean | LocationCountOutputTypeCountInventoriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LocationCountOutputType without action
+   */
+  export type LocationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LocationCountOutputType
+     */
+    select?: LocationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LocationCountOutputType without action
+   */
+  export type LocationCountOutputTypeCountInventoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryWhereInput
+  }
+
+
+  /**
    * Count Type BinCountOutputType
    */
 
@@ -990,6 +1104,995 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model Location
+   */
+
+  export type AggregateLocation = {
+    _count: LocationCountAggregateOutputType | null
+    _avg: LocationAvgAggregateOutputType | null
+    _sum: LocationSumAggregateOutputType | null
+    _min: LocationMinAggregateOutputType | null
+    _max: LocationMaxAggregateOutputType | null
+  }
+
+  export type LocationAvgAggregateOutputType = {
+    loc_id: number | null
+  }
+
+  export type LocationSumAggregateOutputType = {
+    loc_id: number | null
+  }
+
+  export type LocationMinAggregateOutputType = {
+    loc_id: number | null
+    loc_name: string | null
+    loc_desc: string | null
+    loc_createdAt: Date | null
+    loc_updatedAt: Date | null
+  }
+
+  export type LocationMaxAggregateOutputType = {
+    loc_id: number | null
+    loc_name: string | null
+    loc_desc: string | null
+    loc_createdAt: Date | null
+    loc_updatedAt: Date | null
+  }
+
+  export type LocationCountAggregateOutputType = {
+    loc_id: number
+    loc_name: number
+    loc_desc: number
+    loc_createdAt: number
+    loc_updatedAt: number
+    _all: number
+  }
+
+
+  export type LocationAvgAggregateInputType = {
+    loc_id?: true
+  }
+
+  export type LocationSumAggregateInputType = {
+    loc_id?: true
+  }
+
+  export type LocationMinAggregateInputType = {
+    loc_id?: true
+    loc_name?: true
+    loc_desc?: true
+    loc_createdAt?: true
+    loc_updatedAt?: true
+  }
+
+  export type LocationMaxAggregateInputType = {
+    loc_id?: true
+    loc_name?: true
+    loc_desc?: true
+    loc_createdAt?: true
+    loc_updatedAt?: true
+  }
+
+  export type LocationCountAggregateInputType = {
+    loc_id?: true
+    loc_name?: true
+    loc_desc?: true
+    loc_createdAt?: true
+    loc_updatedAt?: true
+    _all?: true
+  }
+
+  export type LocationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Location to aggregate.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Locations
+    **/
+    _count?: true | LocationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LocationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LocationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LocationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LocationMaxAggregateInputType
+  }
+
+  export type GetLocationAggregateType<T extends LocationAggregateArgs> = {
+        [P in keyof T & keyof AggregateLocation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLocation[P]>
+      : GetScalarType<T[P], AggregateLocation[P]>
+  }
+
+
+
+
+  export type LocationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LocationWhereInput
+    orderBy?: LocationOrderByWithAggregationInput | LocationOrderByWithAggregationInput[]
+    by: LocationScalarFieldEnum[] | LocationScalarFieldEnum
+    having?: LocationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LocationCountAggregateInputType | true
+    _avg?: LocationAvgAggregateInputType
+    _sum?: LocationSumAggregateInputType
+    _min?: LocationMinAggregateInputType
+    _max?: LocationMaxAggregateInputType
+  }
+
+  export type LocationGroupByOutputType = {
+    loc_id: number
+    loc_name: string
+    loc_desc: string | null
+    loc_createdAt: Date
+    loc_updatedAt: Date
+    _count: LocationCountAggregateOutputType | null
+    _avg: LocationAvgAggregateOutputType | null
+    _sum: LocationSumAggregateOutputType | null
+    _min: LocationMinAggregateOutputType | null
+    _max: LocationMaxAggregateOutputType | null
+  }
+
+  type GetLocationGroupByPayload<T extends LocationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LocationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LocationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LocationGroupByOutputType[P]>
+            : GetScalarType<T[P], LocationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LocationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    loc_id?: boolean
+    loc_name?: boolean
+    loc_desc?: boolean
+    loc_createdAt?: boolean
+    loc_updatedAt?: boolean
+    inventories?: boolean | Location$inventoriesArgs<ExtArgs>
+    _count?: boolean | LocationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["location"]>
+
+
+
+  export type LocationSelectScalar = {
+    loc_id?: boolean
+    loc_name?: boolean
+    loc_desc?: boolean
+    loc_createdAt?: boolean
+    loc_updatedAt?: boolean
+  }
+
+  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"loc_id" | "loc_name" | "loc_desc" | "loc_createdAt" | "loc_updatedAt", ExtArgs["result"]["location"]>
+  export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inventories?: boolean | Location$inventoriesArgs<ExtArgs>
+    _count?: boolean | LocationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $LocationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Location"
+    objects: {
+      inventories: Prisma.$InventoryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      loc_id: number
+      loc_name: string
+      loc_desc: string | null
+      loc_createdAt: Date
+      loc_updatedAt: Date
+    }, ExtArgs["result"]["location"]>
+    composites: {}
+  }
+
+  type LocationGetPayload<S extends boolean | null | undefined | LocationDefaultArgs> = $Result.GetResult<Prisma.$LocationPayload, S>
+
+  type LocationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LocationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LocationCountAggregateInputType | true
+    }
+
+  export interface LocationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Location'], meta: { name: 'Location' } }
+    /**
+     * Find zero or one Location that matches the filter.
+     * @param {LocationFindUniqueArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LocationFindUniqueArgs>(args: SelectSubset<T, LocationFindUniqueArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Location that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LocationFindUniqueOrThrowArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LocationFindUniqueOrThrowArgs>(args: SelectSubset<T, LocationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Location that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationFindFirstArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LocationFindFirstArgs>(args?: SelectSubset<T, LocationFindFirstArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Location that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationFindFirstOrThrowArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LocationFindFirstOrThrowArgs>(args?: SelectSubset<T, LocationFindFirstOrThrowArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Locations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Locations
+     * const locations = await prisma.location.findMany()
+     * 
+     * // Get first 10 Locations
+     * const locations = await prisma.location.findMany({ take: 10 })
+     * 
+     * // Only select the `loc_id`
+     * const locationWithLoc_idOnly = await prisma.location.findMany({ select: { loc_id: true } })
+     * 
+     */
+    findMany<T extends LocationFindManyArgs>(args?: SelectSubset<T, LocationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Location.
+     * @param {LocationCreateArgs} args - Arguments to create a Location.
+     * @example
+     * // Create one Location
+     * const Location = await prisma.location.create({
+     *   data: {
+     *     // ... data to create a Location
+     *   }
+     * })
+     * 
+     */
+    create<T extends LocationCreateArgs>(args: SelectSubset<T, LocationCreateArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Locations.
+     * @param {LocationCreateManyArgs} args - Arguments to create many Locations.
+     * @example
+     * // Create many Locations
+     * const location = await prisma.location.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LocationCreateManyArgs>(args?: SelectSubset<T, LocationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Location.
+     * @param {LocationDeleteArgs} args - Arguments to delete one Location.
+     * @example
+     * // Delete one Location
+     * const Location = await prisma.location.delete({
+     *   where: {
+     *     // ... filter to delete one Location
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LocationDeleteArgs>(args: SelectSubset<T, LocationDeleteArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Location.
+     * @param {LocationUpdateArgs} args - Arguments to update one Location.
+     * @example
+     * // Update one Location
+     * const location = await prisma.location.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LocationUpdateArgs>(args: SelectSubset<T, LocationUpdateArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Locations.
+     * @param {LocationDeleteManyArgs} args - Arguments to filter Locations to delete.
+     * @example
+     * // Delete a few Locations
+     * const { count } = await prisma.location.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LocationDeleteManyArgs>(args?: SelectSubset<T, LocationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Locations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Locations
+     * const location = await prisma.location.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LocationUpdateManyArgs>(args: SelectSubset<T, LocationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Location.
+     * @param {LocationUpsertArgs} args - Arguments to update or create a Location.
+     * @example
+     * // Update or create a Location
+     * const location = await prisma.location.upsert({
+     *   create: {
+     *     // ... data to create a Location
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Location we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LocationUpsertArgs>(args: SelectSubset<T, LocationUpsertArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Locations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationCountArgs} args - Arguments to filter Locations to count.
+     * @example
+     * // Count the number of Locations
+     * const count = await prisma.location.count({
+     *   where: {
+     *     // ... the filter for the Locations we want to count
+     *   }
+     * })
+    **/
+    count<T extends LocationCountArgs>(
+      args?: Subset<T, LocationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LocationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Location.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LocationAggregateArgs>(args: Subset<T, LocationAggregateArgs>): Prisma.PrismaPromise<GetLocationAggregateType<T>>
+
+    /**
+     * Group by Location.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LocationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LocationGroupByArgs['orderBy'] }
+        : { orderBy?: LocationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LocationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLocationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Location model
+   */
+  readonly fields: LocationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Location.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LocationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    inventories<T extends Location$inventoriesArgs<ExtArgs> = {}>(args?: Subset<T, Location$inventoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Location model
+   */
+  interface LocationFieldRefs {
+    readonly loc_id: FieldRef<"Location", 'Int'>
+    readonly loc_name: FieldRef<"Location", 'String'>
+    readonly loc_desc: FieldRef<"Location", 'String'>
+    readonly loc_createdAt: FieldRef<"Location", 'DateTime'>
+    readonly loc_updatedAt: FieldRef<"Location", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Location findUnique
+   */
+  export type LocationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location findUniqueOrThrow
+   */
+  export type LocationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location findFirst
+   */
+  export type LocationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Locations.
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Locations.
+     */
+    distinct?: LocationScalarFieldEnum | LocationScalarFieldEnum[]
+  }
+
+  /**
+   * Location findFirstOrThrow
+   */
+  export type LocationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Locations.
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Locations.
+     */
+    distinct?: LocationScalarFieldEnum | LocationScalarFieldEnum[]
+  }
+
+  /**
+   * Location findMany
+   */
+  export type LocationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * Filter, which Locations to fetch.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Locations.
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    distinct?: LocationScalarFieldEnum | LocationScalarFieldEnum[]
+  }
+
+  /**
+   * Location create
+   */
+  export type LocationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Location.
+     */
+    data: XOR<LocationCreateInput, LocationUncheckedCreateInput>
+  }
+
+  /**
+   * Location createMany
+   */
+  export type LocationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Locations.
+     */
+    data: LocationCreateManyInput | LocationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Location update
+   */
+  export type LocationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Location.
+     */
+    data: XOR<LocationUpdateInput, LocationUncheckedUpdateInput>
+    /**
+     * Choose, which Location to update.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location updateMany
+   */
+  export type LocationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Locations.
+     */
+    data: XOR<LocationUpdateManyMutationInput, LocationUncheckedUpdateManyInput>
+    /**
+     * Filter which Locations to update
+     */
+    where?: LocationWhereInput
+    /**
+     * Limit how many Locations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Location upsert
+   */
+  export type LocationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Location to update in case it exists.
+     */
+    where: LocationWhereUniqueInput
+    /**
+     * In case the Location found by the `where` argument doesn't exist, create a new Location with this data.
+     */
+    create: XOR<LocationCreateInput, LocationUncheckedCreateInput>
+    /**
+     * In case the Location was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LocationUpdateInput, LocationUncheckedUpdateInput>
+  }
+
+  /**
+   * Location delete
+   */
+  export type LocationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    /**
+     * Filter which Location to delete.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location deleteMany
+   */
+  export type LocationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Locations to delete
+     */
+    where?: LocationWhereInput
+    /**
+     * Limit how many Locations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Location.inventories
+   */
+  export type Location$inventoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Inventory
+     */
+    select?: InventorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Inventory
+     */
+    omit?: InventoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryInclude<ExtArgs> | null
+    where?: InventoryWhereInput
+    orderBy?: InventoryOrderByWithRelationInput | InventoryOrderByWithRelationInput[]
+    cursor?: InventoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryScalarFieldEnum | InventoryScalarFieldEnum[]
+  }
+
+  /**
+   * Location without action
+   */
+  export type LocationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model Bin
@@ -1996,12 +3099,14 @@ export namespace Prisma {
     inv_id: number | null
     inv_quantity: number | null
     bin_id: number | null
+    loc_id: number | null
   }
 
   export type InventorySumAggregateOutputType = {
     inv_id: number | null
     inv_quantity: number | null
     bin_id: number | null
+    loc_id: number | null
   }
 
   export type InventoryMinAggregateOutputType = {
@@ -2013,6 +3118,7 @@ export namespace Prisma {
     inv_createdAt: Date | null
     inv_updatedAt: Date | null
     bin_id: number | null
+    loc_id: number | null
   }
 
   export type InventoryMaxAggregateOutputType = {
@@ -2024,6 +3130,7 @@ export namespace Prisma {
     inv_createdAt: Date | null
     inv_updatedAt: Date | null
     bin_id: number | null
+    loc_id: number | null
   }
 
   export type InventoryCountAggregateOutputType = {
@@ -2035,6 +3142,7 @@ export namespace Prisma {
     inv_createdAt: number
     inv_updatedAt: number
     bin_id: number
+    loc_id: number
     _all: number
   }
 
@@ -2043,12 +3151,14 @@ export namespace Prisma {
     inv_id?: true
     inv_quantity?: true
     bin_id?: true
+    loc_id?: true
   }
 
   export type InventorySumAggregateInputType = {
     inv_id?: true
     inv_quantity?: true
     bin_id?: true
+    loc_id?: true
   }
 
   export type InventoryMinAggregateInputType = {
@@ -2060,6 +3170,7 @@ export namespace Prisma {
     inv_createdAt?: true
     inv_updatedAt?: true
     bin_id?: true
+    loc_id?: true
   }
 
   export type InventoryMaxAggregateInputType = {
@@ -2071,6 +3182,7 @@ export namespace Prisma {
     inv_createdAt?: true
     inv_updatedAt?: true
     bin_id?: true
+    loc_id?: true
   }
 
   export type InventoryCountAggregateInputType = {
@@ -2082,6 +3194,7 @@ export namespace Prisma {
     inv_createdAt?: true
     inv_updatedAt?: true
     bin_id?: true
+    loc_id?: true
     _all?: true
   }
 
@@ -2180,6 +3293,7 @@ export namespace Prisma {
     inv_createdAt: Date
     inv_updatedAt: Date
     bin_id: number | null
+    loc_id: number | null
     _count: InventoryCountAggregateOutputType | null
     _avg: InventoryAvgAggregateOutputType | null
     _sum: InventorySumAggregateOutputType | null
@@ -2210,7 +3324,9 @@ export namespace Prisma {
     inv_createdAt?: boolean
     inv_updatedAt?: boolean
     bin_id?: boolean
+    loc_id?: boolean
     bin?: boolean | Inventory$binArgs<ExtArgs>
+    location?: boolean | Inventory$locationArgs<ExtArgs>
   }, ExtArgs["result"]["inventory"]>
 
 
@@ -2224,17 +3340,20 @@ export namespace Prisma {
     inv_createdAt?: boolean
     inv_updatedAt?: boolean
     bin_id?: boolean
+    loc_id?: boolean
   }
 
-  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "bin_id", ExtArgs["result"]["inventory"]>
+  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "bin_id" | "loc_id", ExtArgs["result"]["inventory"]>
   export type InventoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bin?: boolean | Inventory$binArgs<ExtArgs>
+    location?: boolean | Inventory$locationArgs<ExtArgs>
   }
 
   export type $InventoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Inventory"
     objects: {
       bin: Prisma.$BinPayload<ExtArgs> | null
+      location: Prisma.$LocationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       inv_id: number
@@ -2245,6 +3364,7 @@ export namespace Prisma {
       inv_createdAt: Date
       inv_updatedAt: Date
       bin_id: number | null
+      loc_id: number | null
     }, ExtArgs["result"]["inventory"]>
     composites: {}
   }
@@ -2586,6 +3706,7 @@ export namespace Prisma {
   export interface Prisma__InventoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bin<T extends Inventory$binArgs<ExtArgs> = {}>(args?: Subset<T, Inventory$binArgs<ExtArgs>>): Prisma__BinClient<$Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    location<T extends Inventory$locationArgs<ExtArgs> = {}>(args?: Subset<T, Inventory$locationArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2623,6 +3744,7 @@ export namespace Prisma {
     readonly inv_createdAt: FieldRef<"Inventory", 'DateTime'>
     readonly inv_updatedAt: FieldRef<"Inventory", 'DateTime'>
     readonly bin_id: FieldRef<"Inventory", 'Int'>
+    readonly loc_id: FieldRef<"Inventory", 'Int'>
   }
     
 
@@ -2985,6 +4107,25 @@ export namespace Prisma {
   }
 
   /**
+   * Inventory.location
+   */
+  export type Inventory$locationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    where?: LocationWhereInput
+  }
+
+  /**
    * Inventory without action
    */
   export type InventoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3017,6 +4158,17 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const LocationScalarFieldEnum: {
+    loc_id: 'loc_id',
+    loc_name: 'loc_name',
+    loc_desc: 'loc_desc',
+    loc_createdAt: 'loc_createdAt',
+    loc_updatedAt: 'loc_updatedAt'
+  };
+
+  export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+
+
   export const BinScalarFieldEnum: {
     bin_id: 'bin_id',
     bin_name: 'bin_name',
@@ -3036,7 +4188,8 @@ export namespace Prisma {
     inv_status: 'inv_status',
     inv_createdAt: 'inv_createdAt',
     inv_updatedAt: 'inv_updatedAt',
-    bin_id: 'bin_id'
+    bin_id: 'bin_id',
+    loc_id: 'loc_id'
   };
 
   export type InventoryScalarFieldEnum = (typeof InventoryScalarFieldEnum)[keyof typeof InventoryScalarFieldEnum]
@@ -3056,6 +4209,14 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const LocationOrderByRelevanceFieldEnum: {
+    loc_name: 'loc_name',
+    loc_desc: 'loc_desc'
+  };
+
+  export type LocationOrderByRelevanceFieldEnum = (typeof LocationOrderByRelevanceFieldEnum)[keyof typeof LocationOrderByRelevanceFieldEnum]
 
 
   export const BinOrderByRelevanceFieldEnum: {
@@ -3116,6 +4277,64 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type LocationWhereInput = {
+    AND?: LocationWhereInput | LocationWhereInput[]
+    OR?: LocationWhereInput[]
+    NOT?: LocationWhereInput | LocationWhereInput[]
+    loc_id?: IntFilter<"Location"> | number
+    loc_name?: StringFilter<"Location"> | string
+    loc_desc?: StringNullableFilter<"Location"> | string | null
+    loc_createdAt?: DateTimeFilter<"Location"> | Date | string
+    loc_updatedAt?: DateTimeFilter<"Location"> | Date | string
+    inventories?: InventoryListRelationFilter
+  }
+
+  export type LocationOrderByWithRelationInput = {
+    loc_id?: SortOrder
+    loc_name?: SortOrder
+    loc_desc?: SortOrderInput | SortOrder
+    loc_createdAt?: SortOrder
+    loc_updatedAt?: SortOrder
+    inventories?: InventoryOrderByRelationAggregateInput
+    _relevance?: LocationOrderByRelevanceInput
+  }
+
+  export type LocationWhereUniqueInput = Prisma.AtLeast<{
+    loc_id?: number
+    AND?: LocationWhereInput | LocationWhereInput[]
+    OR?: LocationWhereInput[]
+    NOT?: LocationWhereInput | LocationWhereInput[]
+    loc_name?: StringFilter<"Location"> | string
+    loc_desc?: StringNullableFilter<"Location"> | string | null
+    loc_createdAt?: DateTimeFilter<"Location"> | Date | string
+    loc_updatedAt?: DateTimeFilter<"Location"> | Date | string
+    inventories?: InventoryListRelationFilter
+  }, "loc_id">
+
+  export type LocationOrderByWithAggregationInput = {
+    loc_id?: SortOrder
+    loc_name?: SortOrder
+    loc_desc?: SortOrderInput | SortOrder
+    loc_createdAt?: SortOrder
+    loc_updatedAt?: SortOrder
+    _count?: LocationCountOrderByAggregateInput
+    _avg?: LocationAvgOrderByAggregateInput
+    _max?: LocationMaxOrderByAggregateInput
+    _min?: LocationMinOrderByAggregateInput
+    _sum?: LocationSumOrderByAggregateInput
+  }
+
+  export type LocationScalarWhereWithAggregatesInput = {
+    AND?: LocationScalarWhereWithAggregatesInput | LocationScalarWhereWithAggregatesInput[]
+    OR?: LocationScalarWhereWithAggregatesInput[]
+    NOT?: LocationScalarWhereWithAggregatesInput | LocationScalarWhereWithAggregatesInput[]
+    loc_id?: IntWithAggregatesFilter<"Location"> | number
+    loc_name?: StringWithAggregatesFilter<"Location"> | string
+    loc_desc?: StringNullableWithAggregatesFilter<"Location"> | string | null
+    loc_createdAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
+    loc_updatedAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
+  }
 
   export type BinWhereInput = {
     AND?: BinWhereInput | BinWhereInput[]
@@ -3187,7 +4406,9 @@ export namespace Prisma {
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
     bin_id?: IntNullableFilter<"Inventory"> | number | null
+    loc_id?: IntNullableFilter<"Inventory"> | number | null
     bin?: XOR<BinNullableScalarRelationFilter, BinWhereInput> | null
+    location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
   }
 
   export type InventoryOrderByWithRelationInput = {
@@ -3199,7 +4420,9 @@ export namespace Prisma {
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
     bin_id?: SortOrderInput | SortOrder
+    loc_id?: SortOrderInput | SortOrder
     bin?: BinOrderByWithRelationInput
+    location?: LocationOrderByWithRelationInput
     _relevance?: InventoryOrderByRelevanceInput
   }
 
@@ -3215,7 +4438,9 @@ export namespace Prisma {
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
     bin_id?: IntNullableFilter<"Inventory"> | number | null
+    loc_id?: IntNullableFilter<"Inventory"> | number | null
     bin?: XOR<BinNullableScalarRelationFilter, BinWhereInput> | null
+    location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
   }, "inv_id">
 
   export type InventoryOrderByWithAggregationInput = {
@@ -3227,6 +4452,7 @@ export namespace Prisma {
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
     bin_id?: SortOrderInput | SortOrder
+    loc_id?: SortOrderInput | SortOrder
     _count?: InventoryCountOrderByAggregateInput
     _avg?: InventoryAvgOrderByAggregateInput
     _max?: InventoryMaxOrderByAggregateInput
@@ -3246,6 +4472,64 @@ export namespace Prisma {
     inv_createdAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
     bin_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
+    loc_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
+  }
+
+  export type LocationCreateInput = {
+    loc_name: string
+    loc_desc?: string | null
+    loc_createdAt?: Date | string
+    loc_updatedAt?: Date | string
+    inventories?: InventoryCreateNestedManyWithoutLocationInput
+  }
+
+  export type LocationUncheckedCreateInput = {
+    loc_id?: number
+    loc_name: string
+    loc_desc?: string | null
+    loc_createdAt?: Date | string
+    loc_updatedAt?: Date | string
+    inventories?: InventoryUncheckedCreateNestedManyWithoutLocationInput
+  }
+
+  export type LocationUpdateInput = {
+    loc_name?: StringFieldUpdateOperationsInput | string
+    loc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    loc_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventories?: InventoryUpdateManyWithoutLocationNestedInput
+  }
+
+  export type LocationUncheckedUpdateInput = {
+    loc_id?: IntFieldUpdateOperationsInput | number
+    loc_name?: StringFieldUpdateOperationsInput | string
+    loc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    loc_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventories?: InventoryUncheckedUpdateManyWithoutLocationNestedInput
+  }
+
+  export type LocationCreateManyInput = {
+    loc_id?: number
+    loc_name: string
+    loc_desc?: string | null
+    loc_createdAt?: Date | string
+    loc_updatedAt?: Date | string
+  }
+
+  export type LocationUpdateManyMutationInput = {
+    loc_name?: StringFieldUpdateOperationsInput | string
+    loc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    loc_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationUncheckedUpdateManyInput = {
+    loc_id?: IntFieldUpdateOperationsInput | number
+    loc_name?: StringFieldUpdateOperationsInput | string
+    loc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    loc_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BinCreateInput = {
@@ -3313,6 +4597,7 @@ export namespace Prisma {
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
     bin?: BinCreateNestedOneWithoutInventoriesInput
+    location?: LocationCreateNestedOneWithoutInventoriesInput
   }
 
   export type InventoryUncheckedCreateInput = {
@@ -3324,6 +4609,7 @@ export namespace Prisma {
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
     bin_id?: number | null
+    loc_id?: number | null
   }
 
   export type InventoryUpdateInput = {
@@ -3334,6 +4620,7 @@ export namespace Prisma {
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bin?: BinUpdateOneWithoutInventoriesNestedInput
+    location?: LocationUpdateOneWithoutInventoriesNestedInput
   }
 
   export type InventoryUncheckedUpdateInput = {
@@ -3345,6 +4632,7 @@ export namespace Prisma {
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+    loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InventoryCreateManyInput = {
@@ -3356,6 +4644,7 @@ export namespace Prisma {
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
     bin_id?: number | null
+    loc_id?: number | null
   }
 
   export type InventoryUpdateManyMutationInput = {
@@ -3376,6 +4665,7 @@ export namespace Prisma {
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+    loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3445,42 +4735,42 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type BinOrderByRelevanceInput = {
-    fields: BinOrderByRelevanceFieldEnum | BinOrderByRelevanceFieldEnum[]
+  export type LocationOrderByRelevanceInput = {
+    fields: LocationOrderByRelevanceFieldEnum | LocationOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
   }
 
-  export type BinCountOrderByAggregateInput = {
-    bin_id?: SortOrder
-    bin_name?: SortOrder
-    bin_desc?: SortOrder
-    bin_createdAt?: SortOrder
-    bin_updatedAt?: SortOrder
+  export type LocationCountOrderByAggregateInput = {
+    loc_id?: SortOrder
+    loc_name?: SortOrder
+    loc_desc?: SortOrder
+    loc_createdAt?: SortOrder
+    loc_updatedAt?: SortOrder
   }
 
-  export type BinAvgOrderByAggregateInput = {
-    bin_id?: SortOrder
+  export type LocationAvgOrderByAggregateInput = {
+    loc_id?: SortOrder
   }
 
-  export type BinMaxOrderByAggregateInput = {
-    bin_id?: SortOrder
-    bin_name?: SortOrder
-    bin_desc?: SortOrder
-    bin_createdAt?: SortOrder
-    bin_updatedAt?: SortOrder
+  export type LocationMaxOrderByAggregateInput = {
+    loc_id?: SortOrder
+    loc_name?: SortOrder
+    loc_desc?: SortOrder
+    loc_createdAt?: SortOrder
+    loc_updatedAt?: SortOrder
   }
 
-  export type BinMinOrderByAggregateInput = {
-    bin_id?: SortOrder
-    bin_name?: SortOrder
-    bin_desc?: SortOrder
-    bin_createdAt?: SortOrder
-    bin_updatedAt?: SortOrder
+  export type LocationMinOrderByAggregateInput = {
+    loc_id?: SortOrder
+    loc_name?: SortOrder
+    loc_desc?: SortOrder
+    loc_createdAt?: SortOrder
+    loc_updatedAt?: SortOrder
   }
 
-  export type BinSumOrderByAggregateInput = {
-    bin_id?: SortOrder
+  export type LocationSumOrderByAggregateInput = {
+    loc_id?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -3549,6 +4839,44 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type BinOrderByRelevanceInput = {
+    fields: BinOrderByRelevanceFieldEnum | BinOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type BinCountOrderByAggregateInput = {
+    bin_id?: SortOrder
+    bin_name?: SortOrder
+    bin_desc?: SortOrder
+    bin_createdAt?: SortOrder
+    bin_updatedAt?: SortOrder
+  }
+
+  export type BinAvgOrderByAggregateInput = {
+    bin_id?: SortOrder
+  }
+
+  export type BinMaxOrderByAggregateInput = {
+    bin_id?: SortOrder
+    bin_name?: SortOrder
+    bin_desc?: SortOrder
+    bin_createdAt?: SortOrder
+    bin_updatedAt?: SortOrder
+  }
+
+  export type BinMinOrderByAggregateInput = {
+    bin_id?: SortOrder
+    bin_name?: SortOrder
+    bin_desc?: SortOrder
+    bin_createdAt?: SortOrder
+    bin_updatedAt?: SortOrder
+  }
+
+  export type BinSumOrderByAggregateInput = {
+    bin_id?: SortOrder
+  }
+
   export type EnumInventoryStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.InventoryStatus | EnumInventoryStatusFieldRefInput<$PrismaModel>
     in?: $Enums.InventoryStatus[]
@@ -3572,6 +4900,11 @@ export namespace Prisma {
     isNot?: BinWhereInput | null
   }
 
+  export type LocationNullableScalarRelationFilter = {
+    is?: LocationWhereInput | null
+    isNot?: LocationWhereInput | null
+  }
+
   export type InventoryOrderByRelevanceInput = {
     fields: InventoryOrderByRelevanceFieldEnum | InventoryOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -3587,12 +4920,14 @@ export namespace Prisma {
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
     bin_id?: SortOrder
+    loc_id?: SortOrder
   }
 
   export type InventoryAvgOrderByAggregateInput = {
     inv_id?: SortOrder
     inv_quantity?: SortOrder
     bin_id?: SortOrder
+    loc_id?: SortOrder
   }
 
   export type InventoryMaxOrderByAggregateInput = {
@@ -3604,6 +4939,7 @@ export namespace Prisma {
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
     bin_id?: SortOrder
+    loc_id?: SortOrder
   }
 
   export type InventoryMinOrderByAggregateInput = {
@@ -3615,12 +4951,14 @@ export namespace Prisma {
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
     bin_id?: SortOrder
+    loc_id?: SortOrder
   }
 
   export type InventorySumOrderByAggregateInput = {
     inv_id?: SortOrder
     inv_quantity?: SortOrder
     bin_id?: SortOrder
+    loc_id?: SortOrder
   }
 
   export type EnumInventoryStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -3649,17 +4987,17 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type InventoryCreateNestedManyWithoutBinInput = {
-    create?: XOR<InventoryCreateWithoutBinInput, InventoryUncheckedCreateWithoutBinInput> | InventoryCreateWithoutBinInput[] | InventoryUncheckedCreateWithoutBinInput[]
-    connectOrCreate?: InventoryCreateOrConnectWithoutBinInput | InventoryCreateOrConnectWithoutBinInput[]
-    createMany?: InventoryCreateManyBinInputEnvelope
+  export type InventoryCreateNestedManyWithoutLocationInput = {
+    create?: XOR<InventoryCreateWithoutLocationInput, InventoryUncheckedCreateWithoutLocationInput> | InventoryCreateWithoutLocationInput[] | InventoryUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutLocationInput | InventoryCreateOrConnectWithoutLocationInput[]
+    createMany?: InventoryCreateManyLocationInputEnvelope
     connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
   }
 
-  export type InventoryUncheckedCreateNestedManyWithoutBinInput = {
-    create?: XOR<InventoryCreateWithoutBinInput, InventoryUncheckedCreateWithoutBinInput> | InventoryCreateWithoutBinInput[] | InventoryUncheckedCreateWithoutBinInput[]
-    connectOrCreate?: InventoryCreateOrConnectWithoutBinInput | InventoryCreateOrConnectWithoutBinInput[]
-    createMany?: InventoryCreateManyBinInputEnvelope
+  export type InventoryUncheckedCreateNestedManyWithoutLocationInput = {
+    create?: XOR<InventoryCreateWithoutLocationInput, InventoryUncheckedCreateWithoutLocationInput> | InventoryCreateWithoutLocationInput[] | InventoryUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutLocationInput | InventoryCreateOrConnectWithoutLocationInput[]
+    createMany?: InventoryCreateManyLocationInputEnvelope
     connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
   }
 
@@ -3675,6 +5013,56 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type InventoryUpdateManyWithoutLocationNestedInput = {
+    create?: XOR<InventoryCreateWithoutLocationInput, InventoryUncheckedCreateWithoutLocationInput> | InventoryCreateWithoutLocationInput[] | InventoryUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutLocationInput | InventoryCreateOrConnectWithoutLocationInput[]
+    upsert?: InventoryUpsertWithWhereUniqueWithoutLocationInput | InventoryUpsertWithWhereUniqueWithoutLocationInput[]
+    createMany?: InventoryCreateManyLocationInputEnvelope
+    set?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    disconnect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    delete?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    update?: InventoryUpdateWithWhereUniqueWithoutLocationInput | InventoryUpdateWithWhereUniqueWithoutLocationInput[]
+    updateMany?: InventoryUpdateManyWithWhereWithoutLocationInput | InventoryUpdateManyWithWhereWithoutLocationInput[]
+    deleteMany?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type InventoryUncheckedUpdateManyWithoutLocationNestedInput = {
+    create?: XOR<InventoryCreateWithoutLocationInput, InventoryUncheckedCreateWithoutLocationInput> | InventoryCreateWithoutLocationInput[] | InventoryUncheckedCreateWithoutLocationInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutLocationInput | InventoryCreateOrConnectWithoutLocationInput[]
+    upsert?: InventoryUpsertWithWhereUniqueWithoutLocationInput | InventoryUpsertWithWhereUniqueWithoutLocationInput[]
+    createMany?: InventoryCreateManyLocationInputEnvelope
+    set?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    disconnect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    delete?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    update?: InventoryUpdateWithWhereUniqueWithoutLocationInput | InventoryUpdateWithWhereUniqueWithoutLocationInput[]
+    updateMany?: InventoryUpdateManyWithWhereWithoutLocationInput | InventoryUpdateManyWithWhereWithoutLocationInput[]
+    deleteMany?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
+  }
+
+  export type InventoryCreateNestedManyWithoutBinInput = {
+    create?: XOR<InventoryCreateWithoutBinInput, InventoryUncheckedCreateWithoutBinInput> | InventoryCreateWithoutBinInput[] | InventoryUncheckedCreateWithoutBinInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutBinInput | InventoryCreateOrConnectWithoutBinInput[]
+    createMany?: InventoryCreateManyBinInputEnvelope
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+  }
+
+  export type InventoryUncheckedCreateNestedManyWithoutBinInput = {
+    create?: XOR<InventoryCreateWithoutBinInput, InventoryUncheckedCreateWithoutBinInput> | InventoryCreateWithoutBinInput[] | InventoryUncheckedCreateWithoutBinInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutBinInput | InventoryCreateOrConnectWithoutBinInput[]
+    createMany?: InventoryCreateManyBinInputEnvelope
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+  }
+
   export type InventoryUpdateManyWithoutBinNestedInput = {
     create?: XOR<InventoryCreateWithoutBinInput, InventoryUncheckedCreateWithoutBinInput> | InventoryCreateWithoutBinInput[] | InventoryUncheckedCreateWithoutBinInput[]
     connectOrCreate?: InventoryCreateOrConnectWithoutBinInput | InventoryCreateOrConnectWithoutBinInput[]
@@ -3687,14 +5075,6 @@ export namespace Prisma {
     update?: InventoryUpdateWithWhereUniqueWithoutBinInput | InventoryUpdateWithWhereUniqueWithoutBinInput[]
     updateMany?: InventoryUpdateManyWithWhereWithoutBinInput | InventoryUpdateManyWithWhereWithoutBinInput[]
     deleteMany?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type InventoryUncheckedUpdateManyWithoutBinNestedInput = {
@@ -3717,6 +5097,12 @@ export namespace Prisma {
     connect?: BinWhereUniqueInput
   }
 
+  export type LocationCreateNestedOneWithoutInventoriesInput = {
+    create?: XOR<LocationCreateWithoutInventoriesInput, LocationUncheckedCreateWithoutInventoriesInput>
+    connectOrCreate?: LocationCreateOrConnectWithoutInventoriesInput
+    connect?: LocationWhereUniqueInput
+  }
+
   export type EnumInventoryStatusFieldUpdateOperationsInput = {
     set?: $Enums.InventoryStatus
   }
@@ -3729,6 +5115,16 @@ export namespace Prisma {
     delete?: BinWhereInput | boolean
     connect?: BinWhereUniqueInput
     update?: XOR<XOR<BinUpdateToOneWithWhereWithoutInventoriesInput, BinUpdateWithoutInventoriesInput>, BinUncheckedUpdateWithoutInventoriesInput>
+  }
+
+  export type LocationUpdateOneWithoutInventoriesNestedInput = {
+    create?: XOR<LocationCreateWithoutInventoriesInput, LocationUncheckedCreateWithoutInventoriesInput>
+    connectOrCreate?: LocationCreateOrConnectWithoutInventoriesInput
+    upsert?: LocationUpsertWithoutInventoriesInput
+    disconnect?: LocationWhereInput | boolean
+    delete?: LocationWhereInput | boolean
+    connect?: LocationWhereUniqueInput
+    update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutInventoriesInput, LocationUpdateWithoutInventoriesInput>, LocationUncheckedUpdateWithoutInventoriesInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -3923,6 +5319,68 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type InventoryCreateWithoutLocationInput = {
+    inv_name: string
+    inv_desc?: string | null
+    inv_quantity?: number
+    inv_status?: $Enums.InventoryStatus
+    inv_createdAt?: Date | string
+    inv_updatedAt?: Date | string
+    bin?: BinCreateNestedOneWithoutInventoriesInput
+  }
+
+  export type InventoryUncheckedCreateWithoutLocationInput = {
+    inv_id?: number
+    inv_name: string
+    inv_desc?: string | null
+    inv_quantity?: number
+    inv_status?: $Enums.InventoryStatus
+    inv_createdAt?: Date | string
+    inv_updatedAt?: Date | string
+    bin_id?: number | null
+  }
+
+  export type InventoryCreateOrConnectWithoutLocationInput = {
+    where: InventoryWhereUniqueInput
+    create: XOR<InventoryCreateWithoutLocationInput, InventoryUncheckedCreateWithoutLocationInput>
+  }
+
+  export type InventoryCreateManyLocationInputEnvelope = {
+    data: InventoryCreateManyLocationInput | InventoryCreateManyLocationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InventoryUpsertWithWhereUniqueWithoutLocationInput = {
+    where: InventoryWhereUniqueInput
+    update: XOR<InventoryUpdateWithoutLocationInput, InventoryUncheckedUpdateWithoutLocationInput>
+    create: XOR<InventoryCreateWithoutLocationInput, InventoryUncheckedCreateWithoutLocationInput>
+  }
+
+  export type InventoryUpdateWithWhereUniqueWithoutLocationInput = {
+    where: InventoryWhereUniqueInput
+    data: XOR<InventoryUpdateWithoutLocationInput, InventoryUncheckedUpdateWithoutLocationInput>
+  }
+
+  export type InventoryUpdateManyWithWhereWithoutLocationInput = {
+    where: InventoryScalarWhereInput
+    data: XOR<InventoryUpdateManyMutationInput, InventoryUncheckedUpdateManyWithoutLocationInput>
+  }
+
+  export type InventoryScalarWhereInput = {
+    AND?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
+    OR?: InventoryScalarWhereInput[]
+    NOT?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
+    inv_id?: IntFilter<"Inventory"> | number
+    inv_name?: StringFilter<"Inventory"> | string
+    inv_desc?: StringNullableFilter<"Inventory"> | string | null
+    inv_quantity?: IntFilter<"Inventory"> | number
+    inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
+    inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
+    bin_id?: IntNullableFilter<"Inventory"> | number | null
+    loc_id?: IntNullableFilter<"Inventory"> | number | null
+  }
+
   export type InventoryCreateWithoutBinInput = {
     inv_name: string
     inv_desc?: string | null
@@ -3930,6 +5388,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    location?: LocationCreateNestedOneWithoutInventoriesInput
   }
 
   export type InventoryUncheckedCreateWithoutBinInput = {
@@ -3940,6 +5399,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    loc_id?: number | null
   }
 
   export type InventoryCreateOrConnectWithoutBinInput = {
@@ -3968,20 +5428,6 @@ export namespace Prisma {
     data: XOR<InventoryUpdateManyMutationInput, InventoryUncheckedUpdateManyWithoutBinInput>
   }
 
-  export type InventoryScalarWhereInput = {
-    AND?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
-    OR?: InventoryScalarWhereInput[]
-    NOT?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
-    inv_id?: IntFilter<"Inventory"> | number
-    inv_name?: StringFilter<"Inventory"> | string
-    inv_desc?: StringNullableFilter<"Inventory"> | string | null
-    inv_quantity?: IntFilter<"Inventory"> | number
-    inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
-    inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
-    inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
-    bin_id?: IntNullableFilter<"Inventory"> | number | null
-  }
-
   export type BinCreateWithoutInventoriesInput = {
     bin_name: string
     bin_desc?: string | null
@@ -4000,6 +5446,26 @@ export namespace Prisma {
   export type BinCreateOrConnectWithoutInventoriesInput = {
     where: BinWhereUniqueInput
     create: XOR<BinCreateWithoutInventoriesInput, BinUncheckedCreateWithoutInventoriesInput>
+  }
+
+  export type LocationCreateWithoutInventoriesInput = {
+    loc_name: string
+    loc_desc?: string | null
+    loc_createdAt?: Date | string
+    loc_updatedAt?: Date | string
+  }
+
+  export type LocationUncheckedCreateWithoutInventoriesInput = {
+    loc_id?: number
+    loc_name: string
+    loc_desc?: string | null
+    loc_createdAt?: Date | string
+    loc_updatedAt?: Date | string
+  }
+
+  export type LocationCreateOrConnectWithoutInventoriesInput = {
+    where: LocationWhereUniqueInput
+    create: XOR<LocationCreateWithoutInventoriesInput, LocationUncheckedCreateWithoutInventoriesInput>
   }
 
   export type BinUpsertWithoutInventoriesInput = {
@@ -4028,6 +5494,75 @@ export namespace Prisma {
     bin_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type LocationUpsertWithoutInventoriesInput = {
+    update: XOR<LocationUpdateWithoutInventoriesInput, LocationUncheckedUpdateWithoutInventoriesInput>
+    create: XOR<LocationCreateWithoutInventoriesInput, LocationUncheckedCreateWithoutInventoriesInput>
+    where?: LocationWhereInput
+  }
+
+  export type LocationUpdateToOneWithWhereWithoutInventoriesInput = {
+    where?: LocationWhereInput
+    data: XOR<LocationUpdateWithoutInventoriesInput, LocationUncheckedUpdateWithoutInventoriesInput>
+  }
+
+  export type LocationUpdateWithoutInventoriesInput = {
+    loc_name?: StringFieldUpdateOperationsInput | string
+    loc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    loc_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LocationUncheckedUpdateWithoutInventoriesInput = {
+    loc_id?: IntFieldUpdateOperationsInput | number
+    loc_name?: StringFieldUpdateOperationsInput | string
+    loc_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    loc_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryCreateManyLocationInput = {
+    inv_id?: number
+    inv_name: string
+    inv_desc?: string | null
+    inv_quantity?: number
+    inv_status?: $Enums.InventoryStatus
+    inv_createdAt?: Date | string
+    inv_updatedAt?: Date | string
+    bin_id?: number | null
+  }
+
+  export type InventoryUpdateWithoutLocationInput = {
+    inv_name?: StringFieldUpdateOperationsInput | string
+    inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bin?: BinUpdateOneWithoutInventoriesNestedInput
+  }
+
+  export type InventoryUncheckedUpdateWithoutLocationInput = {
+    inv_id?: IntFieldUpdateOperationsInput | number
+    inv_name?: StringFieldUpdateOperationsInput | string
+    inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type InventoryUncheckedUpdateManyWithoutLocationInput = {
+    inv_id?: IntFieldUpdateOperationsInput | number
+    inv_name?: StringFieldUpdateOperationsInput | string
+    inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type InventoryCreateManyBinInput = {
     inv_id?: number
     inv_name: string
@@ -4036,6 +5571,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    loc_id?: number | null
   }
 
   export type InventoryUpdateWithoutBinInput = {
@@ -4045,6 +5581,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: LocationUpdateOneWithoutInventoriesNestedInput
   }
 
   export type InventoryUncheckedUpdateWithoutBinInput = {
@@ -4055,6 +5592,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InventoryUncheckedUpdateManyWithoutBinInput = {
@@ -4065,6 +5603,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 

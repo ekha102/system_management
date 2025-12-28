@@ -86,12 +86,13 @@ const FormInventory = ({ bins }: []) => {
               <Box maxWidth="250px">
                 <Select.Root
                   // If field.value is null, show "" in the select; otherwise convert number to string
-                  value={field.value ? String(field.value) : ""}
+                  // value={field.value ? String(field.value) : ""}
 
                   // When user selects something:
                   // - if they choose the empty option, store null
                   // - otherwise convert the selected string back to a number
                   onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                  disabled={isSubmiting}
                 >
                   <Select.Trigger placeholder="Select bin" />
 

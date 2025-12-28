@@ -120,6 +120,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.LocationScalarFieldEnum = {
+  loc_id: 'loc_id',
+  loc_name: 'loc_name',
+  loc_desc: 'loc_desc',
+  loc_createdAt: 'loc_createdAt',
+  loc_updatedAt: 'loc_updatedAt'
+};
+
 exports.Prisma.BinScalarFieldEnum = {
   bin_id: 'bin_id',
   bin_name: 'bin_name',
@@ -136,7 +144,8 @@ exports.Prisma.InventoryScalarFieldEnum = {
   inv_status: 'inv_status',
   inv_createdAt: 'inv_createdAt',
   inv_updatedAt: 'inv_updatedAt',
-  bin_id: 'bin_id'
+  bin_id: 'bin_id',
+  loc_id: 'loc_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -147,6 +156,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.LocationOrderByRelevanceFieldEnum = {
+  loc_name: 'loc_name',
+  loc_desc: 'loc_desc'
 };
 
 exports.Prisma.BinOrderByRelevanceFieldEnum = {
@@ -164,6 +178,7 @@ exports.InventoryStatus = exports.$Enums.InventoryStatus = {
 };
 
 exports.Prisma.ModelName = {
+  Location: 'Location',
   Bin: 'Bin',
   Inventory: 'Inventory'
 };
