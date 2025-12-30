@@ -9,21 +9,22 @@ import { set } from 'zod'
 
 const LocationsView = ({ locations }) => {
   
-
+  const [open, setOpen] = useState(false)
   const router = useRouter();
 
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [locId, setLocId] = useState<number | null>(null);
+  const [locDetail, setLocDetail] = useState<number | null>(null);
 
 
 
 
   // Open form for editing
-  const handleEditLocId = (locId: number) => {
-    console.log("Edit Loc Id:", locId);
-    setLocId(locId);
+  const handleEditLocId = (loc: Location) => {
+    console.log("Edit Loc Id:", loc);
+    setLocDetail(loc);
+    setOpen(true)
   }
-
+ 
 
 
   const handleDeleteLoc = async (loc_id: number) => {
@@ -43,7 +44,8 @@ const LocationsView = ({ locations }) => {
 
   return (
     <>
-      <CreateButtonLocation locId={locId} />
+      <CreateButtonLocation open={open}
+        setOpen={setOpen} locDetail={locDetail} />
 
       <Table.Root variant='surface'>
         <Table.Header>
@@ -64,7 +66,7 @@ const LocationsView = ({ locations }) => {
               <Table.Cell>
                 {/* Future Action Buttons like Edit/Delete can go here */}
                 <Flex gap="2">
-                  <Button size="1" onClick={() => handleEditLocId(loc.loc_id)}>Edit</Button>
+                  <Button size="1" onClick={() => handleEditLocId(loc)}>Edit</Button>
                   <Button variant="solid" size="1" color="red" disabled={deletingId === loc.loc_id} onClick={() => handleDeleteLoc(loc.loc_id)}>{deletingId === loc.loc_id ? <Spinner /> : "Del"}</Button>
                 </Flex>
 

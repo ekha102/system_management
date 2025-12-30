@@ -20,7 +20,7 @@ export async function POST(request:NextRequest) {
     return NextResponse.json(validation.error.errors, {status: 400});
 
   // Use validated data (quantity is coerced to number here)
-  const {inv_name, inv_desc, inv_quantity, bin_id} = validation.data;
+  const {inv_name, inv_desc, inv_quantity, bin_id, loc_id} = validation.data;
 
   // Create new inventory item
   const itemCreated = await prisma.inventory.create({
@@ -29,6 +29,7 @@ export async function POST(request:NextRequest) {
       inv_desc,
       inv_quantity,
       bin_id,
+      loc_id,
     }
   })
 

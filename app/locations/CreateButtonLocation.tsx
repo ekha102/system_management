@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { ValidationLocationForm } from '../_components/ValidationLocationForm'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { Location } from '../generated/prisma'
 
 
 
@@ -14,15 +15,19 @@ interface IFormInput {
   loc_desc: string
 }
 
+interface Props {
+  locDetail?: Location
+  open: boolean
+  setOpen: (v: boolean) => void
+}
 
-const CreateButtonLocation = ({locId}) => {
-  
-  console.log("loc Id in form:", locId);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  
 
+const CreateButtonLocation = ({ locDetail, open,
+  setOpen }: Props) => {
 
-  const [open, setOpen] = useState(false);
+  // console.log("loc Id in form:", locDetail);
+  const { loc_id, loc_name, loc_desc } = locDetail || {};
+
   const router = useRouter();
 
 
@@ -33,11 +38,19 @@ const CreateButtonLocation = ({locId}) => {
 
   const onSubmit = async (values: IFormInput) => {
     // console.log(values)
-    setOpen(false);
-    await axios.post('/api/locations', values);
-    reset();  // Reset form fields after submission
+    try {
+      if (loc_id) {
+        await axios.put(`/api/locations/${loc_id}`, values);
+      } else {
+        await axios.post('/api/locations', values);
+      }
+      reset();  // Reset form fields after submission
+      router.refresh(); // Refresh the page to show the new location
+      
+    } catch (error) {
+      console.log(error);
+    }
     
-    router.refresh(); // Refresh the page to show the new location
   }
 
 
@@ -58,6 +71,7 @@ const CreateButtonLocation = ({locId}) => {
                 Name of Location
               </Text>
               <TextField.Root
+                defaultValue={loc_name}
                 placeholder="Enter location name"
                 {...register("loc_name")}
               />
@@ -68,6 +82,7 @@ const CreateButtonLocation = ({locId}) => {
                 Description of Location
               </Text>
               <TextField.Root
+                defaultValue={loc_desc}
                 placeholder="Enter location description"
                 {...register("loc_desc")}
               />
@@ -76,13 +91,17 @@ const CreateButtonLocation = ({locId}) => {
           </Flex>
 
           <Flex gap="3" mt="4" justify="end">
+            <Dialog.Close>
+              <Button variant="soft" color="gray">
+                Cancel
+              </Button>
+            </Dialog.Close>
 
-            <Button variant="soft" color="gray" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
+            <Dialog.Close>
+              <Button type="submit" disabled={!isValid}>Save</Button>
+            </Dialog.Close>
 
-
-            <Button type="submit" disabled={!isValid}>Save</Button>
+            
 
           </Flex>
         </form>

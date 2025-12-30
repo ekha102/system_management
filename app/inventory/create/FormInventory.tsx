@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select } from '@radix-ui/themes';
+import { Bin, Location } from '@/app/generated/prisma';
 
 
 interface ItemForm {
@@ -16,21 +17,19 @@ interface ItemForm {
   bin_id: number | null;
 }
 
+interface Props {
+  bins?: Bin[];
+  locations?: Location[];
+}
 
 
-
-const FormInventory = ({ bins }: []) => {
+const FormInventory = ({ bins, locations }: Props) => {
 
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const router = useRouter();
   // console.log("Bin Passed to form: ", bins);
-
-
-
-
-
-
+  console.log("Location Passed to form: ", locations);
 
 
   const { register, control, handleSubmit, setValue, formState: { errors } } = useForm<ItemForm>({
@@ -115,6 +114,34 @@ const FormInventory = ({ bins }: []) => {
             )}
           />
 
+          <Controller
+            name="loc_id"
+            control={control}
+            defaultValue={null} // first render is null
+            render={({ field }) => ( 
+              <Box maxWidth="250px">
+                <Select.Root
+                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                  disabled={isSubmiting}
+                >
+                  <Select.Trigger placeholder="Select location" />
+
+                  <Select.Content>
+                    <Select.Group>
+                      <Select.Item value="null">Unassigned</Select.Item>
+                      {locations?.map((loc) => (
+                        <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
+                          {loc.loc_name}
+                        </Select.Item>
+                      ))}
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+                {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
+              </Box>
+            )}
+          />
+          
 
 
 

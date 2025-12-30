@@ -11,7 +11,7 @@ const InventoryList = async () => {
 
   const items = await prisma.inventory.findMany({
     where: {inv_status: "Active"},
-    include: { bin: true },
+    include: { bin: true, location: true },
   });
   console.log("Inventory Items:", items);
   
@@ -26,6 +26,7 @@ const InventoryList = async () => {
           <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Bin Name</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Location</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
@@ -38,6 +39,7 @@ const InventoryList = async () => {
             <Table.Cell>{item.inv_desc}</Table.Cell>
             <Table.Cell>{item.inv_quantity}</Table.Cell>
             <Table.Cell>{item.bin?.bin_name}_{item.bin?.bin_id}</Table.Cell>
+            <Table.Cell>{item.location?.loc_name}</Table.Cell>
             <Table.Cell>
               <Flex gap="2">
                 <ButtonEditItem itemId={item.inv_id}/>

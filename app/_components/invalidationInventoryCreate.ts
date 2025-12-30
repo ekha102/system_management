@@ -5,4 +5,5 @@ export const ValidationInventoryCreateItem = z.object({
   inv_desc: z.string().min(1, 'Required field.').max(1000),
   inv_quantity:  z.number().min(1, "Quantity must be at least 1").max(100, "Quantity must be less than or equal to 100"),
   bin_id: z.number().int().nullable(),
+  loc_id: z.number().int().nullable(),
 });
