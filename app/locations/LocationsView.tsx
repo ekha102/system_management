@@ -1,5 +1,5 @@
 "use client"
-import { Table, Button, Flex, Spinner } from '@radix-ui/themes'
+import { Table, Button, Flex, Spinner, Box } from '@radix-ui/themes'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
@@ -20,7 +20,7 @@ const LocationsView = ({ locations }) => {
 
   // Open form for editing
   const handleEditLocId = (loc: Location) => {
-    console.log("Edit Loc Id:", loc);
+    // console.log("Edit Loc Id:", loc);
     setLocDetail(loc);
     setOpen(true)
   }
@@ -44,8 +44,10 @@ const LocationsView = ({ locations }) => {
 
   return (
     <>
-      <CreateButtonLocation open={open}
-        setOpen={setOpen} locDetail={locDetail} />
+      <Box my="4">
+         <CreateButtonLocation open={open} setOpen={setOpen} locDetail={locDetail} />
+      </Box>
+     
 
       <Table.Root variant='surface'>
         <Table.Header>
