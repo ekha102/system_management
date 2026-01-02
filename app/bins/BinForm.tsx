@@ -1,8 +1,8 @@
 "use client";
 
-import { Dialog, Button, Flex, TextField, Text } from "@radix-ui/themes";
+import { Button, Flex, TextField, Text, Spinner } from "@radix-ui/themes";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { ValidationBinFrom } from "../_components/ValidationBinForm";
@@ -16,18 +16,12 @@ interface CreateButtonBinProps {
 
 interface Props {
   closeDialog: () => void;
-  binIdDetail?: Bin
+  binIdDetail?: Bin;
 }
 
 const BinForm =  ({ closeDialog, binIdDetail }: Props) => {
   const router = useRouter();
-  console.log("Detail Bin in form:", binIdDetail);
-  const {bin_id, bin_desc} = binIdDetail;
-  // const binDetailApi = await prisma.bin.findUnique({
-  //    where: {bin_id: binDetail}
-  // } 
-  // )
-  
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   // React Hook Form
   const { register, handleSubmit, reset, formState:{errors, isValid} } =
@@ -35,10 +29,14 @@ const BinForm =  ({ closeDialog, binIdDetail }: Props) => {
       resolver: zodResolver(ValidationBinFrom),
     });
 
+  // If the binId Detail is not existed then empty object
+  const { bin_id, bin_desc } = binIdDetail || {};
+
   const onSubmit = async (values: CreateButtonBinProps) => {
     try {
+      setIsSubmiting(true);
       if (bin_id) {
-        await axios.put(`/api/bins/${bin_id}`, values)
+        await axios.put(`/api/bins/${bin_id}`, values);
       } else {
         await axios.post("/api/bins", values);
       }
@@ -47,9 +45,12 @@ const BinForm =  ({ closeDialog, binIdDetail }: Props) => {
       router.refresh();
       closeDialog(); // ✅ closes dialog
     } catch (error) {
-      console.error(error);
+      setIsSubmiting(false)
+      console.log(error);
     }
   };
+
+
 
   return (
 
@@ -69,9 +70,11 @@ const BinForm =  ({ closeDialog, binIdDetail }: Props) => {
           Cancel
         </Button>
 
-        <Button disabled={!isValid} type="submit">Submit</Button>
+        <Button disabled={isSubmiting} type="submit">{isSubmiting ? <Spinner/> : ""} {bin_id ? "Update" : "Submit"}</Button>
       </Flex>
     </form>
+
+
   );
 };
 

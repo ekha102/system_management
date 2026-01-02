@@ -1,8 +1,10 @@
-import { Box, Table } from '@radix-ui/themes'
+import { Box, Flex, Table } from '@radix-ui/themes'
 import React from 'react'
 import CreateButtonBin from './CreateButtonBin'
 import { Bin } from '../generated/prisma'
 import EditBin from './EditBin'
+import BinDeleteButton from './BinDeleteButton'
+
 
 interface Props {
   bins: Bin[]
@@ -33,7 +35,12 @@ const BinViewTable = ({ bins }: Props) => {
               <Table.RowHeaderCell>{bin.bin_id}</Table.RowHeaderCell>
               <Table.Cell>{bin.bin_name}_{bin.bin_id}</Table.Cell>
               <Table.Cell>{bin.bin_desc}</Table.Cell>
-              <Table.Cell><EditBin binDetail={bin} /></Table.Cell>
+              <Table.Cell>
+                <Flex direction="row" gap="2">
+                  <EditBin binDetail={bin} />
+                  <BinDeleteButton binIdDelete={bin.bin_id}/>
+                </Flex>
+              </Table.Cell>
             </Table.Row>
           )}
 
