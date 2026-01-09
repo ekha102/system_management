@@ -2,7 +2,7 @@
 import { prisma } from '@/prisma/client';
 import { Box, Button, Table } from '@radix-ui/themes';
 import React from 'react'
-import CreateButtonLocation from './CreateButtonLocation';
+import CreateButtonLocation from './_CreateButtonLocation';
 import LocationsView from './LocationsView';
 
 const LocationPage = async () => {

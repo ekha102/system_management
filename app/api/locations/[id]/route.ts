@@ -9,6 +9,7 @@ interface Props {
 // Edit location by ID
 export const PUT = async (request: NextRequest, {params}: Props) => {
   // return NextResponse.json({message: "PUT method for location route"});
+  const {id} = params;
   const body = await request.json();
   // console.log("Body:", body);
   const validation = ValidationLocationForm.safeParse(body);
@@ -18,15 +19,15 @@ export const PUT = async (request: NextRequest, {params}: Props) => {
 
   const { loc_name, loc_desc } = validation.data;
   // Check if location exists
-  const checkingLocExist = await prisma.location.findUnique({
-    where: {loc_id: parseInt(params.id)}
+  const checkingLocExist = await prisma.location?.findUnique({
+    where: {loc_id: parseInt(id)}
   });
   // Checking if location exists
   if (!checkingLocExist)
     return NextResponse.json({error: "Location not found"}, {status: 404}); 
 
   const updatedLocation = await prisma.location.update({
-    where: {loc_id: parseInt(params.id)},
+    where: {loc_id: parseInt(id)},
     data: {
       loc_name,
       loc_desc
@@ -39,6 +40,7 @@ export const PUT = async (request: NextRequest, {params}: Props) => {
 
 // Delete location by ID
 export const DELETE = async (request:NextRequest, {params}: Props) => {
+  const {id} = params
   const checkExistIdLoc = await prisma.location.findUnique({
     where: {loc_id: parseInt(params.id)}
   });

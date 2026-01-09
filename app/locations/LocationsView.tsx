@@ -3,19 +3,32 @@ import { Table, Button, Flex, Spinner, Box } from '@radix-ui/themes'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import CreateButtonLocation from './CreateButtonLocation'
-import { set } from 'zod'
+import CreateButtonLocation from './_CreateButtonLocation'
+import { Location } from '../generated/prisma'
+import CreateLocationButton from './CreateLocationButton'
+import DeleteLocationButton from './DeleteLocationButton'
+import EditLocationButton from './EditLocationButton'
+
+interface Props {
+  locations: Location[]; //Why use array? The parent component passing down with list of array.
+}
 
 
-const LocationsView = ({ locations }) => {
-  
-  const [open, setOpen] = useState(false)
+const LocationsView = ({ locations }: Props) => {
+
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const [deletingId, setDeletingId] = useState<number | null>(null);
-  const [locDetail, setLocDetail] = useState<number | null>(null);
+  // const [locDetail, setLocDetail] = useState<number | null>(null);
+  const [locDetail, setLocDetail] = useState<Location | null>(null);
 
 
+  // CREATE
+  const handleCreate = () => {
+    setLocDetail(null);   // ✅ CLEAR old edit values
+    setOpen(true);
+  };
 
 
   // Open form for editing
@@ -24,7 +37,7 @@ const LocationsView = ({ locations }) => {
     setLocDetail(loc);
     setOpen(true)
   }
- 
+
 
 
   const handleDeleteLoc = async (loc_id: number) => {
@@ -44,10 +57,12 @@ const LocationsView = ({ locations }) => {
 
   return (
     <>
+      
       <Box my="4">
-         <CreateButtonLocation open={open} setOpen={setOpen} locDetail={locDetail} />
+        {/* <CreateButtonLocation open={open} setOpen={setOpen} locDetail={locDetail} /> */}
+        <CreateLocationButton />
       </Box>
-     
+
 
       <Table.Root variant='surface'>
         <Table.Header>
@@ -68,8 +83,10 @@ const LocationsView = ({ locations }) => {
               <Table.Cell>
                 {/* Future Action Buttons like Edit/Delete can go here */}
                 <Flex gap="2">
-                  <Button size="1" onClick={() => handleEditLocId(loc)}>Edit</Button>
-                  <Button variant="solid" size="1" color="red" disabled={deletingId === loc.loc_id} onClick={() => handleDeleteLoc(loc.loc_id)}>{deletingId === loc.loc_id ? <Spinner /> : "Del"}</Button>
+                  {/* <Button size="1" onClick={() => handleEditLocId(loc)}>Edit</Button>
+                  <Button variant="solid" size="1" color="red" disabled={deletingId === loc.loc_id} onClick={() => handleDeleteLoc(loc.loc_id)}>{deletingId === loc.loc_id ? <Spinner /> : "Del"}</Button> */}
+                  <EditLocationButton locDetail={loc}/>
+                  <DeleteLocationButton locId={loc.loc_id}/>
                 </Flex>
 
               </Table.Cell>

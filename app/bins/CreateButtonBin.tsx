@@ -18,8 +18,8 @@ const CreateButtonBin = () => {
       {/* Dialog window */}
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Content maxWidth="450px">
-          <Dialog.Title>Create Bin</Dialog.Title>
-          {/*Call in the Bin Form*/}
+          <Dialog.Title>Create Location</Dialog.Title>
+          {/*Call in the Location Form*/}
           <BinForm closeDialog={() => setOpen(false)} />
         </Dialog.Content>
       </Dialog.Root>
