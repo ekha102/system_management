@@ -6,8 +6,10 @@ import { ValidationInventoryCreateItem } from '@/app/_components/invalidationInv
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select } from '@radix-ui/themes';
+import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch } from '@radix-ui/themes';
 import { Bin, Location } from '@/app/generated/prisma';
+import SwitchBin from './SwitchBin';
+
 
 
 interface ItemForm {
@@ -15,6 +17,7 @@ interface ItemForm {
   inv_desc: string;
   inv_quantity: number;
   bin_id: number | null;
+  checkedBin: boolean;    //Add Check Bin
 }
 
 interface Props {
@@ -28,8 +31,10 @@ const FormInventory = ({ bins, locations }: Props) => {
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const router = useRouter();
+
+  const [checkedBin, setCheckedBin] = useState(false);
   // console.log("Bin Passed to form: ", bins);
-  console.log("Location Passed to form: ", locations);
+  // console.log("Location Passed to form: ", locations);
 
 
   const { register, control, handleSubmit, setValue, formState: { errors } } = useForm<ItemForm>({
@@ -39,9 +44,10 @@ const FormInventory = ({ bins, locations }: Props) => {
 
 
   const onSubmit = async (values: ItemForm) => {
-    console.log("submit: ", values);
+    // console.log("submit: ", values);
     // axios.post('/xapi/inventory', values);
     // Added try catch for error handling
+    console.log("checkedBin:", values.checkedBin);
 
     try {
       await axios.post('/api/inventory', values);
@@ -77,71 +83,80 @@ const FormInventory = ({ bins, locations }: Props) => {
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
           </Box>
 
-          <Controller
-            name="bin_id"
-            control={control}
-            defaultValue={null} // first render is null
-            render={({ field }) => (
-              <Box maxWidth="250px">
-                <Select.Root
-                  // If field.value is null, show "" in the select; otherwise convert number to string
-                  // value={field.value ? String(field.value) : ""}
 
-                  // When user selects something:
-                  // - if they choose the empty option, store null
-                  // - otherwise convert the selected string back to a number
-                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                  disabled={isSubmiting}
-                >
-                  <Select.Trigger placeholder="Select bin" />
+          <SwitchBin checkedBin={checkedBin} setCheckedBin={setCheckedBin} setCheckedBin={(value) => {setCheckedBin(value);
+          setValue("checkedBin", value);   // 👈 push to RHF
+          }} />
 
-                  <Select.Content>
-                    <Select.Group>
-                      {/* Unassigned option */}
-                      <Select.Item value="null">Unassigned</Select.Item>
+          {checkedBin ?
+            <Controller
+              name="bin_id"
+              control={control}
+              defaultValue={null} // first render is null
+              render={({ field }) => (
+                <Box maxWidth="250px">
+                  <Select.Root
+                    // If field.value is null, show "" in the select; otherwise convert number to string
+                    // value={field.value ? String(field.value) : ""}
 
-                      {bins.map((bin) => (
-                        <Select.Item key={bin.bin_id} value={String(bin.bin_id)}>
-                          {bin.bin_name}_{bin.bin_id}
-                        </Select.Item>
-                      ))}
-                    </Select.Group>
-                  </Select.Content>
-                </Select.Root>
+                    // When user selects something:
+                    // - if they choose the empty option, store null
+                    // - otherwise convert the selected string back to a number
+                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                    disabled={isSubmiting}
+                  >
+                    <Select.Trigger placeholder="Select bin" />
 
-                {errors.bin_id && <Text color="red">{errors.bin_id.message}</Text>}
-              </Box>
-            )}
-          />
+                    <Select.Content>
+                      <Select.Group>
+                        {/* Unassigned option */}
+                        <Select.Item value="null">Unassigned</Select.Item>
 
-          <Controller
-            name="loc_id"
-            control={control}
-            defaultValue={null} // first render is null
-            render={({ field }) => ( 
-              <Box maxWidth="250px">
-                <Select.Root
-                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                  disabled={isSubmiting}
-                >
-                  <Select.Trigger placeholder="Select location" />
+                        {bins.map((bin) => (
+                          <Select.Item key={bin.bin_id} value={String(bin.bin_id)}>
+                            {bin.bin_name}_{bin.bin_id}
+                          </Select.Item>
+                        ))}
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
 
-                  <Select.Content>
-                    <Select.Group>
-                      <Select.Item value="null">Unassigned</Select.Item>
-                      {locations?.map((loc) => (
-                        <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
-                          {loc.loc_name}
-                        </Select.Item>
-                      ))}
-                    </Select.Group>
-                  </Select.Content>
-                </Select.Root>
-                {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
-              </Box>
-            )}
-          />
-          
+                  {errors.bin_id && <Text color="red">{errors.bin_id.message}</Text>}
+                </Box>
+              )}
+            />
+            :
+            <Controller
+              name="loc_id"
+              control={control}
+              defaultValue={null} // first render is null
+              render={({ field }) => (
+                <Box maxWidth="250px">
+                  <Select.Root
+                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                    disabled={isSubmiting}
+                  >
+                    <Select.Trigger placeholder="Select location" />
+
+                    <Select.Content>
+                      <Select.Group>
+                        <Select.Item value="null">Unassigned</Select.Item>
+                        {locations?.map((loc) => (
+                          <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
+                            {loc.loc_name}
+                          </Select.Item>
+                        ))}
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                  {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
+                </Box>
+              )}
+            />
+
+          }
+
+
 
 
 

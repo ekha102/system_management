@@ -13,7 +13,7 @@ const InventoryList = async () => {
     where: {inv_status: "Active"},
     include: { bin: true, location: true },
   });
-  console.log("Inventory Items:", items);
+  // console.log("Inventory Items:", items);
   
 
 

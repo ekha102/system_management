@@ -5,6 +5,7 @@ import FormInventory from './FormInventory';
 
 
 
+
 const CreateItem = async () => {
 
  
@@ -15,6 +16,7 @@ const CreateItem = async () => {
   return (
     <>
       <FormInventory bins={bins} locations={locations} />
+      
     </>
   )
 }

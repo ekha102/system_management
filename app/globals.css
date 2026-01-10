@@ -2,6 +2,7 @@
 @import "@radix-ui/themes/styles.css";
 @import "easymde/dist/easymde.min.css";
 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
