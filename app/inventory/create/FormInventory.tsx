@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch } from '@radix-ui/themes';
 import { Bin, Location } from '@/app/generated/prisma';
-import SwitchBin from './SwitchBin';
 
 
 
@@ -26,13 +25,15 @@ interface Props {
 }
 
 
+
 const FormInventory = ({ bins, locations }: Props) => {
 
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const router = useRouter();
+  const checkedBin = watch("checkedBin");
 
-  const [checkedBin, setCheckedBin] = useState(false);
+  // const [checkedBin, setCheckedBin] = useState(false);
   // console.log("Bin Passed to form: ", bins);
   // console.log("Location Passed to form: ", locations);
 
@@ -47,7 +48,8 @@ const FormInventory = ({ bins, locations }: Props) => {
     // console.log("submit: ", values);
     // axios.post('/xapi/inventory', values);
     // Added try catch for error handling
-    console.log("checkedBin:", values.checkedBin);
+    // console.log("checkedBin:", values.checkedBin);
+    console.log("Values in Submit: ", values);
 
     try {
       await axios.post('/api/inventory', values);
@@ -83,78 +85,93 @@ const FormInventory = ({ bins, locations }: Props) => {
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
           </Box>
 
+          {/* Insert the new Switch Button here  */}
+          <Flex align="center" justify="between" gap="3">
+            <Text weight={!checkedBin ? "bold" : "regular"}>Location</Text>
 
-          <SwitchBin checkedBin={checkedBin} setCheckedBin={setCheckedBin} setCheckedBin={(value) => {setCheckedBin(value);
-          setValue("checkedBin", value);   // 👈 push to RHF
-          }} />
-
-          {checkedBin ?
             <Controller
-              name="bin_id"
+              name="checkedBin"
               control={control}
-              defaultValue={null} // first render is null
+              defaultValue={false}
               render={({ field }) => (
-                <Box maxWidth="250px">
-                  <Select.Root
-                    // If field.value is null, show "" in the select; otherwise convert number to string
-                    // value={field.value ? String(field.value) : ""}
-
-                    // When user selects something:
-                    // - if they choose the empty option, store null
-                    // - otherwise convert the selected string back to a number
-                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                    disabled={isSubmiting}
-                  >
-                    <Select.Trigger placeholder="Select bin" />
-
-                    <Select.Content>
-                      <Select.Group>
-                        {/* Unassigned option */}
-                        <Select.Item value="null">Unassigned</Select.Item>
-
-                        {bins.map((bin) => (
-                          <Select.Item key={bin.bin_id} value={String(bin.bin_id)}>
-                            {bin.bin_name}_{bin.bin_id}
-                          </Select.Item>
-                        ))}
-                      </Select.Group>
-                    </Select.Content>
-                  </Select.Root>
-
-                  {errors.bin_id && <Text color="red">{errors.bin_id.message}</Text>}
-                </Box>
-              )}
-            />
-            :
-            <Controller
-              name="loc_id"
-              control={control}
-              defaultValue={null} // first render is null
-              render={({ field }) => (
-                <Box maxWidth="250px">
-                  <Select.Root
-                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                    disabled={isSubmiting}
-                  >
-                    <Select.Trigger placeholder="Select location" />
-
-                    <Select.Content>
-                      <Select.Group>
-                        <Select.Item value="null">Unassigned</Select.Item>
-                        {locations?.map((loc) => (
-                          <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
-                            {loc.loc_name}
-                          </Select.Item>
-                        ))}
-                      </Select.Group>
-                    </Select.Content>
-                  </Select.Root>
-                  {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
-                </Box>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange} // ✅ Must use onCheckedChange
+                />
               )}
             />
 
-          }
+            <Text weight={checkedBin ? "bold" : "regular"}>Bin</Text>
+          </Flex>
+
+
+
+          <Controller
+            name="bin_id"
+            control={control}
+            defaultValue={null} // first render is null
+            render={({ field }) => (
+              <Box maxWidth="250px">
+                <Select.Root
+                  // If field.value is null, show "" in the select; otherwise convert number to string
+                  // value={field.value ? String(field.value) : ""}
+
+                  // When user selects something:
+                  // - if they choose the empty option, store null
+                  // - otherwise convert the selected string back to a number
+                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                  disabled={isSubmiting}
+                >
+                  <Select.Trigger placeholder="Select bin" />
+
+                  <Select.Content>
+                    <Select.Group>
+                      {/* Unassigned option */}
+                      <Select.Item value="null">Unassigned</Select.Item>
+
+                      {bins.map((bin) => (
+                        <Select.Item key={bin.bin_id} value={String(bin.bin_id)}>
+                          {bin.bin_name}_{bin.bin_id}
+                        </Select.Item>
+                      ))}
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+
+                {errors.bin_id && <Text color="red">{errors.bin_id.message}</Text>}
+              </Box>
+            )}
+          />
+
+          <Controller
+            name="loc_id"
+            control={control}
+            defaultValue={null} // first render is null
+            render={({ field }) => (
+              <Box maxWidth="250px">
+                <Select.Root
+                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                  disabled={isSubmiting}
+                >
+                  <Select.Trigger placeholder="Select location" />
+
+                  <Select.Content>
+                    <Select.Group>
+                      <Select.Item value="null">Unassigned</Select.Item>
+                      {locations?.map((loc) => (
+                        <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
+                          {loc.loc_name}
+                        </Select.Item>
+                      ))}
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+                {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
+              </Box>
+            )}
+          />
+
+
 
 
 
@@ -172,3 +189,11 @@ const FormInventory = ({ bins, locations }: Props) => {
 }
 
 export default FormInventory
+
+function watch(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+function useWatch(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+
