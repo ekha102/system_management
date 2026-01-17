@@ -31,28 +31,34 @@ const FormInventory = ({ bins, locations }: Props) => {
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const router = useRouter();
-  const checkedBin = watch("checkedBin");
+
 
   // const [checkedBin, setCheckedBin] = useState(false);
+
   // console.log("Bin Passed to form: ", bins);
   // console.log("Location Passed to form: ", locations);
 
 
-  const { register, control, handleSubmit, setValue, formState: { errors } } = useForm<ItemForm>({
-    resolver: zodResolver(ValidationInventoryCreateItem),
-  });
+  const { register, control, handleSubmit, formState: { errors } } = useForm<ItemForm>({
+  resolver: zodResolver(ValidationInventoryCreateItem),
+  defaultValues: {
+    bin_id: null,
+    loc_id: null,
+    checkedBin: false,
+  },
+});
 
 
 
   const onSubmit = async (values: ItemForm) => {
-    // console.log("submit: ", values);
+    console.log("submit: ", values);
     // axios.post('/xapi/inventory', values);
     // Added try catch for error handling
     // console.log("checkedBin:", values.checkedBin);
-    console.log("Values in Submit: ", values);
+    // console.log("Values in Submit: ", values);
 
     try {
-      await axios.post('/api/inventory', values);
+      await axios.post('/xapi/inventory', values);
       setIsSubmiting(true);
       router.push('/inventory');
     } catch (error) {
@@ -85,24 +91,25 @@ const FormInventory = ({ bins, locations }: Props) => {
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
           </Box>
 
-          {/* Insert the new Switch Button here  */}
-          <Flex align="center" justify="between" gap="3">
-            <Text weight={!checkedBin ? "bold" : "regular"}>Location</Text>
 
-            <Controller
-              name="checkedBin"
-              control={control}
-              defaultValue={false}
-              render={({ field }) => (
+
+          {/* Insert the new Switch Button here  */}
+          {/* <Controller
+            name="checkedBin"
+            control={control}
+            render={({ field }) => (
+              <Flex align="center" gap="3">
+                <Text>Need Bin?</Text>
                 <Switch
                   checked={field.value}
-                  onCheckedChange={field.onChange} // ✅ Must use onCheckedChange
+                  onCheckedChange={(val) => {
+                    field.onChange(val);
+                    // setCheckedBin(val);   // 👈 sync local state
+                  }}
                 />
-              )}
-            />
-
-            <Text weight={checkedBin ? "bold" : "regular"}>Bin</Text>
-          </Flex>
+              </Flex>
+            )}
+          /> */}
 
 
 
@@ -142,7 +149,6 @@ const FormInventory = ({ bins, locations }: Props) => {
               </Box>
             )}
           />
-
           <Controller
             name="loc_id"
             control={control}
@@ -179,6 +185,17 @@ const FormInventory = ({ bins, locations }: Props) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
           <Box>
             <Button disabled={isSubmiting} type="submit">{isSubmiting && <Spinner />}Submit</Button>
           </Box>
@@ -188,12 +205,4 @@ const FormInventory = ({ bins, locations }: Props) => {
   )
 }
 
-export default FormInventory
-
-function watch(arg0: string) {
-  throw new Error('Function not implemented.');
-}
-function useWatch(arg0: string) {
-  throw new Error('Function not implemented.');
-}
-
+export default FormInventory;
