@@ -16,6 +16,7 @@ interface ItemForm {
   inv_desc: string;
   inv_quantity: number;
   bin_id: number | null;
+  loc_id: number | null;
   checkedBin: boolean;    //Add Check Bin
 }
 
@@ -30,7 +31,9 @@ const FormInventory = ({ bins, locations }: Props) => {
 
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isEnabledBin, setEnabledBin] = useState(false)
   const router = useRouter();
+  console.log("current state of isEnabledBin: ", isEnabledBin);
 
 
   // const [checkedBin, setCheckedBin] = useState(false);
@@ -40,25 +43,30 @@ const FormInventory = ({ bins, locations }: Props) => {
 
 
   const { register, control, handleSubmit, formState: { errors } } = useForm<ItemForm>({
-  resolver: zodResolver(ValidationInventoryCreateItem)
+    resolver: zodResolver(ValidationInventoryCreateItem),
+    defaultValues: {
+      checkedBin: false, // 👈 switch default OFF
+    },
   });
 
 
   const onSubmit = async (values: ItemForm) => {
-    console.log("submit: ", values);
-    // axios.post('/xapi/inventory', values);
-    // Added try catch for error handling
-    // console.log("checkedBin:", values.checkedBin);
-    // console.log("Values in Submit: ", values);
+    console.log("current state of isEnabledBin in submiting : ", isEnabledBin);
+    console.log("Switch value:", values.checkedBin);
 
-    // try {
-    //   await axios.post('/xapi/inventory', values);
-    //   setIsSubmiting(true);
-    //   router.push('/inventory');
-    // } catch (error) {
-    //   setIsErrorApi("Error occurred while creating item.");
-    //   setIsSubmiting(false);
-    // }
+    const payload = {
+      ...values,
+      isBinEnabled: values.checkedBin, // true / false
+    };
+
+    try {
+      await axios.post('/api/inventory', payload);
+      setIsSubmiting(true);
+      router.push('/inventory');
+    } catch (error) {
+      setIsErrorApi("Error occurred while creating item.");
+      setIsSubmiting(false);
+    }
   }
 
   return (
@@ -92,22 +100,29 @@ const FormInventory = ({ bins, locations }: Props) => {
             name="checkedBin"
             control={control}
             render={({ field }) => (
-              <Flex align="center" gap="3">
-                <Text>Need Bin?</Text>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={(val) => {
-                    field.onChange(val);
-                    // setCheckedBin(val);   // 👈 sync local state
-                  }}
-                />
-              </Flex>
+              <Switch
+                checked={field.value}
+                onCheckedChange={field.onChange}
+              />
             )}
           /> */}
 
-
-
           <Controller
+            name="checkedBin"
+            control={control}
+            defaultValue={false}
+            render={({ field }) => (
+              <Switch
+                checked={isEnabledBin}
+                onCheckedChange={(checked) => {
+                  setEnabledBin(checked);
+                  field.onChange(checked);
+                }}
+              />
+            )}
+          />
+
+          {isEnabledBin ? <Controller
             name="bin_id"
             control={control}
             defaultValue={null} // first render is null
@@ -143,33 +158,41 @@ const FormInventory = ({ bins, locations }: Props) => {
               </Box>
             )}
           />
-          <Controller
-            name="loc_id"
-            control={control}
-            defaultValue={null} // first render is null
-            render={({ field }) => (
-              <Box maxWidth="250px">
-                <Select.Root
-                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                  disabled={isSubmiting}
-                >
-                  <Select.Trigger placeholder="Select location" />
+            :
+            <Controller
+              name="loc_id"
+              control={control}
+              defaultValue={null} // first render is null
+              render={({ field }) => (
+                <Box maxWidth="250px">
+                  <Select.Root
+                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                    disabled={isSubmiting}
+                  >
+                    <Select.Trigger placeholder="Select location" />
 
-                  <Select.Content>
-                    <Select.Group>
-                      <Select.Item value="null">Unassigned</Select.Item>
-                      {locations?.map((loc) => (
-                        <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
-                          {loc.loc_name}
-                        </Select.Item>
-                      ))}
-                    </Select.Group>
-                  </Select.Content>
-                </Select.Root>
-                {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
-              </Box>
-            )}
-          />
+                    <Select.Content>
+                      <Select.Group>
+                        <Select.Item value="null">Unassigned</Select.Item>
+                        {locations?.map((loc) => (
+                          <Select.Item key={loc.loc_id} value={String(loc.loc_id)}>
+                            {loc.loc_name}
+                          </Select.Item>
+                        ))}
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                  {errors.loc_id && <Text color="red">{errors.loc_id.message}</Text>}
+                </Box>
+              )}
+            />
+          }
+
+
+
+
+
+
 
 
 

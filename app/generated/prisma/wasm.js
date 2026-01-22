@@ -144,6 +144,7 @@ exports.Prisma.InventoryScalarFieldEnum = {
   inv_status: 'inv_status',
   inv_createdAt: 'inv_createdAt',
   inv_updatedAt: 'inv_updatedAt',
+  checkedBin: 'checkedBin',
   bin_id: 'bin_id',
   loc_id: 'loc_id'
 };

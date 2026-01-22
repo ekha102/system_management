@@ -3117,6 +3117,7 @@ export namespace Prisma {
     inv_status: $Enums.InventoryStatus | null
     inv_createdAt: Date | null
     inv_updatedAt: Date | null
+    checkedBin: boolean | null
     bin_id: number | null
     loc_id: number | null
   }
@@ -3129,6 +3130,7 @@ export namespace Prisma {
     inv_status: $Enums.InventoryStatus | null
     inv_createdAt: Date | null
     inv_updatedAt: Date | null
+    checkedBin: boolean | null
     bin_id: number | null
     loc_id: number | null
   }
@@ -3141,6 +3143,7 @@ export namespace Prisma {
     inv_status: number
     inv_createdAt: number
     inv_updatedAt: number
+    checkedBin: number
     bin_id: number
     loc_id: number
     _all: number
@@ -3169,6 +3172,7 @@ export namespace Prisma {
     inv_status?: true
     inv_createdAt?: true
     inv_updatedAt?: true
+    checkedBin?: true
     bin_id?: true
     loc_id?: true
   }
@@ -3181,6 +3185,7 @@ export namespace Prisma {
     inv_status?: true
     inv_createdAt?: true
     inv_updatedAt?: true
+    checkedBin?: true
     bin_id?: true
     loc_id?: true
   }
@@ -3193,6 +3198,7 @@ export namespace Prisma {
     inv_status?: true
     inv_createdAt?: true
     inv_updatedAt?: true
+    checkedBin?: true
     bin_id?: true
     loc_id?: true
     _all?: true
@@ -3292,6 +3298,7 @@ export namespace Prisma {
     inv_status: $Enums.InventoryStatus
     inv_createdAt: Date
     inv_updatedAt: Date
+    checkedBin: boolean | null
     bin_id: number | null
     loc_id: number | null
     _count: InventoryCountAggregateOutputType | null
@@ -3323,6 +3330,7 @@ export namespace Prisma {
     inv_status?: boolean
     inv_createdAt?: boolean
     inv_updatedAt?: boolean
+    checkedBin?: boolean
     bin_id?: boolean
     loc_id?: boolean
     bin?: boolean | Inventory$binArgs<ExtArgs>
@@ -3339,11 +3347,12 @@ export namespace Prisma {
     inv_status?: boolean
     inv_createdAt?: boolean
     inv_updatedAt?: boolean
+    checkedBin?: boolean
     bin_id?: boolean
     loc_id?: boolean
   }
 
-  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "bin_id" | "loc_id", ExtArgs["result"]["inventory"]>
+  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id", ExtArgs["result"]["inventory"]>
   export type InventoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bin?: boolean | Inventory$binArgs<ExtArgs>
     location?: boolean | Inventory$locationArgs<ExtArgs>
@@ -3363,6 +3372,7 @@ export namespace Prisma {
       inv_status: $Enums.InventoryStatus
       inv_createdAt: Date
       inv_updatedAt: Date
+      checkedBin: boolean | null
       bin_id: number | null
       loc_id: number | null
     }, ExtArgs["result"]["inventory"]>
@@ -3743,6 +3753,7 @@ export namespace Prisma {
     readonly inv_status: FieldRef<"Inventory", 'InventoryStatus'>
     readonly inv_createdAt: FieldRef<"Inventory", 'DateTime'>
     readonly inv_updatedAt: FieldRef<"Inventory", 'DateTime'>
+    readonly checkedBin: FieldRef<"Inventory", 'Boolean'>
     readonly bin_id: FieldRef<"Inventory", 'Int'>
     readonly loc_id: FieldRef<"Inventory", 'Int'>
   }
@@ -4188,6 +4199,7 @@ export namespace Prisma {
     inv_status: 'inv_status',
     inv_createdAt: 'inv_createdAt',
     inv_updatedAt: 'inv_updatedAt',
+    checkedBin: 'checkedBin',
     bin_id: 'bin_id',
     loc_id: 'loc_id'
   };
@@ -4265,6 +4277,13 @@ export namespace Prisma {
    * Reference to a field of type 'InventoryStatus'
    */
   export type EnumInventoryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4405,6 +4424,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
+    checkedBin?: BoolNullableFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableFilter<"Inventory"> | number | null
     loc_id?: IntNullableFilter<"Inventory"> | number | null
     bin?: XOR<BinNullableScalarRelationFilter, BinWhereInput> | null
@@ -4419,6 +4439,7 @@ export namespace Prisma {
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
+    checkedBin?: SortOrderInput | SortOrder
     bin_id?: SortOrderInput | SortOrder
     loc_id?: SortOrderInput | SortOrder
     bin?: BinOrderByWithRelationInput
@@ -4437,6 +4458,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
+    checkedBin?: BoolNullableFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableFilter<"Inventory"> | number | null
     loc_id?: IntNullableFilter<"Inventory"> | number | null
     bin?: XOR<BinNullableScalarRelationFilter, BinWhereInput> | null
@@ -4451,6 +4473,7 @@ export namespace Prisma {
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
+    checkedBin?: SortOrderInput | SortOrder
     bin_id?: SortOrderInput | SortOrder
     loc_id?: SortOrderInput | SortOrder
     _count?: InventoryCountOrderByAggregateInput
@@ -4471,6 +4494,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusWithAggregatesFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
+    checkedBin?: BoolNullableWithAggregatesFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
     loc_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
   }
@@ -4596,6 +4620,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     bin?: BinCreateNestedOneWithoutInventoriesInput
     location?: LocationCreateNestedOneWithoutInventoriesInput
   }
@@ -4608,6 +4633,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     bin_id?: number | null
     loc_id?: number | null
   }
@@ -4619,6 +4645,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin?: BinUpdateOneWithoutInventoriesNestedInput
     location?: LocationUpdateOneWithoutInventoriesNestedInput
   }
@@ -4631,6 +4658,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -4643,6 +4671,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     bin_id?: number | null
     loc_id?: number | null
   }
@@ -4654,6 +4683,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type InventoryUncheckedUpdateManyInput = {
@@ -4664,6 +4694,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
@@ -4884,6 +4915,11 @@ export namespace Prisma {
     not?: NestedEnumInventoryStatusFilter<$PrismaModel> | $Enums.InventoryStatus
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | null
@@ -4919,6 +4955,7 @@ export namespace Prisma {
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
+    checkedBin?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
   }
@@ -4938,6 +4975,7 @@ export namespace Prisma {
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
+    checkedBin?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
   }
@@ -4950,6 +4988,7 @@ export namespace Prisma {
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
+    checkedBin?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
   }
@@ -4969,6 +5008,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumInventoryStatusFilter<$PrismaModel>
     _max?: NestedEnumInventoryStatusFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5105,6 +5152,10 @@ export namespace Prisma {
 
   export type EnumInventoryStatusFieldUpdateOperationsInput = {
     set?: $Enums.InventoryStatus
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type BinUpdateOneWithoutInventoriesNestedInput = {
@@ -5282,6 +5333,11 @@ export namespace Prisma {
     not?: NestedEnumInventoryStatusFilter<$PrismaModel> | $Enums.InventoryStatus
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedEnumInventoryStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.InventoryStatus | EnumInventoryStatusFieldRefInput<$PrismaModel>
     in?: $Enums.InventoryStatus[]
@@ -5290,6 +5346,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumInventoryStatusFilter<$PrismaModel>
     _max?: NestedEnumInventoryStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5326,6 +5390,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     bin?: BinCreateNestedOneWithoutInventoriesInput
   }
 
@@ -5337,6 +5402,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     bin_id?: number | null
   }
 
@@ -5377,6 +5443,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
+    checkedBin?: BoolNullableFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableFilter<"Inventory"> | number | null
     loc_id?: IntNullableFilter<"Inventory"> | number | null
   }
@@ -5388,6 +5455,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     location?: LocationCreateNestedOneWithoutInventoriesInput
   }
 
@@ -5399,6 +5467,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     loc_id?: number | null
   }
 
@@ -5528,6 +5597,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     bin_id?: number | null
   }
 
@@ -5538,6 +5608,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin?: BinUpdateOneWithoutInventoriesNestedInput
   }
 
@@ -5549,6 +5620,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -5560,6 +5632,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -5571,6 +5644,7 @@ export namespace Prisma {
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
     loc_id?: number | null
   }
 
@@ -5581,6 +5655,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     location?: LocationUpdateOneWithoutInventoriesNestedInput
   }
 
@@ -5592,6 +5667,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -5603,6 +5679,7 @@ export namespace Prisma {
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 

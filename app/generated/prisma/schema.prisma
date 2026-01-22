@@ -46,9 +46,9 @@ model Inventory {
   inv_status    InventoryStatus @default(Active)
   inv_createdAt DateTime        @default(now())
   inv_updatedAt DateTime        @updatedAt
-
-  bin_id   Int?
-  bin      Bin?      @relation(fields: [bin_id], references: [bin_id])
-  loc_id   Int?
-  location Location? @relation(fields: [loc_id], references: [loc_id])
+  checkedBin    Boolean?        @default(false) // 👈 NEW FIELD (safe)
+  bin_id        Int?
+  bin           Bin?            @relation(fields: [bin_id], references: [bin_id])
+  loc_id        Int?
+  location      Location?       @relation(fields: [loc_id], references: [loc_id])
 }
