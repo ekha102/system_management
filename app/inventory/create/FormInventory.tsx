@@ -40,14 +40,8 @@ const FormInventory = ({ bins, locations }: Props) => {
 
 
   const { register, control, handleSubmit, formState: { errors } } = useForm<ItemForm>({
-  resolver: zodResolver(ValidationInventoryCreateItem),
-  defaultValues: {
-    bin_id: null,
-    loc_id: null,
-    checkedBin: false,
-  },
-});
-
+  resolver: zodResolver(ValidationInventoryCreateItem)
+  });
 
 
   const onSubmit = async (values: ItemForm) => {
@@ -57,14 +51,14 @@ const FormInventory = ({ bins, locations }: Props) => {
     // console.log("checkedBin:", values.checkedBin);
     // console.log("Values in Submit: ", values);
 
-    try {
-      await axios.post('/xapi/inventory', values);
-      setIsSubmiting(true);
-      router.push('/inventory');
-    } catch (error) {
-      setIsErrorApi("Error occurred while creating item.");
-      setIsSubmiting(false);
-    }
+    // try {
+    //   await axios.post('/xapi/inventory', values);
+    //   setIsSubmiting(true);
+    //   router.push('/inventory');
+    // } catch (error) {
+    //   setIsErrorApi("Error occurred while creating item.");
+    //   setIsSubmiting(false);
+    // }
   }
 
   return (
