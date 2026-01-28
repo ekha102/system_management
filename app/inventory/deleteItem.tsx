@@ -1,5 +1,5 @@
 "use client";
-import { Button } from '@radix-ui/themes'
+import { Button, Spinner } from '@radix-ui/themes'
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
@@ -24,7 +24,7 @@ const ButtonDeleteItem =  ({itemId}: Props) => {
   }
 
   return (
-    <Button disabled={isDeleting} color='red' size="1" onClick={()=>handleDelete(itemId)}>Del</Button>
+    <Button disabled={isDeleting} color='red' size="1" onClick={()=>handleDelete(itemId)}>{isDeleting && <Spinner /> }Del</Button>
   )
 }
 

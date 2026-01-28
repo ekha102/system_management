@@ -33,7 +33,7 @@ const FormInventory = ({ bins, locations }: Props) => {
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [isEnabledBin, setEnabledBin] = useState(false)
   const router = useRouter();
-  console.log("current state of isEnabledBin: ", isEnabledBin);
+  // console.log("current state of isEnabledBin: ", isEnabledBin);
 
 
   // const [checkedBin, setCheckedBin] = useState(false);
@@ -51,8 +51,8 @@ const FormInventory = ({ bins, locations }: Props) => {
 
 
   const onSubmit = async (values: ItemForm) => {
-    console.log("current state of isEnabledBin in submiting : ", isEnabledBin);
-    console.log("Switch value:", values.checkedBin);
+    // console.log("current state of isEnabledBin in submiting : ", isEnabledBin);
+    // console.log("Switch value:", values.checkedBin);
 
     const payload = {
       ...values,
@@ -110,7 +110,7 @@ const FormInventory = ({ bins, locations }: Props) => {
           <Controller
             name="checkedBin"
             control={control}
-            defaultValue={false}
+            // defaultValue={false}
             render={({ field }) => (
               <Switch
                 checked={isEnabledBin}
@@ -187,28 +187,6 @@ const FormInventory = ({ bins, locations }: Props) => {
               )}
             />
           }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

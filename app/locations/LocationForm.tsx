@@ -31,7 +31,7 @@ const LocationForm = ({ open, setOpen, locIdDetail }: Props) => {
   console.log("Location Id Detail: ", locIdDetail);
   const { loc_id, loc_name, loc_desc } = locIdDetail || {}
 
-  // const [isSubmitting, setIsSubmiting] = useState(false);
+  // const [isSubmiting, setIsSubmiting] = useState(false);
 
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<IFormInput>({

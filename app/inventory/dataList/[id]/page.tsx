@@ -17,6 +17,7 @@ const ItemDataDetail = async ({ params }: Props) => {
   const items = await prisma.inventory.findUnique({
     where: { inv_id: Number(id) },
   });
+  
 
   // if (!items) Loading();
 

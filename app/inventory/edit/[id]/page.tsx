@@ -13,19 +13,32 @@ interface Props {
 
 const EditIventoryItem = async ({ params }: Props) => {
   // console.log("Get Id:", params.id);
-  const {id} = params;
+  const { id } = params;
 
 
   const productItem = await prisma.inventory.findUnique({
-    where: { inv_id: parseInt(id) }
-  })
+    where: {
+      inv_id: parseInt(id),
+    },
+    include: {
+      bin: true,
+      location: true,
+    },
+  });
+
+
+
 
   if (!productItem) notFound();
 
-  
+  const bins = await prisma.bin.findMany();
+  const locations = await prisma.location.findMany();
+
+
+
 
   return (
-    <EditForm productItem={productItem} />
+    <EditForm productItem={productItem} bins={bins} locations={locations} />
   )
 }
 
