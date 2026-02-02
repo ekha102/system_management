@@ -15,23 +15,31 @@ datasource db {
 }
 
 model Location {
-  loc_id Int @id @default(autoincrement())
-  loc_name String
-  loc_desc String?
-  loc_createdAt DateTime @default(now())
-  loc_updatedAt DateTime @updatedAt
-  inventories Inventory[] // One Location → Many Inventory
+  loc_id        Int         @id @default(autoincrement())
+  loc_name      String
+  loc_desc      String?
+  loc_createdAt DateTime    @default(now())
+  loc_updatedAt DateTime    @updatedAt
+  inventories   Inventory[] // One Location → Many Inventory
 }
 
-
 model Bin {
-  bin_id        Int         @id @default(autoincrement())
+  bin_id        Int      @id @default(autoincrement())
   bin_name      String
   bin_desc      String?
-  bin_createdAt DateTime    @default(now())
-  bin_updatedAt DateTime    @updatedAt
+  bin_createdAt DateTime @default(now())
+  bin_updatedAt DateTime @updatedAt
 
-  inventories   Inventory[] // One Bin → Many Inventory
+  inventories Inventory[] // One Bin → Many Inventory
+}
+
+model Store {
+  store_id        Int         @id @default(autoincrement())
+  store_name      String
+  store_desc      String?
+  store_createdAt DateTime    @default(now())
+  store_updatedAt DateTime    @updatedAt
+  inventories     Inventory[] // One Store → Many Inventory
 }
 
 enum InventoryStatus {
@@ -39,19 +47,20 @@ enum InventoryStatus {
   Inactive
 }
 
-
 model Inventory {
-  inv_id        Int      @id @default(autoincrement())
+  inv_id        Int             @id @default(autoincrement())
   inv_name      String
   inv_desc      String?
-  inv_quantity  Int      @default(0)
+  inv_quantity  Int             @default(0)
   inv_status    InventoryStatus @default(Active)
-  inv_createdAt DateTime @default(now())
-  inv_updatedAt DateTime @updatedAt
-  checkedBin   Boolean? @default(false) // 👈 NEW FIELD (safe)
-  bin_id Int?
-  bin    Bin? @relation(fields: [bin_id], references: [bin_id])
-  loc_id Int?
-  location Location? @relation(fields: [loc_id], references: [loc_id])
-}
+  inv_createdAt DateTime        @default(now())
+  inv_updatedAt DateTime        @updatedAt
+  checkedBin    Boolean?        @default(false) // 👈 NEW FIELD (safe)
+  bin_id        Int?
+  loc_id        Int?
+  store_id      Int?
 
+  bin      Bin?      @relation(fields: [bin_id], references: [bin_id])
+  location Location? @relation(fields: [loc_id], references: [loc_id])
+  store    Store?    @relation(fields: [store_id], references: [store_id])
+}

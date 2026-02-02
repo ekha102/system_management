@@ -33,6 +33,15 @@ model Bin {
   inventories Inventory[] // One Bin → Many Inventory
 }
 
+model Store {
+  store_id        Int         @id @default(autoincrement())
+  store_name      String
+  store_desc      String?
+  store_createdAt DateTime    @default(now())
+  store_updatedAt DateTime    @updatedAt
+  inventories     Inventory[] // One Store → Many Inventory
+}
+
 enum InventoryStatus {
   Active
   Inactive
@@ -48,7 +57,10 @@ model Inventory {
   inv_updatedAt DateTime        @updatedAt
   checkedBin    Boolean?        @default(false) // 👈 NEW FIELD (safe)
   bin_id        Int?
-  bin           Bin?            @relation(fields: [bin_id], references: [bin_id])
   loc_id        Int?
-  location      Location?       @relation(fields: [loc_id], references: [loc_id])
+  store_id      Int?
+
+  bin      Bin?      @relation(fields: [bin_id], references: [bin_id])
+  location Location? @relation(fields: [loc_id], references: [loc_id])
+  store    Store?    @relation(fields: [store_id], references: [store_id])
 }

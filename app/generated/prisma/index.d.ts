@@ -24,6 +24,11 @@ export type Location = $Result.DefaultSelection<Prisma.$LocationPayload>
  */
 export type Bin = $Result.DefaultSelection<Prisma.$BinPayload>
 /**
+ * Model Store
+ * 
+ */
+export type Store = $Result.DefaultSelection<Prisma.$StorePayload>
+/**
  * Model Inventory
  * 
  */
@@ -190,6 +195,16 @@ export class PrismaClient<
     * ```
     */
   get bin(): Prisma.BinDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.store`: Exposes CRUD operations for the **Store** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Stores
+    * const stores = await prisma.store.findMany()
+    * ```
+    */
+  get store(): Prisma.StoreDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.inventory`: Exposes CRUD operations for the **Inventory** model.
@@ -642,6 +657,7 @@ export namespace Prisma {
   export const ModelName: {
     Location: 'Location',
     Bin: 'Bin',
+    Store: 'Store',
     Inventory: 'Inventory'
   };
 
@@ -661,7 +677,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "location" | "bin" | "inventory"
+      modelProps: "location" | "bin" | "store" | "inventory"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -794,6 +810,72 @@ export namespace Prisma {
           count: {
             args: Prisma.BinCountArgs<ExtArgs>
             result: $Utils.Optional<BinCountAggregateOutputType> | number
+          }
+        }
+      }
+      Store: {
+        payload: Prisma.$StorePayload<ExtArgs>
+        fields: Prisma.StoreFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StoreFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StoreFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>
+          }
+          findFirst: {
+            args: Prisma.StoreFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StoreFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>
+          }
+          findMany: {
+            args: Prisma.StoreFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>[]
+          }
+          create: {
+            args: Prisma.StoreCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>
+          }
+          createMany: {
+            args: Prisma.StoreCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.StoreDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>
+          }
+          update: {
+            args: Prisma.StoreUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>
+          }
+          deleteMany: {
+            args: Prisma.StoreDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StoreUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.StoreUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StorePayload>
+          }
+          aggregate: {
+            args: Prisma.StoreAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStore>
+          }
+          groupBy: {
+            args: Prisma.StoreGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StoreGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StoreCountArgs<ExtArgs>
+            result: $Utils.Optional<StoreCountAggregateOutputType> | number
           }
         }
       }
@@ -949,6 +1031,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     location?: LocationOmit
     bin?: BinOmit
+    store?: StoreOmit
     inventory?: InventoryOmit
   }
 
@@ -1097,6 +1180,37 @@ export namespace Prisma {
    * BinCountOutputType without action
    */
   export type BinCountOutputTypeCountInventoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryWhereInput
+  }
+
+
+  /**
+   * Count Type StoreCountOutputType
+   */
+
+  export type StoreCountOutputType = {
+    inventories: number
+  }
+
+  export type StoreCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inventories?: boolean | StoreCountOutputTypeCountInventoriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StoreCountOutputType
+     */
+    select?: StoreCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StoreCountOutputType without action
+   */
+  export type StoreCountOutputTypeCountInventoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InventoryWhereInput
   }
 
@@ -3084,6 +3198,995 @@ export namespace Prisma {
 
 
   /**
+   * Model Store
+   */
+
+  export type AggregateStore = {
+    _count: StoreCountAggregateOutputType | null
+    _avg: StoreAvgAggregateOutputType | null
+    _sum: StoreSumAggregateOutputType | null
+    _min: StoreMinAggregateOutputType | null
+    _max: StoreMaxAggregateOutputType | null
+  }
+
+  export type StoreAvgAggregateOutputType = {
+    store_id: number | null
+  }
+
+  export type StoreSumAggregateOutputType = {
+    store_id: number | null
+  }
+
+  export type StoreMinAggregateOutputType = {
+    store_id: number | null
+    store_name: string | null
+    store_desc: string | null
+    store_createdAt: Date | null
+    store_updatedAt: Date | null
+  }
+
+  export type StoreMaxAggregateOutputType = {
+    store_id: number | null
+    store_name: string | null
+    store_desc: string | null
+    store_createdAt: Date | null
+    store_updatedAt: Date | null
+  }
+
+  export type StoreCountAggregateOutputType = {
+    store_id: number
+    store_name: number
+    store_desc: number
+    store_createdAt: number
+    store_updatedAt: number
+    _all: number
+  }
+
+
+  export type StoreAvgAggregateInputType = {
+    store_id?: true
+  }
+
+  export type StoreSumAggregateInputType = {
+    store_id?: true
+  }
+
+  export type StoreMinAggregateInputType = {
+    store_id?: true
+    store_name?: true
+    store_desc?: true
+    store_createdAt?: true
+    store_updatedAt?: true
+  }
+
+  export type StoreMaxAggregateInputType = {
+    store_id?: true
+    store_name?: true
+    store_desc?: true
+    store_createdAt?: true
+    store_updatedAt?: true
+  }
+
+  export type StoreCountAggregateInputType = {
+    store_id?: true
+    store_name?: true
+    store_desc?: true
+    store_createdAt?: true
+    store_updatedAt?: true
+    _all?: true
+  }
+
+  export type StoreAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Store to aggregate.
+     */
+    where?: StoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stores to fetch.
+     */
+    orderBy?: StoreOrderByWithRelationInput | StoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Stores
+    **/
+    _count?: true | StoreCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StoreAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StoreSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StoreMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StoreMaxAggregateInputType
+  }
+
+  export type GetStoreAggregateType<T extends StoreAggregateArgs> = {
+        [P in keyof T & keyof AggregateStore]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStore[P]>
+      : GetScalarType<T[P], AggregateStore[P]>
+  }
+
+
+
+
+  export type StoreGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StoreWhereInput
+    orderBy?: StoreOrderByWithAggregationInput | StoreOrderByWithAggregationInput[]
+    by: StoreScalarFieldEnum[] | StoreScalarFieldEnum
+    having?: StoreScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StoreCountAggregateInputType | true
+    _avg?: StoreAvgAggregateInputType
+    _sum?: StoreSumAggregateInputType
+    _min?: StoreMinAggregateInputType
+    _max?: StoreMaxAggregateInputType
+  }
+
+  export type StoreGroupByOutputType = {
+    store_id: number
+    store_name: string
+    store_desc: string | null
+    store_createdAt: Date
+    store_updatedAt: Date
+    _count: StoreCountAggregateOutputType | null
+    _avg: StoreAvgAggregateOutputType | null
+    _sum: StoreSumAggregateOutputType | null
+    _min: StoreMinAggregateOutputType | null
+    _max: StoreMaxAggregateOutputType | null
+  }
+
+  type GetStoreGroupByPayload<T extends StoreGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StoreGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StoreGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StoreGroupByOutputType[P]>
+            : GetScalarType<T[P], StoreGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StoreSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    store_id?: boolean
+    store_name?: boolean
+    store_desc?: boolean
+    store_createdAt?: boolean
+    store_updatedAt?: boolean
+    inventories?: boolean | Store$inventoriesArgs<ExtArgs>
+    _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["store"]>
+
+
+
+  export type StoreSelectScalar = {
+    store_id?: boolean
+    store_name?: boolean
+    store_desc?: boolean
+    store_createdAt?: boolean
+    store_updatedAt?: boolean
+  }
+
+  export type StoreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"store_id" | "store_name" | "store_desc" | "store_createdAt" | "store_updatedAt", ExtArgs["result"]["store"]>
+  export type StoreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    inventories?: boolean | Store$inventoriesArgs<ExtArgs>
+    _count?: boolean | StoreCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $StorePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Store"
+    objects: {
+      inventories: Prisma.$InventoryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      store_id: number
+      store_name: string
+      store_desc: string | null
+      store_createdAt: Date
+      store_updatedAt: Date
+    }, ExtArgs["result"]["store"]>
+    composites: {}
+  }
+
+  type StoreGetPayload<S extends boolean | null | undefined | StoreDefaultArgs> = $Result.GetResult<Prisma.$StorePayload, S>
+
+  type StoreCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StoreFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StoreCountAggregateInputType | true
+    }
+
+  export interface StoreDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Store'], meta: { name: 'Store' } }
+    /**
+     * Find zero or one Store that matches the filter.
+     * @param {StoreFindUniqueArgs} args - Arguments to find a Store
+     * @example
+     * // Get one Store
+     * const store = await prisma.store.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StoreFindUniqueArgs>(args: SelectSubset<T, StoreFindUniqueArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Store that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StoreFindUniqueOrThrowArgs} args - Arguments to find a Store
+     * @example
+     * // Get one Store
+     * const store = await prisma.store.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StoreFindUniqueOrThrowArgs>(args: SelectSubset<T, StoreFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Store that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreFindFirstArgs} args - Arguments to find a Store
+     * @example
+     * // Get one Store
+     * const store = await prisma.store.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StoreFindFirstArgs>(args?: SelectSubset<T, StoreFindFirstArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Store that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreFindFirstOrThrowArgs} args - Arguments to find a Store
+     * @example
+     * // Get one Store
+     * const store = await prisma.store.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StoreFindFirstOrThrowArgs>(args?: SelectSubset<T, StoreFindFirstOrThrowArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Stores that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Stores
+     * const stores = await prisma.store.findMany()
+     * 
+     * // Get first 10 Stores
+     * const stores = await prisma.store.findMany({ take: 10 })
+     * 
+     * // Only select the `store_id`
+     * const storeWithStore_idOnly = await prisma.store.findMany({ select: { store_id: true } })
+     * 
+     */
+    findMany<T extends StoreFindManyArgs>(args?: SelectSubset<T, StoreFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Store.
+     * @param {StoreCreateArgs} args - Arguments to create a Store.
+     * @example
+     * // Create one Store
+     * const Store = await prisma.store.create({
+     *   data: {
+     *     // ... data to create a Store
+     *   }
+     * })
+     * 
+     */
+    create<T extends StoreCreateArgs>(args: SelectSubset<T, StoreCreateArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Stores.
+     * @param {StoreCreateManyArgs} args - Arguments to create many Stores.
+     * @example
+     * // Create many Stores
+     * const store = await prisma.store.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StoreCreateManyArgs>(args?: SelectSubset<T, StoreCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Store.
+     * @param {StoreDeleteArgs} args - Arguments to delete one Store.
+     * @example
+     * // Delete one Store
+     * const Store = await prisma.store.delete({
+     *   where: {
+     *     // ... filter to delete one Store
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StoreDeleteArgs>(args: SelectSubset<T, StoreDeleteArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Store.
+     * @param {StoreUpdateArgs} args - Arguments to update one Store.
+     * @example
+     * // Update one Store
+     * const store = await prisma.store.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StoreUpdateArgs>(args: SelectSubset<T, StoreUpdateArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Stores.
+     * @param {StoreDeleteManyArgs} args - Arguments to filter Stores to delete.
+     * @example
+     * // Delete a few Stores
+     * const { count } = await prisma.store.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StoreDeleteManyArgs>(args?: SelectSubset<T, StoreDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Stores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Stores
+     * const store = await prisma.store.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StoreUpdateManyArgs>(args: SelectSubset<T, StoreUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Store.
+     * @param {StoreUpsertArgs} args - Arguments to update or create a Store.
+     * @example
+     * // Update or create a Store
+     * const store = await prisma.store.upsert({
+     *   create: {
+     *     // ... data to create a Store
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Store we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StoreUpsertArgs>(args: SelectSubset<T, StoreUpsertArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Stores.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreCountArgs} args - Arguments to filter Stores to count.
+     * @example
+     * // Count the number of Stores
+     * const count = await prisma.store.count({
+     *   where: {
+     *     // ... the filter for the Stores we want to count
+     *   }
+     * })
+    **/
+    count<T extends StoreCountArgs>(
+      args?: Subset<T, StoreCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StoreCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Store.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StoreAggregateArgs>(args: Subset<T, StoreAggregateArgs>): Prisma.PrismaPromise<GetStoreAggregateType<T>>
+
+    /**
+     * Group by Store.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StoreGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StoreGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StoreGroupByArgs['orderBy'] }
+        : { orderBy?: StoreGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StoreGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStoreGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Store model
+   */
+  readonly fields: StoreFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Store.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StoreClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    inventories<T extends Store$inventoriesArgs<ExtArgs> = {}>(args?: Subset<T, Store$inventoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Store model
+   */
+  interface StoreFieldRefs {
+    readonly store_id: FieldRef<"Store", 'Int'>
+    readonly store_name: FieldRef<"Store", 'String'>
+    readonly store_desc: FieldRef<"Store", 'String'>
+    readonly store_createdAt: FieldRef<"Store", 'DateTime'>
+    readonly store_updatedAt: FieldRef<"Store", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Store findUnique
+   */
+  export type StoreFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * Filter, which Store to fetch.
+     */
+    where: StoreWhereUniqueInput
+  }
+
+  /**
+   * Store findUniqueOrThrow
+   */
+  export type StoreFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * Filter, which Store to fetch.
+     */
+    where: StoreWhereUniqueInput
+  }
+
+  /**
+   * Store findFirst
+   */
+  export type StoreFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * Filter, which Store to fetch.
+     */
+    where?: StoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stores to fetch.
+     */
+    orderBy?: StoreOrderByWithRelationInput | StoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stores.
+     */
+    cursor?: StoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stores.
+     */
+    distinct?: StoreScalarFieldEnum | StoreScalarFieldEnum[]
+  }
+
+  /**
+   * Store findFirstOrThrow
+   */
+  export type StoreFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * Filter, which Store to fetch.
+     */
+    where?: StoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stores to fetch.
+     */
+    orderBy?: StoreOrderByWithRelationInput | StoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Stores.
+     */
+    cursor?: StoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stores.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Stores.
+     */
+    distinct?: StoreScalarFieldEnum | StoreScalarFieldEnum[]
+  }
+
+  /**
+   * Store findMany
+   */
+  export type StoreFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * Filter, which Stores to fetch.
+     */
+    where?: StoreWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Stores to fetch.
+     */
+    orderBy?: StoreOrderByWithRelationInput | StoreOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Stores.
+     */
+    cursor?: StoreWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Stores from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Stores.
+     */
+    skip?: number
+    distinct?: StoreScalarFieldEnum | StoreScalarFieldEnum[]
+  }
+
+  /**
+   * Store create
+   */
+  export type StoreCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Store.
+     */
+    data: XOR<StoreCreateInput, StoreUncheckedCreateInput>
+  }
+
+  /**
+   * Store createMany
+   */
+  export type StoreCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Stores.
+     */
+    data: StoreCreateManyInput | StoreCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Store update
+   */
+  export type StoreUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Store.
+     */
+    data: XOR<StoreUpdateInput, StoreUncheckedUpdateInput>
+    /**
+     * Choose, which Store to update.
+     */
+    where: StoreWhereUniqueInput
+  }
+
+  /**
+   * Store updateMany
+   */
+  export type StoreUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Stores.
+     */
+    data: XOR<StoreUpdateManyMutationInput, StoreUncheckedUpdateManyInput>
+    /**
+     * Filter which Stores to update
+     */
+    where?: StoreWhereInput
+    /**
+     * Limit how many Stores to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Store upsert
+   */
+  export type StoreUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Store to update in case it exists.
+     */
+    where: StoreWhereUniqueInput
+    /**
+     * In case the Store found by the `where` argument doesn't exist, create a new Store with this data.
+     */
+    create: XOR<StoreCreateInput, StoreUncheckedCreateInput>
+    /**
+     * In case the Store was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StoreUpdateInput, StoreUncheckedUpdateInput>
+  }
+
+  /**
+   * Store delete
+   */
+  export type StoreDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    /**
+     * Filter which Store to delete.
+     */
+    where: StoreWhereUniqueInput
+  }
+
+  /**
+   * Store deleteMany
+   */
+  export type StoreDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Stores to delete
+     */
+    where?: StoreWhereInput
+    /**
+     * Limit how many Stores to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Store.inventories
+   */
+  export type Store$inventoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Inventory
+     */
+    select?: InventorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Inventory
+     */
+    omit?: InventoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryInclude<ExtArgs> | null
+    where?: InventoryWhereInput
+    orderBy?: InventoryOrderByWithRelationInput | InventoryOrderByWithRelationInput[]
+    cursor?: InventoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryScalarFieldEnum | InventoryScalarFieldEnum[]
+  }
+
+  /**
+   * Store without action
+   */
+  export type StoreDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Inventory
    */
 
@@ -3100,6 +4203,7 @@ export namespace Prisma {
     inv_quantity: number | null
     bin_id: number | null
     loc_id: number | null
+    store_id: number | null
   }
 
   export type InventorySumAggregateOutputType = {
@@ -3107,6 +4211,7 @@ export namespace Prisma {
     inv_quantity: number | null
     bin_id: number | null
     loc_id: number | null
+    store_id: number | null
   }
 
   export type InventoryMinAggregateOutputType = {
@@ -3120,6 +4225,7 @@ export namespace Prisma {
     checkedBin: boolean | null
     bin_id: number | null
     loc_id: number | null
+    store_id: number | null
   }
 
   export type InventoryMaxAggregateOutputType = {
@@ -3133,6 +4239,7 @@ export namespace Prisma {
     checkedBin: boolean | null
     bin_id: number | null
     loc_id: number | null
+    store_id: number | null
   }
 
   export type InventoryCountAggregateOutputType = {
@@ -3146,6 +4253,7 @@ export namespace Prisma {
     checkedBin: number
     bin_id: number
     loc_id: number
+    store_id: number
     _all: number
   }
 
@@ -3155,6 +4263,7 @@ export namespace Prisma {
     inv_quantity?: true
     bin_id?: true
     loc_id?: true
+    store_id?: true
   }
 
   export type InventorySumAggregateInputType = {
@@ -3162,6 +4271,7 @@ export namespace Prisma {
     inv_quantity?: true
     bin_id?: true
     loc_id?: true
+    store_id?: true
   }
 
   export type InventoryMinAggregateInputType = {
@@ -3175,6 +4285,7 @@ export namespace Prisma {
     checkedBin?: true
     bin_id?: true
     loc_id?: true
+    store_id?: true
   }
 
   export type InventoryMaxAggregateInputType = {
@@ -3188,6 +4299,7 @@ export namespace Prisma {
     checkedBin?: true
     bin_id?: true
     loc_id?: true
+    store_id?: true
   }
 
   export type InventoryCountAggregateInputType = {
@@ -3201,6 +4313,7 @@ export namespace Prisma {
     checkedBin?: true
     bin_id?: true
     loc_id?: true
+    store_id?: true
     _all?: true
   }
 
@@ -3301,6 +4414,7 @@ export namespace Prisma {
     checkedBin: boolean | null
     bin_id: number | null
     loc_id: number | null
+    store_id: number | null
     _count: InventoryCountAggregateOutputType | null
     _avg: InventoryAvgAggregateOutputType | null
     _sum: InventorySumAggregateOutputType | null
@@ -3333,8 +4447,10 @@ export namespace Prisma {
     checkedBin?: boolean
     bin_id?: boolean
     loc_id?: boolean
+    store_id?: boolean
     bin?: boolean | Inventory$binArgs<ExtArgs>
     location?: boolean | Inventory$locationArgs<ExtArgs>
+    store?: boolean | Inventory$storeArgs<ExtArgs>
   }, ExtArgs["result"]["inventory"]>
 
 
@@ -3350,12 +4466,14 @@ export namespace Prisma {
     checkedBin?: boolean
     bin_id?: boolean
     loc_id?: boolean
+    store_id?: boolean
   }
 
-  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id", ExtArgs["result"]["inventory"]>
+  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id" | "store_id", ExtArgs["result"]["inventory"]>
   export type InventoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bin?: boolean | Inventory$binArgs<ExtArgs>
     location?: boolean | Inventory$locationArgs<ExtArgs>
+    store?: boolean | Inventory$storeArgs<ExtArgs>
   }
 
   export type $InventoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3363,6 +4481,7 @@ export namespace Prisma {
     objects: {
       bin: Prisma.$BinPayload<ExtArgs> | null
       location: Prisma.$LocationPayload<ExtArgs> | null
+      store: Prisma.$StorePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       inv_id: number
@@ -3375,6 +4494,7 @@ export namespace Prisma {
       checkedBin: boolean | null
       bin_id: number | null
       loc_id: number | null
+      store_id: number | null
     }, ExtArgs["result"]["inventory"]>
     composites: {}
   }
@@ -3717,6 +4837,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     bin<T extends Inventory$binArgs<ExtArgs> = {}>(args?: Subset<T, Inventory$binArgs<ExtArgs>>): Prisma__BinClient<$Result.GetResult<Prisma.$BinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     location<T extends Inventory$locationArgs<ExtArgs> = {}>(args?: Subset<T, Inventory$locationArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    store<T extends Inventory$storeArgs<ExtArgs> = {}>(args?: Subset<T, Inventory$storeArgs<ExtArgs>>): Prisma__StoreClient<$Result.GetResult<Prisma.$StorePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3756,6 +4877,7 @@ export namespace Prisma {
     readonly checkedBin: FieldRef<"Inventory", 'Boolean'>
     readonly bin_id: FieldRef<"Inventory", 'Int'>
     readonly loc_id: FieldRef<"Inventory", 'Int'>
+    readonly store_id: FieldRef<"Inventory", 'Int'>
   }
     
 
@@ -4137,6 +5259,25 @@ export namespace Prisma {
   }
 
   /**
+   * Inventory.store
+   */
+  export type Inventory$storeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Store
+     */
+    select?: StoreSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Store
+     */
+    omit?: StoreOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StoreInclude<ExtArgs> | null
+    where?: StoreWhereInput
+  }
+
+  /**
    * Inventory without action
    */
   export type InventoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4191,6 +5332,17 @@ export namespace Prisma {
   export type BinScalarFieldEnum = (typeof BinScalarFieldEnum)[keyof typeof BinScalarFieldEnum]
 
 
+  export const StoreScalarFieldEnum: {
+    store_id: 'store_id',
+    store_name: 'store_name',
+    store_desc: 'store_desc',
+    store_createdAt: 'store_createdAt',
+    store_updatedAt: 'store_updatedAt'
+  };
+
+  export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof StoreScalarFieldEnum]
+
+
   export const InventoryScalarFieldEnum: {
     inv_id: 'inv_id',
     inv_name: 'inv_name',
@@ -4201,7 +5353,8 @@ export namespace Prisma {
     inv_updatedAt: 'inv_updatedAt',
     checkedBin: 'checkedBin',
     bin_id: 'bin_id',
-    loc_id: 'loc_id'
+    loc_id: 'loc_id',
+    store_id: 'store_id'
   };
 
   export type InventoryScalarFieldEnum = (typeof InventoryScalarFieldEnum)[keyof typeof InventoryScalarFieldEnum]
@@ -4237,6 +5390,14 @@ export namespace Prisma {
   };
 
   export type BinOrderByRelevanceFieldEnum = (typeof BinOrderByRelevanceFieldEnum)[keyof typeof BinOrderByRelevanceFieldEnum]
+
+
+  export const StoreOrderByRelevanceFieldEnum: {
+    store_name: 'store_name',
+    store_desc: 'store_desc'
+  };
+
+  export type StoreOrderByRelevanceFieldEnum = (typeof StoreOrderByRelevanceFieldEnum)[keyof typeof StoreOrderByRelevanceFieldEnum]
 
 
   export const InventoryOrderByRelevanceFieldEnum: {
@@ -4413,6 +5574,64 @@ export namespace Prisma {
     bin_updatedAt?: DateTimeWithAggregatesFilter<"Bin"> | Date | string
   }
 
+  export type StoreWhereInput = {
+    AND?: StoreWhereInput | StoreWhereInput[]
+    OR?: StoreWhereInput[]
+    NOT?: StoreWhereInput | StoreWhereInput[]
+    store_id?: IntFilter<"Store"> | number
+    store_name?: StringFilter<"Store"> | string
+    store_desc?: StringNullableFilter<"Store"> | string | null
+    store_createdAt?: DateTimeFilter<"Store"> | Date | string
+    store_updatedAt?: DateTimeFilter<"Store"> | Date | string
+    inventories?: InventoryListRelationFilter
+  }
+
+  export type StoreOrderByWithRelationInput = {
+    store_id?: SortOrder
+    store_name?: SortOrder
+    store_desc?: SortOrderInput | SortOrder
+    store_createdAt?: SortOrder
+    store_updatedAt?: SortOrder
+    inventories?: InventoryOrderByRelationAggregateInput
+    _relevance?: StoreOrderByRelevanceInput
+  }
+
+  export type StoreWhereUniqueInput = Prisma.AtLeast<{
+    store_id?: number
+    AND?: StoreWhereInput | StoreWhereInput[]
+    OR?: StoreWhereInput[]
+    NOT?: StoreWhereInput | StoreWhereInput[]
+    store_name?: StringFilter<"Store"> | string
+    store_desc?: StringNullableFilter<"Store"> | string | null
+    store_createdAt?: DateTimeFilter<"Store"> | Date | string
+    store_updatedAt?: DateTimeFilter<"Store"> | Date | string
+    inventories?: InventoryListRelationFilter
+  }, "store_id">
+
+  export type StoreOrderByWithAggregationInput = {
+    store_id?: SortOrder
+    store_name?: SortOrder
+    store_desc?: SortOrderInput | SortOrder
+    store_createdAt?: SortOrder
+    store_updatedAt?: SortOrder
+    _count?: StoreCountOrderByAggregateInput
+    _avg?: StoreAvgOrderByAggregateInput
+    _max?: StoreMaxOrderByAggregateInput
+    _min?: StoreMinOrderByAggregateInput
+    _sum?: StoreSumOrderByAggregateInput
+  }
+
+  export type StoreScalarWhereWithAggregatesInput = {
+    AND?: StoreScalarWhereWithAggregatesInput | StoreScalarWhereWithAggregatesInput[]
+    OR?: StoreScalarWhereWithAggregatesInput[]
+    NOT?: StoreScalarWhereWithAggregatesInput | StoreScalarWhereWithAggregatesInput[]
+    store_id?: IntWithAggregatesFilter<"Store"> | number
+    store_name?: StringWithAggregatesFilter<"Store"> | string
+    store_desc?: StringNullableWithAggregatesFilter<"Store"> | string | null
+    store_createdAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
+    store_updatedAt?: DateTimeWithAggregatesFilter<"Store"> | Date | string
+  }
+
   export type InventoryWhereInput = {
     AND?: InventoryWhereInput | InventoryWhereInput[]
     OR?: InventoryWhereInput[]
@@ -4427,8 +5646,10 @@ export namespace Prisma {
     checkedBin?: BoolNullableFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableFilter<"Inventory"> | number | null
     loc_id?: IntNullableFilter<"Inventory"> | number | null
+    store_id?: IntNullableFilter<"Inventory"> | number | null
     bin?: XOR<BinNullableScalarRelationFilter, BinWhereInput> | null
     location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
+    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
   }
 
   export type InventoryOrderByWithRelationInput = {
@@ -4442,8 +5663,10 @@ export namespace Prisma {
     checkedBin?: SortOrderInput | SortOrder
     bin_id?: SortOrderInput | SortOrder
     loc_id?: SortOrderInput | SortOrder
+    store_id?: SortOrderInput | SortOrder
     bin?: BinOrderByWithRelationInput
     location?: LocationOrderByWithRelationInput
+    store?: StoreOrderByWithRelationInput
     _relevance?: InventoryOrderByRelevanceInput
   }
 
@@ -4461,8 +5684,10 @@ export namespace Prisma {
     checkedBin?: BoolNullableFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableFilter<"Inventory"> | number | null
     loc_id?: IntNullableFilter<"Inventory"> | number | null
+    store_id?: IntNullableFilter<"Inventory"> | number | null
     bin?: XOR<BinNullableScalarRelationFilter, BinWhereInput> | null
     location?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
+    store?: XOR<StoreNullableScalarRelationFilter, StoreWhereInput> | null
   }, "inv_id">
 
   export type InventoryOrderByWithAggregationInput = {
@@ -4476,6 +5701,7 @@ export namespace Prisma {
     checkedBin?: SortOrderInput | SortOrder
     bin_id?: SortOrderInput | SortOrder
     loc_id?: SortOrderInput | SortOrder
+    store_id?: SortOrderInput | SortOrder
     _count?: InventoryCountOrderByAggregateInput
     _avg?: InventoryAvgOrderByAggregateInput
     _max?: InventoryMaxOrderByAggregateInput
@@ -4497,6 +5723,7 @@ export namespace Prisma {
     checkedBin?: BoolNullableWithAggregatesFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
     loc_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
+    store_id?: IntNullableWithAggregatesFilter<"Inventory"> | number | null
   }
 
   export type LocationCreateInput = {
@@ -4613,6 +5840,63 @@ export namespace Prisma {
     bin_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StoreCreateInput = {
+    store_name: string
+    store_desc?: string | null
+    store_createdAt?: Date | string
+    store_updatedAt?: Date | string
+    inventories?: InventoryCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUncheckedCreateInput = {
+    store_id?: number
+    store_name: string
+    store_desc?: string | null
+    store_createdAt?: Date | string
+    store_updatedAt?: Date | string
+    inventories?: InventoryUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type StoreUpdateInput = {
+    store_name?: StringFieldUpdateOperationsInput | string
+    store_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    store_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventories?: InventoryUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreUncheckedUpdateInput = {
+    store_id?: IntFieldUpdateOperationsInput | number
+    store_name?: StringFieldUpdateOperationsInput | string
+    store_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    store_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inventories?: InventoryUncheckedUpdateManyWithoutStoreNestedInput
+  }
+
+  export type StoreCreateManyInput = {
+    store_id?: number
+    store_name: string
+    store_desc?: string | null
+    store_createdAt?: Date | string
+    store_updatedAt?: Date | string
+  }
+
+  export type StoreUpdateManyMutationInput = {
+    store_name?: StringFieldUpdateOperationsInput | string
+    store_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    store_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoreUncheckedUpdateManyInput = {
+    store_id?: IntFieldUpdateOperationsInput | number
+    store_name?: StringFieldUpdateOperationsInput | string
+    store_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    store_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InventoryCreateInput = {
     inv_name: string
     inv_desc?: string | null
@@ -4623,6 +5907,7 @@ export namespace Prisma {
     checkedBin?: boolean | null
     bin?: BinCreateNestedOneWithoutInventoriesInput
     location?: LocationCreateNestedOneWithoutInventoriesInput
+    store?: StoreCreateNestedOneWithoutInventoriesInput
   }
 
   export type InventoryUncheckedCreateInput = {
@@ -4636,6 +5921,7 @@ export namespace Prisma {
     checkedBin?: boolean | null
     bin_id?: number | null
     loc_id?: number | null
+    store_id?: number | null
   }
 
   export type InventoryUpdateInput = {
@@ -4648,6 +5934,7 @@ export namespace Prisma {
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin?: BinUpdateOneWithoutInventoriesNestedInput
     location?: LocationUpdateOneWithoutInventoriesNestedInput
+    store?: StoreUpdateOneWithoutInventoriesNestedInput
   }
 
   export type InventoryUncheckedUpdateInput = {
@@ -4661,6 +5948,7 @@ export namespace Prisma {
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    store_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InventoryCreateManyInput = {
@@ -4674,6 +5962,7 @@ export namespace Prisma {
     checkedBin?: boolean | null
     bin_id?: number | null
     loc_id?: number | null
+    store_id?: number | null
   }
 
   export type InventoryUpdateManyMutationInput = {
@@ -4697,6 +5986,7 @@ export namespace Prisma {
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    store_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4908,6 +6198,44 @@ export namespace Prisma {
     bin_id?: SortOrder
   }
 
+  export type StoreOrderByRelevanceInput = {
+    fields: StoreOrderByRelevanceFieldEnum | StoreOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type StoreCountOrderByAggregateInput = {
+    store_id?: SortOrder
+    store_name?: SortOrder
+    store_desc?: SortOrder
+    store_createdAt?: SortOrder
+    store_updatedAt?: SortOrder
+  }
+
+  export type StoreAvgOrderByAggregateInput = {
+    store_id?: SortOrder
+  }
+
+  export type StoreMaxOrderByAggregateInput = {
+    store_id?: SortOrder
+    store_name?: SortOrder
+    store_desc?: SortOrder
+    store_createdAt?: SortOrder
+    store_updatedAt?: SortOrder
+  }
+
+  export type StoreMinOrderByAggregateInput = {
+    store_id?: SortOrder
+    store_name?: SortOrder
+    store_desc?: SortOrder
+    store_createdAt?: SortOrder
+    store_updatedAt?: SortOrder
+  }
+
+  export type StoreSumOrderByAggregateInput = {
+    store_id?: SortOrder
+  }
+
   export type EnumInventoryStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.InventoryStatus | EnumInventoryStatusFieldRefInput<$PrismaModel>
     in?: $Enums.InventoryStatus[]
@@ -4941,6 +6269,11 @@ export namespace Prisma {
     isNot?: LocationWhereInput | null
   }
 
+  export type StoreNullableScalarRelationFilter = {
+    is?: StoreWhereInput | null
+    isNot?: StoreWhereInput | null
+  }
+
   export type InventoryOrderByRelevanceInput = {
     fields: InventoryOrderByRelevanceFieldEnum | InventoryOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -4958,6 +6291,7 @@ export namespace Prisma {
     checkedBin?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
+    store_id?: SortOrder
   }
 
   export type InventoryAvgOrderByAggregateInput = {
@@ -4965,6 +6299,7 @@ export namespace Prisma {
     inv_quantity?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
+    store_id?: SortOrder
   }
 
   export type InventoryMaxOrderByAggregateInput = {
@@ -4978,6 +6313,7 @@ export namespace Prisma {
     checkedBin?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
+    store_id?: SortOrder
   }
 
   export type InventoryMinOrderByAggregateInput = {
@@ -4991,6 +6327,7 @@ export namespace Prisma {
     checkedBin?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
+    store_id?: SortOrder
   }
 
   export type InventorySumOrderByAggregateInput = {
@@ -4998,6 +6335,7 @@ export namespace Prisma {
     inv_quantity?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
+    store_id?: SortOrder
   }
 
   export type EnumInventoryStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -5138,6 +6476,48 @@ export namespace Prisma {
     deleteMany?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
   }
 
+  export type InventoryCreateNestedManyWithoutStoreInput = {
+    create?: XOR<InventoryCreateWithoutStoreInput, InventoryUncheckedCreateWithoutStoreInput> | InventoryCreateWithoutStoreInput[] | InventoryUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutStoreInput | InventoryCreateOrConnectWithoutStoreInput[]
+    createMany?: InventoryCreateManyStoreInputEnvelope
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+  }
+
+  export type InventoryUncheckedCreateNestedManyWithoutStoreInput = {
+    create?: XOR<InventoryCreateWithoutStoreInput, InventoryUncheckedCreateWithoutStoreInput> | InventoryCreateWithoutStoreInput[] | InventoryUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutStoreInput | InventoryCreateOrConnectWithoutStoreInput[]
+    createMany?: InventoryCreateManyStoreInputEnvelope
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+  }
+
+  export type InventoryUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<InventoryCreateWithoutStoreInput, InventoryUncheckedCreateWithoutStoreInput> | InventoryCreateWithoutStoreInput[] | InventoryUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutStoreInput | InventoryCreateOrConnectWithoutStoreInput[]
+    upsert?: InventoryUpsertWithWhereUniqueWithoutStoreInput | InventoryUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: InventoryCreateManyStoreInputEnvelope
+    set?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    disconnect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    delete?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    update?: InventoryUpdateWithWhereUniqueWithoutStoreInput | InventoryUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: InventoryUpdateManyWithWhereWithoutStoreInput | InventoryUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
+  }
+
+  export type InventoryUncheckedUpdateManyWithoutStoreNestedInput = {
+    create?: XOR<InventoryCreateWithoutStoreInput, InventoryUncheckedCreateWithoutStoreInput> | InventoryCreateWithoutStoreInput[] | InventoryUncheckedCreateWithoutStoreInput[]
+    connectOrCreate?: InventoryCreateOrConnectWithoutStoreInput | InventoryCreateOrConnectWithoutStoreInput[]
+    upsert?: InventoryUpsertWithWhereUniqueWithoutStoreInput | InventoryUpsertWithWhereUniqueWithoutStoreInput[]
+    createMany?: InventoryCreateManyStoreInputEnvelope
+    set?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    disconnect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    delete?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    connect?: InventoryWhereUniqueInput | InventoryWhereUniqueInput[]
+    update?: InventoryUpdateWithWhereUniqueWithoutStoreInput | InventoryUpdateWithWhereUniqueWithoutStoreInput[]
+    updateMany?: InventoryUpdateManyWithWhereWithoutStoreInput | InventoryUpdateManyWithWhereWithoutStoreInput[]
+    deleteMany?: InventoryScalarWhereInput | InventoryScalarWhereInput[]
+  }
+
   export type BinCreateNestedOneWithoutInventoriesInput = {
     create?: XOR<BinCreateWithoutInventoriesInput, BinUncheckedCreateWithoutInventoriesInput>
     connectOrCreate?: BinCreateOrConnectWithoutInventoriesInput
@@ -5148,6 +6528,12 @@ export namespace Prisma {
     create?: XOR<LocationCreateWithoutInventoriesInput, LocationUncheckedCreateWithoutInventoriesInput>
     connectOrCreate?: LocationCreateOrConnectWithoutInventoriesInput
     connect?: LocationWhereUniqueInput
+  }
+
+  export type StoreCreateNestedOneWithoutInventoriesInput = {
+    create?: XOR<StoreCreateWithoutInventoriesInput, StoreUncheckedCreateWithoutInventoriesInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutInventoriesInput
+    connect?: StoreWhereUniqueInput
   }
 
   export type EnumInventoryStatusFieldUpdateOperationsInput = {
@@ -5176,6 +6562,16 @@ export namespace Prisma {
     delete?: LocationWhereInput | boolean
     connect?: LocationWhereUniqueInput
     update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutInventoriesInput, LocationUpdateWithoutInventoriesInput>, LocationUncheckedUpdateWithoutInventoriesInput>
+  }
+
+  export type StoreUpdateOneWithoutInventoriesNestedInput = {
+    create?: XOR<StoreCreateWithoutInventoriesInput, StoreUncheckedCreateWithoutInventoriesInput>
+    connectOrCreate?: StoreCreateOrConnectWithoutInventoriesInput
+    upsert?: StoreUpsertWithoutInventoriesInput
+    disconnect?: StoreWhereInput | boolean
+    delete?: StoreWhereInput | boolean
+    connect?: StoreWhereUniqueInput
+    update?: XOR<XOR<StoreUpdateToOneWithWhereWithoutInventoriesInput, StoreUpdateWithoutInventoriesInput>, StoreUncheckedUpdateWithoutInventoriesInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -5392,6 +6788,7 @@ export namespace Prisma {
     inv_updatedAt?: Date | string
     checkedBin?: boolean | null
     bin?: BinCreateNestedOneWithoutInventoriesInput
+    store?: StoreCreateNestedOneWithoutInventoriesInput
   }
 
   export type InventoryUncheckedCreateWithoutLocationInput = {
@@ -5404,6 +6801,7 @@ export namespace Prisma {
     inv_updatedAt?: Date | string
     checkedBin?: boolean | null
     bin_id?: number | null
+    store_id?: number | null
   }
 
   export type InventoryCreateOrConnectWithoutLocationInput = {
@@ -5446,6 +6844,7 @@ export namespace Prisma {
     checkedBin?: BoolNullableFilter<"Inventory"> | boolean | null
     bin_id?: IntNullableFilter<"Inventory"> | number | null
     loc_id?: IntNullableFilter<"Inventory"> | number | null
+    store_id?: IntNullableFilter<"Inventory"> | number | null
   }
 
   export type InventoryCreateWithoutBinInput = {
@@ -5457,6 +6856,7 @@ export namespace Prisma {
     inv_updatedAt?: Date | string
     checkedBin?: boolean | null
     location?: LocationCreateNestedOneWithoutInventoriesInput
+    store?: StoreCreateNestedOneWithoutInventoriesInput
   }
 
   export type InventoryUncheckedCreateWithoutBinInput = {
@@ -5469,6 +6869,7 @@ export namespace Prisma {
     inv_updatedAt?: Date | string
     checkedBin?: boolean | null
     loc_id?: number | null
+    store_id?: number | null
   }
 
   export type InventoryCreateOrConnectWithoutBinInput = {
@@ -5495,6 +6896,57 @@ export namespace Prisma {
   export type InventoryUpdateManyWithWhereWithoutBinInput = {
     where: InventoryScalarWhereInput
     data: XOR<InventoryUpdateManyMutationInput, InventoryUncheckedUpdateManyWithoutBinInput>
+  }
+
+  export type InventoryCreateWithoutStoreInput = {
+    inv_name: string
+    inv_desc?: string | null
+    inv_quantity?: number
+    inv_status?: $Enums.InventoryStatus
+    inv_createdAt?: Date | string
+    inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
+    bin?: BinCreateNestedOneWithoutInventoriesInput
+    location?: LocationCreateNestedOneWithoutInventoriesInput
+  }
+
+  export type InventoryUncheckedCreateWithoutStoreInput = {
+    inv_id?: number
+    inv_name: string
+    inv_desc?: string | null
+    inv_quantity?: number
+    inv_status?: $Enums.InventoryStatus
+    inv_createdAt?: Date | string
+    inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
+    bin_id?: number | null
+    loc_id?: number | null
+  }
+
+  export type InventoryCreateOrConnectWithoutStoreInput = {
+    where: InventoryWhereUniqueInput
+    create: XOR<InventoryCreateWithoutStoreInput, InventoryUncheckedCreateWithoutStoreInput>
+  }
+
+  export type InventoryCreateManyStoreInputEnvelope = {
+    data: InventoryCreateManyStoreInput | InventoryCreateManyStoreInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InventoryUpsertWithWhereUniqueWithoutStoreInput = {
+    where: InventoryWhereUniqueInput
+    update: XOR<InventoryUpdateWithoutStoreInput, InventoryUncheckedUpdateWithoutStoreInput>
+    create: XOR<InventoryCreateWithoutStoreInput, InventoryUncheckedCreateWithoutStoreInput>
+  }
+
+  export type InventoryUpdateWithWhereUniqueWithoutStoreInput = {
+    where: InventoryWhereUniqueInput
+    data: XOR<InventoryUpdateWithoutStoreInput, InventoryUncheckedUpdateWithoutStoreInput>
+  }
+
+  export type InventoryUpdateManyWithWhereWithoutStoreInput = {
+    where: InventoryScalarWhereInput
+    data: XOR<InventoryUpdateManyMutationInput, InventoryUncheckedUpdateManyWithoutStoreInput>
   }
 
   export type BinCreateWithoutInventoriesInput = {
@@ -5535,6 +6987,26 @@ export namespace Prisma {
   export type LocationCreateOrConnectWithoutInventoriesInput = {
     where: LocationWhereUniqueInput
     create: XOR<LocationCreateWithoutInventoriesInput, LocationUncheckedCreateWithoutInventoriesInput>
+  }
+
+  export type StoreCreateWithoutInventoriesInput = {
+    store_name: string
+    store_desc?: string | null
+    store_createdAt?: Date | string
+    store_updatedAt?: Date | string
+  }
+
+  export type StoreUncheckedCreateWithoutInventoriesInput = {
+    store_id?: number
+    store_name: string
+    store_desc?: string | null
+    store_createdAt?: Date | string
+    store_updatedAt?: Date | string
+  }
+
+  export type StoreCreateOrConnectWithoutInventoriesInput = {
+    where: StoreWhereUniqueInput
+    create: XOR<StoreCreateWithoutInventoriesInput, StoreUncheckedCreateWithoutInventoriesInput>
   }
 
   export type BinUpsertWithoutInventoriesInput = {
@@ -5589,6 +7061,32 @@ export namespace Prisma {
     loc_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StoreUpsertWithoutInventoriesInput = {
+    update: XOR<StoreUpdateWithoutInventoriesInput, StoreUncheckedUpdateWithoutInventoriesInput>
+    create: XOR<StoreCreateWithoutInventoriesInput, StoreUncheckedCreateWithoutInventoriesInput>
+    where?: StoreWhereInput
+  }
+
+  export type StoreUpdateToOneWithWhereWithoutInventoriesInput = {
+    where?: StoreWhereInput
+    data: XOR<StoreUpdateWithoutInventoriesInput, StoreUncheckedUpdateWithoutInventoriesInput>
+  }
+
+  export type StoreUpdateWithoutInventoriesInput = {
+    store_name?: StringFieldUpdateOperationsInput | string
+    store_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    store_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StoreUncheckedUpdateWithoutInventoriesInput = {
+    store_id?: IntFieldUpdateOperationsInput | number
+    store_name?: StringFieldUpdateOperationsInput | string
+    store_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    store_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    store_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type InventoryCreateManyLocationInput = {
     inv_id?: number
     inv_name: string
@@ -5599,6 +7097,7 @@ export namespace Prisma {
     inv_updatedAt?: Date | string
     checkedBin?: boolean | null
     bin_id?: number | null
+    store_id?: number | null
   }
 
   export type InventoryUpdateWithoutLocationInput = {
@@ -5610,6 +7109,7 @@ export namespace Prisma {
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin?: BinUpdateOneWithoutInventoriesNestedInput
+    store?: StoreUpdateOneWithoutInventoriesNestedInput
   }
 
   export type InventoryUncheckedUpdateWithoutLocationInput = {
@@ -5622,6 +7122,7 @@ export namespace Prisma {
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+    store_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InventoryUncheckedUpdateManyWithoutLocationInput = {
@@ -5634,6 +7135,7 @@ export namespace Prisma {
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+    store_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InventoryCreateManyBinInput = {
@@ -5646,6 +7148,7 @@ export namespace Prisma {
     inv_updatedAt?: Date | string
     checkedBin?: boolean | null
     loc_id?: number | null
+    store_id?: number | null
   }
 
   export type InventoryUpdateWithoutBinInput = {
@@ -5657,6 +7160,7 @@ export namespace Prisma {
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     location?: LocationUpdateOneWithoutInventoriesNestedInput
+    store?: StoreUpdateOneWithoutInventoriesNestedInput
   }
 
   export type InventoryUncheckedUpdateWithoutBinInput = {
@@ -5669,6 +7173,7 @@ export namespace Prisma {
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    store_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type InventoryUncheckedUpdateManyWithoutBinInput = {
@@ -5680,6 +7185,58 @@ export namespace Prisma {
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    loc_id?: NullableIntFieldUpdateOperationsInput | number | null
+    store_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type InventoryCreateManyStoreInput = {
+    inv_id?: number
+    inv_name: string
+    inv_desc?: string | null
+    inv_quantity?: number
+    inv_status?: $Enums.InventoryStatus
+    inv_createdAt?: Date | string
+    inv_updatedAt?: Date | string
+    checkedBin?: boolean | null
+    bin_id?: number | null
+    loc_id?: number | null
+  }
+
+  export type InventoryUpdateWithoutStoreInput = {
+    inv_name?: StringFieldUpdateOperationsInput | string
+    inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    bin?: BinUpdateOneWithoutInventoriesNestedInput
+    location?: LocationUpdateOneWithoutInventoriesNestedInput
+  }
+
+  export type InventoryUncheckedUpdateWithoutStoreInput = {
+    inv_id?: IntFieldUpdateOperationsInput | number
+    inv_name?: StringFieldUpdateOperationsInput | string
+    inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    bin_id?: NullableIntFieldUpdateOperationsInput | number | null
+    loc_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type InventoryUncheckedUpdateManyWithoutStoreInput = {
+    inv_id?: IntFieldUpdateOperationsInput | number
+    inv_name?: StringFieldUpdateOperationsInput | string
+    inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
+    inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
+    inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checkedBin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    bin_id?: NullableIntFieldUpdateOperationsInput | number | null
     loc_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 

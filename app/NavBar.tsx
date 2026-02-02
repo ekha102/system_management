@@ -1,5 +1,5 @@
 "use client";
-import { Flex, TabNav } from '@radix-ui/themes'
+import { TabNav } from '@radix-ui/themes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 import React from 'react'
@@ -12,6 +12,7 @@ const Navbar = () => {
     { label: 'Inventory', href: '/' },
     { label: 'Bins', href: '/bins' },
     {label: "Locations", href: "/locations"},
+    {label: "Stores", href: "/stores"},
   ];
 
   return (

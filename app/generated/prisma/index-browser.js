@@ -136,6 +136,14 @@ exports.Prisma.BinScalarFieldEnum = {
   bin_updatedAt: 'bin_updatedAt'
 };
 
+exports.Prisma.StoreScalarFieldEnum = {
+  store_id: 'store_id',
+  store_name: 'store_name',
+  store_desc: 'store_desc',
+  store_createdAt: 'store_createdAt',
+  store_updatedAt: 'store_updatedAt'
+};
+
 exports.Prisma.InventoryScalarFieldEnum = {
   inv_id: 'inv_id',
   inv_name: 'inv_name',
@@ -146,7 +154,8 @@ exports.Prisma.InventoryScalarFieldEnum = {
   inv_updatedAt: 'inv_updatedAt',
   checkedBin: 'checkedBin',
   bin_id: 'bin_id',
-  loc_id: 'loc_id'
+  loc_id: 'loc_id',
+  store_id: 'store_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -169,6 +178,11 @@ exports.Prisma.BinOrderByRelevanceFieldEnum = {
   bin_desc: 'bin_desc'
 };
 
+exports.Prisma.StoreOrderByRelevanceFieldEnum = {
+  store_name: 'store_name',
+  store_desc: 'store_desc'
+};
+
 exports.Prisma.InventoryOrderByRelevanceFieldEnum = {
   inv_name: 'inv_name',
   inv_desc: 'inv_desc'
@@ -181,6 +195,7 @@ exports.InventoryStatus = exports.$Enums.InventoryStatus = {
 exports.Prisma.ModelName = {
   Location: 'Location',
   Bin: 'Bin',
+  Store: 'Store',
   Inventory: 'Inventory'
 };
 
