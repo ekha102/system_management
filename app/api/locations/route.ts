@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from "next/server"
 export const POST = async (request: NextRequest) => {
   // return NextResponse.json({ message: "Location created" }, { status: 201 });
   const body = await request.json();
-  console.log("Body: ", body);
+  // console.log("Body: ", body);
   const validate = ValidationLocationForm.safeParse(body);
-  console.log("Validation: ", validate);
+  // console.log("Validation: ", validate);
   if (validate.error)
     return NextResponse.json({ message: "Validation failed", errors: validate.error.format() }, { status: 400 });
 

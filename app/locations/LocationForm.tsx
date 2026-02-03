@@ -28,7 +28,7 @@ const LocationForm = ({ open, setOpen, locIdDetail }: Props) => {
 
 
   const router = useRouter();
-  console.log("Location Id Detail: ", locIdDetail);
+  // console.log("Location Id Detail: ", locIdDetail);
   const { loc_id, loc_name, loc_desc } = locIdDetail || {}
 
   // const [isSubmiting, setIsSubmiting] = useState(false);
@@ -51,14 +51,9 @@ const LocationForm = ({ open, setOpen, locIdDetail }: Props) => {
       }
       reset();
       router.refresh();
-
-
     } catch (error) {
       console.log(error);
     }
-
-
-
   }
 
 
@@ -69,6 +64,7 @@ const LocationForm = ({ open, setOpen, locIdDetail }: Props) => {
       <Dialog.Content maxWidth="450px">
 
         <form onSubmit={handleSubmit(onSubmit)}>
+          <Dialog.Title>Create Location</Dialog.Title>
           <Flex direction="column" gap="3">
             <label>
               <TextField.Root

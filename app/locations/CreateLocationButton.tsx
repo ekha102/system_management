@@ -23,8 +23,6 @@ const CreateLocationButton = () => {
       {/* Dialog window */}
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Content maxWidth="450px">
-          <Dialog.Title>Create Bin</Dialog.Title>
-          {/*Call in the Bin Form*/}
           <LocationForm open={open} setOpen={setOpen} />
         </Dialog.Content>
       </Dialog.Root>
