@@ -6,13 +6,16 @@ import { Heading } from '@radix-ui/themes';
 
 
 const storePage = async() => {
+  
   const storesList = await prisma.store.findMany();
   // console.log(storesList);
 
   return (
     <>
       <Heading as="h1">Stores:</Heading>
-      <CreateStore/>
+      <div className="my-4">
+        <CreateStore />
+      </div>
       <DisplayStoreTable storesList={storesList}/>
     </>
   )

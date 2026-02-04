@@ -1,6 +1,8 @@
 import { Table } from "@radix-ui/themes";
 import DeleteStore from "./DeleteStore";
 
+import EditStoreButton from "./EditStoreButton";
+
 interface Props {
   storesList: any[];
 }
@@ -31,6 +33,7 @@ const DisplayStoreTable = ({ storesList }: Props) => {
               <Table.Cell>{ele.store_desc}</Table.Cell>
               <Table.Cell>{ele.store_createdAt.toDateString()}</Table.Cell>
               <Table.Cell>
+                <EditStoreButton storeItem={ele} />
                 <DeleteStore storeId={ele.store_id}/>
               </Table.Cell>
             </Table.Row>

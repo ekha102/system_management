@@ -14,15 +14,16 @@ import { Controller, useForm } from 'react-hook-form';
 
 interface Props {
   productItem?: Inventory;
+  stores?: [];
   bins?: Bin[];
   locations?: Location[];
 }
 
 
 
-const EditForm = ({ productItem, bins, locations }: Props) => {
+const EditForm = ({ productItem, bins, locations, stores }: Props) => {
 
-  const { inv_id, inv_name, inv_desc, inv_quantity, bin_id, loc_id, checkedBin } = productItem || {}
+  const { inv_id, inv_name, inv_desc, inv_quantity, store_id, bin_id, loc_id, checkedBin } = productItem || {}
 
 
   const { register, control, handleSubmit, watch, formState: { errors } } = useForm({
@@ -31,6 +32,7 @@ const EditForm = ({ productItem, bins, locations }: Props) => {
       inv_name: productItem?.inv_name,
       inv_desc: productItem?.inv_desc ?? "",
       inv_quantity: productItem?.inv_quantity,
+      store_id: productItem?.store_id ?? null,
       checkedBin: productItem?.checkedBin ?? false,
       bin_id: productItem?.bin_id ?? null,
       loc_id: productItem?.loc_id ?? null,
@@ -89,6 +91,35 @@ const EditForm = ({ productItem, bins, locations }: Props) => {
           <Box>
             <TextField.Root disabled={isSubmiting} placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
           </Box>
+
+          {/* Store selection */}
+          <Controller
+              name="store_id"
+              control={control}
+              render={({ field }) => (
+                <Box maxWidth="250px">
+                  <Select.Root
+                    value={field.value ? String(field.value) : ""}
+                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                    disabled={isSubmiting}
+                  >
+                    <Select.Trigger placeholder="Select store" />
+
+                    <Select.Content>
+                      <Select.Group>
+                        <Select.Item value="null">Unassigned</Select.Item>
+                        {stores?.map((store) => (
+                          <Select.Item key={store.store_id} value={String(store.store_id)}>
+                            {store.store_name}
+                          </Select.Item>
+                        ))}
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                  {errors.store_id && <Text color="red">{errors.store_id.message}</Text>}
+                </Box>
+              )}
+            />
 
           {/* <Controller
             name="checkedBin"

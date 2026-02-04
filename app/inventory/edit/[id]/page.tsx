@@ -23,6 +23,7 @@ const EditIventoryItem = async ({ params }: Props) => {
     include: {
       bin: true,
       location: true,
+      store: true,
     },
   });
 
@@ -33,12 +34,13 @@ const EditIventoryItem = async ({ params }: Props) => {
 
   const bins = await prisma.bin.findMany();
   const locations = await prisma.location.findMany();
+  const stores = await prisma.store.findMany();
 
 
 
 
   return (
-    <EditForm productItem={productItem} bins={bins} locations={locations} />
+    <EditForm productItem={productItem} bins={bins} locations={locations} stores={stores} />
   )
 }
 

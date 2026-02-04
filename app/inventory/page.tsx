@@ -4,6 +4,7 @@ import InventoryList from './inventoryList'
 import ButtonCreateItem from './buttonCreateItem'
 
 
+
 const InventoryPage = () => {
   return (
     <div>

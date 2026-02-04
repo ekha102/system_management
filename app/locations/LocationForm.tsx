@@ -1,11 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dialog, Flex, TextField, Button, Text } from '@radix-ui/themes'
-import { register } from 'module'
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
-import { ValidationLocationForm } from '../_components/ValidationLocationForm';
-import { Resolver, useForm } from 'react-hook-form';
+import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { ValidationLocationForm } from '../_components/ValidationLocationForm';
 import { Location } from '../generated/prisma';
 
 

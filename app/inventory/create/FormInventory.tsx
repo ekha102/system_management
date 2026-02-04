@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch } from '@radix-ui/themes';
-import { Bin, Location } from '@/app/generated/prisma';
+import { Bin, Location, Store } from '@/app/generated/prisma';
 
 
 
@@ -23,11 +23,12 @@ interface ItemForm {
 interface Props {
   bins?: Bin[];
   locations?: Location[];
+  stores?: Store[];  // Add stores prop
 }
 
 
 
-const FormInventory = ({ bins, locations }: Props) => {
+const FormInventory = ({ bins, locations, stores }: Props) => {
 
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -58,7 +59,7 @@ const FormInventory = ({ bins, locations }: Props) => {
       ...values,
       isBinEnabled: values.checkedBin, // true / false
     };
-
+    // console.log("Payload to submit:", payload);
     try {
       await axios.post('/api/inventory', payload);
       setIsSubmiting(true);
@@ -92,6 +93,35 @@ const FormInventory = ({ bins, locations }: Props) => {
             <TextField.Root disabled={isSubmiting} type="number" placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
           </Box>
+
+          {/* Store selection */}
+          <Controller
+              name="store_id"
+              control={control}
+              defaultValue={null} // first render is null
+              render={({ field }) => (
+                <Box maxWidth="250px">
+                  <Select.Root
+                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                    disabled={isSubmiting}
+                  >
+                    <Select.Trigger placeholder="Select store" />
+
+                    <Select.Content>
+                      <Select.Group>
+                        <Select.Item value="null">Unassigned</Select.Item>
+                        {stores?.map((store) => (
+                          <Select.Item key={store.store_id} value={String(store.store_id)}>
+                            {store.store_name}
+                          </Select.Item>
+                        ))}
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                  {errors.store_id && <Text color="red">{errors.store_id.message}</Text>}
+                </Box>
+              )}
+            />
 
 
 
