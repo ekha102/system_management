@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./Navbar";
 import Providers from "./Providers";
+import NavBar from "./NavBar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,8 +29,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <main className="p-5">
           <Providers>
-            <Navbar />
-            {children}
+            <NavBar />
+            {children}           
           </Providers>
         </main>
       </body>
