@@ -40,7 +40,7 @@ export async function DELETE(request:NextRequest, {params}: Props) {
 
 export async function PUT(request: NextRequest, {params}: Props ) {
   const body = await request.json();
-  console.log("Put Body:", body);
+  // console.log("Put Body:", body);
   const validate = ValidationInventoryCreateItem.safeParse(body);
   if (validate.error)
     return NextResponse.json(validate.error.errors, { status: 400 });
@@ -52,7 +52,7 @@ export async function PUT(request: NextRequest, {params}: Props ) {
     return NextResponse.json({error: "Item not found"}, {status: 404}); 
 
 
-  const {inv_name, inv_desc, inv_quantity, checkedBin, bin_id, loc_id} = validate.data;
+  const {inv_name, inv_desc, inv_quantity, inv_trigger, checkedBin, bin_id, loc_id} = validate.data;
   console.log("Validated Data:", validate.data);
   
  
@@ -65,6 +65,7 @@ export async function PUT(request: NextRequest, {params}: Props ) {
       inv_name,
       inv_desc,
       inv_quantity,
+      inv_trigger,
       checkedBin,
       bin_id: finalBinId,
       loc_id: finalLocId

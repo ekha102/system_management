@@ -9,7 +9,12 @@ const DashboardPage = () => {
 
       <Flex direction="row" gap="4" my="4">
         <TotalProducts />
-        {/* <TotalProducts /> */}
+        {/* Total low in stock*/}
+        🔴 Low
+
+        🟡 Normal
+
+        🟢 High
       </Flex>
 
       <Separator orientation="horizontal" size="3" style={{ width: "100%" }} />

@@ -23,7 +23,7 @@ interface Props {
 
 const EditForm = ({ productItem, bins, locations, stores }: Props) => {
 
-  const { inv_id, inv_name, inv_desc, inv_quantity, store_id, bin_id, loc_id, checkedBin } = productItem || {}
+  const { inv_id, inv_name, inv_desc, inv_quantity, inv_trigger,store_id, bin_id, loc_id, checkedBin } = productItem || {}
 
 
   const { register, control, handleSubmit, watch, formState: { errors } } = useForm({
@@ -32,6 +32,7 @@ const EditForm = ({ productItem, bins, locations, stores }: Props) => {
       inv_name: productItem?.inv_name,
       inv_desc: productItem?.inv_desc ?? "",
       inv_quantity: productItem?.inv_quantity,
+      inv_trigger: productItem?.inv_trigger,
       store_id: productItem?.store_id ?? null,
       checkedBin: productItem?.checkedBin ?? false,
       bin_id: productItem?.bin_id ?? null,
@@ -91,6 +92,12 @@ const EditForm = ({ productItem, bins, locations, stores }: Props) => {
           <Box>
             <TextField.Root disabled={isSubmiting} placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
           </Box>
+
+          {/* Added new input field for trigger  */}
+          <Box>
+            <TextField.Root disabled={isSubmiting} placeholder="Trigger" {...register("inv_trigger", { valueAsNumber: true })} />
+          </Box>
+
 
           {/* Store selection */}
           <Controller

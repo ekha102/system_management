@@ -15,6 +15,7 @@ interface ItemForm {
   inv_name: string;
   inv_desc: string;
   inv_quantity: number;
+  inv_trigger: number;
   bin_id: number | null;
   loc_id: number | null;
   checkedBin: boolean;    //Add Check Bin
@@ -59,7 +60,7 @@ const FormInventory = ({ bins, locations, stores }: Props) => {
       ...values,
       isBinEnabled: values.checkedBin, // true / false
     };
-    // console.log("Payload to submit:", payload);
+    console.log("Payload to submit:", payload);
     try {
       await axios.post('/api/inventory', payload);
       setIsSubmiting(true);
@@ -92,6 +93,12 @@ const FormInventory = ({ bins, locations, stores }: Props) => {
           <Box maxWidth="250px">
             <TextField.Root disabled={isSubmiting} type="number" placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
+          </Box>
+
+          {/* Added new input field for trigger */}
+          <Box maxWidth="250px">
+            <TextField.Root disabled={isSubmiting} type="number" placeholder="Trigger" {...register("inv_trigger", { valueAsNumber: true })} />
+            {errors.inv_trigger && <Text color='red'>{errors.inv_trigger.message}</Text>}
           </Box>
 
           {/* Store selection */}

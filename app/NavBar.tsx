@@ -14,6 +14,7 @@ const Navbar = () => {
     { label: 'Bins', href: '/bins' },
     {label: "Locations", href: "/locations"},
     {label: "Stores", href: "/stores"},
+    {label: "Reports", href: "/reports"},
   ];
 
   return (

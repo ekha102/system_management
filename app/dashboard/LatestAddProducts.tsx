@@ -21,6 +21,7 @@ const LatestAddProducts = async () => {
             <Table.ColumnHeaderCell>Product Name</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Store</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Created Date</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -31,6 +32,7 @@ const LatestAddProducts = async () => {
               <Table.Cell>{product.inv_name}</Table.Cell>
               <Table.Cell>{product.inv_desc}</Table.Cell>
               <Table.Cell>{product.store?.store_name}</Table.Cell>
+              <Table.Cell>{product.inv_createdAt.toLocaleDateString()}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

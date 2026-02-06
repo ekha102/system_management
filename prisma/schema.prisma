@@ -52,6 +52,7 @@ model Inventory {
   inv_name      String
   inv_desc      String?
   inv_quantity  Int             @default(0)
+  inv_trigger   Int             @default(1) // New field for low stock trigger
   inv_status    InventoryStatus @default(Active)
   inv_createdAt DateTime        @default(now())
   inv_updatedAt DateTime        @updatedAt

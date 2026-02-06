@@ -24,6 +24,7 @@ const InventoryList = async () => {
           <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Trigger</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Store</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Bin Name</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Location</Table.ColumnHeaderCell>
@@ -57,6 +58,7 @@ const InventoryList = async () => {
             </Table.Cell>
 
             <Table.Cell>{item.inv_quantity}</Table.Cell>
+            <Table.Cell>{item.inv_trigger}</Table.Cell>
             <Table.Cell>{item.store?.store_name}</Table.Cell>
             <Table.Cell>{item.bin?.bin_name}_{item.bin?.bin_id}</Table.Cell>
             <Table.Cell>{item.location?.loc_name}</Table.Cell>

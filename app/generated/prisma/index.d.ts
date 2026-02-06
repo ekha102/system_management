@@ -4201,6 +4201,7 @@ export namespace Prisma {
   export type InventoryAvgAggregateOutputType = {
     inv_id: number | null
     inv_quantity: number | null
+    inv_trigger: number | null
     bin_id: number | null
     loc_id: number | null
     store_id: number | null
@@ -4209,6 +4210,7 @@ export namespace Prisma {
   export type InventorySumAggregateOutputType = {
     inv_id: number | null
     inv_quantity: number | null
+    inv_trigger: number | null
     bin_id: number | null
     loc_id: number | null
     store_id: number | null
@@ -4219,6 +4221,7 @@ export namespace Prisma {
     inv_name: string | null
     inv_desc: string | null
     inv_quantity: number | null
+    inv_trigger: number | null
     inv_status: $Enums.InventoryStatus | null
     inv_createdAt: Date | null
     inv_updatedAt: Date | null
@@ -4233,6 +4236,7 @@ export namespace Prisma {
     inv_name: string | null
     inv_desc: string | null
     inv_quantity: number | null
+    inv_trigger: number | null
     inv_status: $Enums.InventoryStatus | null
     inv_createdAt: Date | null
     inv_updatedAt: Date | null
@@ -4247,6 +4251,7 @@ export namespace Prisma {
     inv_name: number
     inv_desc: number
     inv_quantity: number
+    inv_trigger: number
     inv_status: number
     inv_createdAt: number
     inv_updatedAt: number
@@ -4261,6 +4266,7 @@ export namespace Prisma {
   export type InventoryAvgAggregateInputType = {
     inv_id?: true
     inv_quantity?: true
+    inv_trigger?: true
     bin_id?: true
     loc_id?: true
     store_id?: true
@@ -4269,6 +4275,7 @@ export namespace Prisma {
   export type InventorySumAggregateInputType = {
     inv_id?: true
     inv_quantity?: true
+    inv_trigger?: true
     bin_id?: true
     loc_id?: true
     store_id?: true
@@ -4279,6 +4286,7 @@ export namespace Prisma {
     inv_name?: true
     inv_desc?: true
     inv_quantity?: true
+    inv_trigger?: true
     inv_status?: true
     inv_createdAt?: true
     inv_updatedAt?: true
@@ -4293,6 +4301,7 @@ export namespace Prisma {
     inv_name?: true
     inv_desc?: true
     inv_quantity?: true
+    inv_trigger?: true
     inv_status?: true
     inv_createdAt?: true
     inv_updatedAt?: true
@@ -4307,6 +4316,7 @@ export namespace Prisma {
     inv_name?: true
     inv_desc?: true
     inv_quantity?: true
+    inv_trigger?: true
     inv_status?: true
     inv_createdAt?: true
     inv_updatedAt?: true
@@ -4408,6 +4418,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc: string | null
     inv_quantity: number
+    inv_trigger: number
     inv_status: $Enums.InventoryStatus
     inv_createdAt: Date
     inv_updatedAt: Date
@@ -4441,6 +4452,7 @@ export namespace Prisma {
     inv_name?: boolean
     inv_desc?: boolean
     inv_quantity?: boolean
+    inv_trigger?: boolean
     inv_status?: boolean
     inv_createdAt?: boolean
     inv_updatedAt?: boolean
@@ -4460,6 +4472,7 @@ export namespace Prisma {
     inv_name?: boolean
     inv_desc?: boolean
     inv_quantity?: boolean
+    inv_trigger?: boolean
     inv_status?: boolean
     inv_createdAt?: boolean
     inv_updatedAt?: boolean
@@ -4469,7 +4482,7 @@ export namespace Prisma {
     store_id?: boolean
   }
 
-  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id" | "store_id", ExtArgs["result"]["inventory"]>
+  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "inv_name" | "inv_desc" | "inv_quantity" | "inv_trigger" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id" | "store_id", ExtArgs["result"]["inventory"]>
   export type InventoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bin?: boolean | Inventory$binArgs<ExtArgs>
     location?: boolean | Inventory$locationArgs<ExtArgs>
@@ -4488,6 +4501,7 @@ export namespace Prisma {
       inv_name: string
       inv_desc: string | null
       inv_quantity: number
+      inv_trigger: number
       inv_status: $Enums.InventoryStatus
       inv_createdAt: Date
       inv_updatedAt: Date
@@ -4871,6 +4885,7 @@ export namespace Prisma {
     readonly inv_name: FieldRef<"Inventory", 'String'>
     readonly inv_desc: FieldRef<"Inventory", 'String'>
     readonly inv_quantity: FieldRef<"Inventory", 'Int'>
+    readonly inv_trigger: FieldRef<"Inventory", 'Int'>
     readonly inv_status: FieldRef<"Inventory", 'InventoryStatus'>
     readonly inv_createdAt: FieldRef<"Inventory", 'DateTime'>
     readonly inv_updatedAt: FieldRef<"Inventory", 'DateTime'>
@@ -5348,6 +5363,7 @@ export namespace Prisma {
     inv_name: 'inv_name',
     inv_desc: 'inv_desc',
     inv_quantity: 'inv_quantity',
+    inv_trigger: 'inv_trigger',
     inv_status: 'inv_status',
     inv_createdAt: 'inv_createdAt',
     inv_updatedAt: 'inv_updatedAt',
@@ -5640,6 +5656,7 @@ export namespace Prisma {
     inv_name?: StringFilter<"Inventory"> | string
     inv_desc?: StringNullableFilter<"Inventory"> | string | null
     inv_quantity?: IntFilter<"Inventory"> | number
+    inv_trigger?: IntFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
@@ -5657,6 +5674,7 @@ export namespace Prisma {
     inv_name?: SortOrder
     inv_desc?: SortOrderInput | SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
@@ -5678,6 +5696,7 @@ export namespace Prisma {
     inv_name?: StringFilter<"Inventory"> | string
     inv_desc?: StringNullableFilter<"Inventory"> | string | null
     inv_quantity?: IntFilter<"Inventory"> | number
+    inv_trigger?: IntFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
@@ -5695,6 +5714,7 @@ export namespace Prisma {
     inv_name?: SortOrder
     inv_desc?: SortOrderInput | SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
@@ -5717,6 +5737,7 @@ export namespace Prisma {
     inv_name?: StringWithAggregatesFilter<"Inventory"> | string
     inv_desc?: StringNullableWithAggregatesFilter<"Inventory"> | string | null
     inv_quantity?: IntWithAggregatesFilter<"Inventory"> | number
+    inv_trigger?: IntWithAggregatesFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusWithAggregatesFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
@@ -5901,6 +5922,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -5915,6 +5937,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -5928,6 +5951,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5942,6 +5966,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5956,6 +5981,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -5969,6 +5995,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5980,6 +6007,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6285,6 +6313,7 @@ export namespace Prisma {
     inv_name?: SortOrder
     inv_desc?: SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
@@ -6297,6 +6326,7 @@ export namespace Prisma {
   export type InventoryAvgOrderByAggregateInput = {
     inv_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
     store_id?: SortOrder
@@ -6307,6 +6337,7 @@ export namespace Prisma {
     inv_name?: SortOrder
     inv_desc?: SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
@@ -6321,6 +6352,7 @@ export namespace Prisma {
     inv_name?: SortOrder
     inv_desc?: SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
     inv_updatedAt?: SortOrder
@@ -6333,6 +6365,7 @@ export namespace Prisma {
   export type InventorySumOrderByAggregateInput = {
     inv_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_trigger?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
     store_id?: SortOrder
@@ -6783,6 +6816,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -6796,6 +6830,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -6838,6 +6873,7 @@ export namespace Prisma {
     inv_name?: StringFilter<"Inventory"> | string
     inv_desc?: StringNullableFilter<"Inventory"> | string | null
     inv_quantity?: IntFilter<"Inventory"> | number
+    inv_trigger?: IntFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
     inv_updatedAt?: DateTimeFilter<"Inventory"> | Date | string
@@ -6851,6 +6887,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -6864,6 +6901,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -6902,6 +6940,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -6915,6 +6954,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -7092,6 +7132,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -7104,6 +7145,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7117,6 +7159,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7130,6 +7173,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7143,6 +7187,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -7155,6 +7200,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7168,6 +7214,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7181,6 +7228,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7194,6 +7242,7 @@ export namespace Prisma {
     inv_name: string
     inv_desc?: string | null
     inv_quantity?: number
+    inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
     inv_updatedAt?: Date | string
@@ -7206,6 +7255,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7219,6 +7269,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7232,6 +7283,7 @@ export namespace Prisma {
     inv_name?: StringFieldUpdateOperationsInput | string
     inv_desc?: NullableStringFieldUpdateOperationsInput | string | null
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     inv_updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
