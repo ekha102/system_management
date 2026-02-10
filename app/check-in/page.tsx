@@ -1,32 +1,59 @@
 import { prisma } from "@/prisma/client";
 import CheckInTable from "./CheckInTable";
+import Pagination from "../_components/Pagination";
+import SearchCheckInProduct from "./SearchCheckInProduct";
+import BasicSearch from "../_components/BasicSearch";
 
-const CheckInHomePage = async () => {
+
+type Props = {
+  searchParams: {
+    page?: string;
+    searchCheckInProduct?: string;
+  }
+}
+const CheckInHomePage = async ({ searchParams }: Props) => {
+
+  const currentPage = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
+  const sizePage = 5; // Number of items per page
+
   const checkInItems = await prisma.inventory.findMany({
-    where: { inv_status: "Active" },
-    include: { bin: {
-      select: {
-        bin_id: true,
-        bin_name: true, 
+    where: {
+      inv_status: "Active", inv_name: searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined
+    },
+    include: {
+      bin: {
+        select: {
+          bin_id: true,
+          bin_name: true,
+        }
       }
-    }
       , location: {
         select: {
           loc_id: true,
           loc_name: true,
         }
-      }, 
+      },
       store: {
         select: {
           store_id: true,
           store_name: true,
         }
-      }},
+      }
+    },
+    skip: (currentPage - 1) * sizePage,
+    take: sizePage,
+  });
+
+  const checkInCount = await prisma.inventory.count({
+    where: { inv_status: "Active", inv_name: searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined },
   });
 
   return (
     <>
+      {/* <SearchCheckInProduct /> */}
+      <BasicSearch route="/check-in" queryKey="searchCheckInProduct" placeholder="Search check-in product..." />
       <CheckInTable checkInItems={checkInItems} />
+      <Pagination itemCount={checkInCount} itemsSize={sizePage} currentPage={currentPage} />
     </>
   )
 }

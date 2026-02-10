@@ -1,32 +1,33 @@
-import { Box, Flex, Heading, Separator } from "@radix-ui/themes";
+
+import { Grid, Box, Card, Heading, Flex, Text } from "@radix-ui/themes"
+import { CubeIcon, ArchiveIcon, BackpackIcon } from "@radix-ui/react-icons"
+import LatestAddProducts from "./LatestAddProducts"
 import TotalProducts from "./TotalProducts"
-import LatestAddProducts from "./LatestAddProducts";
+import TotalStores from "./TotalStores"
+import TotalBins from "./TotalBins"
+import TotalLocations from "./TotalLocations"
 
-const DashboardPage = () => {
+const DashBoardPage = () => {
   return (
-    <>
-      <Heading size="5">Dashboard</Heading>
+    <Box p="4">
 
-      <Flex direction="row" gap="4" my="4">
+      {/* 🔹 ROW 1 — SUMMARY CARDS */}
+      <Grid  columns={{ initial: "1", sm: "2", lg: "4" }} gap="4" mb="6" width="100%">
         <TotalProducts />
-        {/* Total low in stock*/}
-        🔴 Low
+        <TotalStores />
+        <TotalBins/>
+        <TotalLocations />
+      </Grid>
 
-        🟡 Normal
-
-        🟢 High
-      </Flex>
-
-      <Separator orientation="horizontal" size="3" style={{ width: "100%" }} />
-
-      <Flex direction="column">
-        <Heading as="h3" size="4" my="1">Latest Added Products</Heading>
+      {/* 🔹 ROW 2 — LATEST INVENTORY */}
+      <Card size="3">
+        <Heading size="4" mb="4">
+          Latest Inventory Entries
+        </Heading>
         <LatestAddProducts />
-      </Flex>
+      </Card>
 
-
-
-    </>
+    </Box>
   )
 }
-export default DashboardPage;
+export default DashBoardPage;

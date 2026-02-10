@@ -1,18 +1,18 @@
 
-import { Box, Flex, HoverCard, Link, Table, Text, Heading } from '@radix-ui/themes'
-import React from 'react'
+import { Box, Flex, HoverCard, Link, Table, Text } from '@radix-ui/themes'
+import { useState } from 'react'
 import ButtonDeleteItem from './deleteItem';
 import ButtonEditItem from './buttonEditItem';
 import Pagination from '../_components/Pagination';
 import { prisma } from '@/prisma/client';
-
-
+import SearchProduct from './SearchProduct';
 
 
 
 type Props = {
   searchParams: {
     page?: string;
+    search?: string;
   };
 };
 
@@ -23,22 +23,23 @@ const InventoryList = async ({ searchParams }: Props) => {
   const sizePage = 5; // Number of items per page
 
   const items = await prisma.inventory.findMany({
-    where: { inv_status: 'Active' },
+    where: { inv_status: 'Active', inv_name: searchParams.search ? { contains: searchParams.search } : undefined },
     include: { bin: true, location: true, store: true },
     skip: (page - 1) * sizePage,
     take: sizePage,
   });
 
   const inventoryCount = await prisma.inventory.count({
-    where: { inv_status: 'Active' },
+    where: { inv_status: 'Active' , inv_name: searchParams.search ? { contains: searchParams.search } : undefined },
   });
 
-  console.log("inventoryCount", inventoryCount);
-  console.log("items", items);
+ 
+
 
 
   return (
     <>
+      <SearchProduct />
       <Table.Root>
         <Table.Header>
           <Table.Row>
@@ -97,7 +98,7 @@ const InventoryList = async ({ searchParams }: Props) => {
         </Table.Body>
       </Table.Root>
       <Pagination itemCount={inventoryCount} itemsSize={sizePage} currentPage={page} />
-      
+
     </>
   )
 }

@@ -12,10 +12,7 @@ interface Props {
 };
 
 const InventoryPage = ({ searchParams }: Props) => {
-  console.log("search", searchParams.page);
-
-
-
+  
 
   return (
     <div>

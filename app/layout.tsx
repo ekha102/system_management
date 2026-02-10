@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./Providers";
 import NavBar from "./NavBar";
+import { Flex, Box } from "@radix-ui/themes";
+import Footer from "./Footer";
+import AdminShell from "./AdminShell";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,8 +32,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <main className="p-5">
           <Providers>
-            <NavBar />
-            {children}           
+            <Providers>
+              <AdminShell>{children}</AdminShell>
+            </Providers>
           </Providers>
         </main>
       </body>

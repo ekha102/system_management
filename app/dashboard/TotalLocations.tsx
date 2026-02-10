@@ -1,21 +1,21 @@
-import { prisma } from "@/prisma/client";
-import { Card, Flex, Text, Box, Heading } from "@radix-ui/themes"
+import { prisma } from "@/prisma/client"
+import { Card, Flex, Box, Heading, Text } from "@radix-ui/themes"
+
+const TotalLocations = async () => {
 
 
-const TotalProducts = async () => {
-  const totalProducts = await prisma.inventory.count({
-    where: { inv_status: "Active" }
-  });
-  // console.log("total Products", totalProducts);
+  const totalLocations = await prisma.location.count();
+
+
   return (
     <Card size="3">
       <Flex justify="between" align="start">
         <Box>
           <Text size="2" color="gray">
-            Products
+            Locations
           </Text>
           <Heading size="6" mt="2" align="center">
-            {totalProducts}
+            {totalLocations}
           </Heading>
         </Box>
 
@@ -28,10 +28,10 @@ const TotalProducts = async () => {
             padding: 10,
           }}
         >
-          <Text size="9">📦</Text>
+          <Text size="9">📍</Text>
         </Flex>
       </Flex>
     </Card>
   )
 }
-export default TotalProducts
+export default TotalLocations

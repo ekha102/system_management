@@ -17,13 +17,14 @@ interface Props {
 const Pagination = ({ itemCount, itemsSize, currentPage }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  
 
   const pageCount = Math.ceil(itemCount / itemsSize);
   if (pageCount <= 1) return null;
 
   const changePage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
-    console.log("params: ", params);
+    // console.log("params: ", params);
     params.set("page", page.toString());
     router.push("?" + params.toString());
   };
