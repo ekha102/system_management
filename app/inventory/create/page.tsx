@@ -12,11 +12,12 @@ const CreateItem = async () => {
   const bins = await prisma.bin.findMany();
   const locations = await prisma.location.findMany();
   const stores = await prisma.store.findMany();
+  const products = await prisma.product.findMany();
 
 
   return (
     <>
-      <FormInventory bins={bins} locations={locations} stores={stores} />
+      <FormInventory bins={bins} locations={locations} stores={stores} products={products}/>
     </>
   )
 }

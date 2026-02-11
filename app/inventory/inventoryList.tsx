@@ -24,7 +24,7 @@ const InventoryList = async ({ searchParams }: Props) => {
 
   const items = await prisma.inventory.findMany({
     where: { inv_status: 'Active', inv_name: searchParams.search ? { contains: searchParams.search } : undefined },
-    include: { bin: true, location: true, store: true },
+    include: { bin: true, location: true, store: true, product: true },
     skip: (page - 1) * sizePage,
     take: sizePage,
   });
@@ -44,7 +44,7 @@ const InventoryList = async ({ searchParams }: Props) => {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Product Name</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Trigger</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Store</Table.ColumnHeaderCell>
@@ -62,7 +62,7 @@ const InventoryList = async ({ searchParams }: Props) => {
                 {/* Create card for inventory inventory description trigger by name */}
                 <HoverCard.Root>
                   <HoverCard.Trigger>
-                    <Link href={`/inventory/dataList/${item.inv_id}`}>{item.inv_name}</Link>
+                    <Link href={`/inventory/dataList/${item.inv_id}`}>{item.product?.prod_name}</Link>
                   </HoverCard.Trigger>
                   <HoverCard.Content maxWidth="300px">
                     <Flex gap="4">
@@ -71,7 +71,7 @@ const InventoryList = async ({ searchParams }: Props) => {
                       </Text>
                       <Box>
                         <Text as="div" size="2">
-                          {item.inv_desc}
+                          {item.product.prod_desc}
                         </Text>
                       </Box>
                     </Flex>

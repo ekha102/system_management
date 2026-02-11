@@ -42,26 +42,63 @@ model Store {
   inventories     Inventory[] // One Store → Many Inventory
 }
 
+model Product {
+  prod_id   Int      @id @default(autoincrement())
+  prod_name String
+  prod_desc String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inventories Inventory[] // ✅ One Product → Many Inventory records
+}
+
 enum InventoryStatus {
   Active
   Inactive
 }
 
 model Inventory {
-  inv_id        Int             @id @default(autoincrement())
-  inv_name      String
-  inv_desc      String?
+  inv_id Int @id @default(autoincrement())
+
+  // 🔗 Product Relation (Many inventory rows per product)
+  prod_id Int
+  product Product @relation(fields: [prod_id], references: [prod_id])
+
   inv_quantity  Int             @default(0)
-  inv_trigger   Int             @default(1) // New field for low stock trigger
+  inv_trigger   Int             @default(1)
   inv_status    InventoryStatus @default(Active)
   inv_createdAt DateTime        @default(now())
   inv_updatedAt DateTime        @updatedAt
-  checkedBin    Boolean?        @default(false) // 👈 NEW FIELD (safe)
-  bin_id        Int?
-  loc_id        Int?
-  store_id      Int?
+  checkedBin    Boolean?        @default(false)
+
+  bin_id   Int?
+  loc_id   Int?
+  store_id Int?
 
   bin      Bin?      @relation(fields: [bin_id], references: [bin_id])
   location Location? @relation(fields: [loc_id], references: [loc_id])
   store    Store?    @relation(fields: [store_id], references: [store_id])
+
+  transactions InventoryTransaction[]
+
+  @@unique([prod_id, bin_id, loc_id, store_id])
+}
+
+enum InvTranType {
+  INITIAL //First time setting quantity +
+  PURCHASE //You bought more (Costco run 🛒) +
+  CONSUMED //You used/consumed something -
+  ADJUST //Fixing a counting mistake +/-
+  DISCARD //Expired, broken, thrown away -
+}
+
+model InventoryTransaction {
+  invtran_id        Int         @id @default(autoincrement())
+  inv_id            Int
+  invtran_change    Int
+  invtran_type      InvTranType @default(INITIAL)
+  invtran_note      String?
+  invtran_createdAt DateTime    @default(now())
+
+  inventory Inventory @relation(fields: [inv_id], references: [inv_id])
 }

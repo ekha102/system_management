@@ -6,15 +6,14 @@ import { ValidationInventoryCreateItem } from '@/app/_components/invalidationInv
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch } from '@radix-ui/themes';
-import { Bin, Location, Store } from '@/app/generated/prisma';
+import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch, Table } from '@radix-ui/themes';
+import { Bin, Location, Product, Store } from '@/app/generated/prisma';
 
 
 
 interface ItemForm {
-  inv_name: string;
-  inv_desc: string;
-  inv_quantity: number;
+  prod_id: number | null;
+  // inv_quantity: number;
   inv_trigger: number;
   bin_id: number | null;
   loc_id: number | null;
@@ -25,11 +24,12 @@ interface Props {
   bins?: Bin[];
   locations?: Location[];
   stores?: Store[];  // Add stores prop
+  products?: Product[]
 }
 
 
 
-const FormInventory = ({ bins, locations, stores }: Props) => {
+const FormInventory = ({ bins, locations, stores, products }: Props) => {
 
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -51,6 +51,14 @@ const FormInventory = ({ bins, locations, stores }: Props) => {
     },
   });
 
+  const handleNumberSelectChange = (
+    value: string,
+    onChange: (value: number | null) => void
+  ) => {
+    const numberValue = value ? Number(value) : null;
+    onChange(numberValue);
+  };
+
 
   const onSubmit = async (values: ItemForm) => {
     // console.log("current state of isEnabledBin in submiting : ", isEnabledBin);
@@ -61,14 +69,14 @@ const FormInventory = ({ bins, locations, stores }: Props) => {
       isBinEnabled: values.checkedBin, // true / false
     };
     console.log("Payload to submit:", payload);
-    try {
-      await axios.post('/api/inventory', payload);
-      setIsSubmiting(true);
-      router.push('/inventory');
-    } catch (error) {
-      setIsErrorApi("Error occurred while creating item.");
-      setIsSubmiting(false);
-    }
+    // try {
+    //   await axios.post('/api/inventory', payload);
+    //   setIsSubmiting(true);
+    //   router.push('/inventory');
+    // } catch (error) {
+    //   setIsErrorApi("Error occurred while creating item.");
+    //   setIsSubmiting(false);
+    // }
   }
 
   return (
@@ -83,13 +91,62 @@ const FormInventory = ({ bins, locations, stores }: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex direction="column" gap="3">
           <Box maxWidth="250px">
-            <TextField.Root disabled={isSubmiting} placeholder="Name of Item" {...register("inv_name")} />
-            {errors.inv_name && <Text color='red'>{errors.inv_name.message}</Text>}
+            {/* Select product name  */}
+            <Controller
+              name="prod_id"
+              control={control}
+              defaultValue={null} // first render is null
+              render={({ field }) => (
+                <Box maxWidth="250px">
+                  <Select.Root
+                    // onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                    onValueChange={(value) => handleNumberSelectChange(value, field.onChange)
+                    }
+                    // onValueChange={handleProductChange}
+                    disabled={isSubmiting}
+                  >
+                    <Select.Trigger placeholder="Select product" />
+
+                    <Select.Content>
+                      <Select.Group>
+                        {products?.map((product) => (
+                          <Select.Item key={product.prod_id} value={String(product.prod_id)}>{product.prod_id} - 
+                            {product.prod_name}
+                          </Select.Item>
+                          
+                        ))}
+
+
+              
+                                
+           
+                       
+
+
+
+
+
+
+
+
+
+
+
+
+                      </Select.Group>
+                    </Select.Content>
+                  </Select.Root>
+                  {errors.prod_id && <Text color="red">{errors.prod_id.message}</Text>}
+                </Box>
+              )}
+            />
           </Box>
-          <Box maxWidth="250px">
+
+          {/* <Box maxWidth="250px">
             <TextField.Root disabled={isSubmiting} placeholder="Description" {...register("inv_desc")} />
             {errors.inv_desc && <Text color='red'>{errors.inv_desc.message}</Text>}
-          </Box>
+          </Box> */}
+
           <Box maxWidth="250px">
             <TextField.Root disabled={isSubmiting} type="number" placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
@@ -103,32 +160,32 @@ const FormInventory = ({ bins, locations, stores }: Props) => {
 
           {/* Store selection */}
           <Controller
-              name="store_id"
-              control={control}
-              defaultValue={null} // first render is null
-              render={({ field }) => (
-                <Box maxWidth="250px">
-                  <Select.Root
-                    onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                    disabled={isSubmiting}
-                  >
-                    <Select.Trigger placeholder="Select store" />
+            name="store_id"
+            control={control}
+            defaultValue={null} // first render is null
+            render={({ field }) => (
+              <Box maxWidth="250px">
+                <Select.Root
+                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                  disabled={isSubmiting}
+                >
+                  <Select.Trigger placeholder="Select store" />
 
-                    <Select.Content>
-                      <Select.Group>
-                        <Select.Item value="null">Unassigned</Select.Item>
-                        {stores?.map((store) => (
-                          <Select.Item key={store.store_id} value={String(store.store_id)}>
-                            {store.store_name}
-                          </Select.Item>
-                        ))}
-                      </Select.Group>
-                    </Select.Content>
-                  </Select.Root>
-                  {errors.store_id && <Text color="red">{errors.store_id.message}</Text>}
-                </Box>
-              )}
-            />
+                  <Select.Content>
+                    <Select.Group>
+                      <Select.Item value="null">Unassigned</Select.Item>
+                      {stores?.map((store) => (
+                        <Select.Item key={store.store_id} value={String(store.store_id)}>
+                          {store.store_name}
+                        </Select.Item>
+                      ))}
+                    </Select.Group>
+                  </Select.Content>
+                </Select.Root>
+                {errors.store_id && <Text color="red">{errors.store_id.message}</Text>}
+              </Box>
+            )}
+          />
 
 
 

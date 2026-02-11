@@ -1,8 +1,8 @@
 import z from "zod";
 
 export const ValidationInventoryCreateItem = z.object({
-  inv_name: z.string().min(1, 'Required field.').max(255),
-  inv_desc: z.string().min(1, 'Required field.').max(1000),
+  prod_id: z.number().min(1, "Product must be at least 1"),
+  // inv_desc: z.string().min(1, 'Required field.').max(1000),
   inv_quantity:  z.number().min(1, "Quantity must be at least 1").max(100, "Quantity must be less than or equal to 100"),
   inv_trigger: z.number().min(1, "Trigger must be at least 1"),
   store_id: z.number().nullable().optional(), // Add store_id

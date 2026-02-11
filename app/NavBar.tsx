@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   FaHome, FaBoxes, FaSignInAlt, FaSignOutAlt,
-  FaArchive, FaMapMarkerAlt, FaStore, FaChartBar
+  FaArchive, FaMapMarkerAlt, FaStore, FaChartBar, FaTag
 } from "react-icons/fa"
 import { useEffect } from "react"
 
@@ -14,6 +14,7 @@ const links = [
   { label: "Inventory", href: "/inventory", icon: <FaBoxes /> },
   { label: "Check-In", href: "/check-in", icon: <FaSignInAlt /> },
   { label: "Check-Out", href: "/check-out", icon: <FaSignOutAlt /> },
+  { label: "Products", href: "/products", icon: <FaTag /> },
   { label: "Bins", href: "/bins", icon: <FaArchive /> },
   { label: "Locations", href: "/locations", icon: <FaMapMarkerAlt /> },
   { label: "Stores", href: "/stores", icon: <FaStore /> },

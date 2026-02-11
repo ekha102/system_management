@@ -144,10 +144,17 @@ exports.Prisma.StoreScalarFieldEnum = {
   store_updatedAt: 'store_updatedAt'
 };
 
+exports.Prisma.ProductScalarFieldEnum = {
+  prod_id: 'prod_id',
+  prod_name: 'prod_name',
+  prod_desc: 'prod_desc',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.InventoryScalarFieldEnum = {
   inv_id: 'inv_id',
-  inv_name: 'inv_name',
-  inv_desc: 'inv_desc',
+  prod_id: 'prod_id',
   inv_quantity: 'inv_quantity',
   inv_trigger: 'inv_trigger',
   inv_status: 'inv_status',
@@ -157,6 +164,15 @@ exports.Prisma.InventoryScalarFieldEnum = {
   bin_id: 'bin_id',
   loc_id: 'loc_id',
   store_id: 'store_id'
+};
+
+exports.Prisma.InventoryTransactionScalarFieldEnum = {
+  invtran_id: 'invtran_id',
+  inv_id: 'inv_id',
+  invtran_change: 'invtran_change',
+  invtran_type: 'invtran_type',
+  invtran_note: 'invtran_note',
+  invtran_createdAt: 'invtran_createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -184,20 +200,34 @@ exports.Prisma.StoreOrderByRelevanceFieldEnum = {
   store_desc: 'store_desc'
 };
 
-exports.Prisma.InventoryOrderByRelevanceFieldEnum = {
-  inv_name: 'inv_name',
-  inv_desc: 'inv_desc'
+exports.Prisma.ProductOrderByRelevanceFieldEnum = {
+  prod_name: 'prod_name',
+  prod_desc: 'prod_desc'
+};
+
+exports.Prisma.InventoryTransactionOrderByRelevanceFieldEnum = {
+  invtran_note: 'invtran_note'
 };
 exports.InventoryStatus = exports.$Enums.InventoryStatus = {
   Active: 'Active',
   Inactive: 'Inactive'
 };
 
+exports.InvTranType = exports.$Enums.InvTranType = {
+  INITIAL: 'INITIAL',
+  PURCHASE: 'PURCHASE',
+  CONSUMED: 'CONSUMED',
+  ADJUST: 'ADJUST',
+  DISCARD: 'DISCARD'
+};
+
 exports.Prisma.ModelName = {
   Location: 'Location',
   Bin: 'Bin',
   Store: 'Store',
-  Inventory: 'Inventory'
+  Product: 'Product',
+  Inventory: 'Inventory',
+  InventoryTransaction: 'InventoryTransaction'
 };
 
 /**
