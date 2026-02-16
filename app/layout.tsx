@@ -7,6 +7,8 @@ import { Flex, Box } from "@radix-ui/themes";
 import Footer from "./Footer";
 import AdminShell from "./AdminShell";
 import { isDatabaseConnected } from "@/lib/dbHealth";
+import Maintenance from "./Maintenance";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,6 +30,19 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+const maintenanceMode = process.env.MAINTENANCE_MODE === "true";
+
+  if (maintenanceMode) {
+    return (
+      <html lang="en">
+        <body>
+          <Maintenance/>
+        </body>
+      </html>
+    );
+  }
+
 
 
   const connected = await isDatabaseConnected();
