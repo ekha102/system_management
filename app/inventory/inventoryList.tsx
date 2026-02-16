@@ -1,6 +1,5 @@
 
 import { Box, Flex, HoverCard, Link, Table, Text } from '@radix-ui/themes'
-import { useState } from 'react'
 import ButtonDeleteItem from './deleteItem';
 import ButtonEditItem from './buttonEditItem';
 import Pagination from '../_components/Pagination';
@@ -23,14 +22,20 @@ const InventoryList = async ({ searchParams }: Props) => {
   const sizePage = 5; // Number of items per page
 
   const items = await prisma.inventory.findMany({
-    where: { inv_status: 'Active', inv_name: searchParams.search ? { contains: searchParams.search } : undefined },
+    where: { inv_status: 'Active', 
+      product: {
+        prod_name: searchParams.search ? { contains: searchParams.search } : undefined },
+      },
     include: { bin: true, location: true, store: true, product: true },
     skip: (page - 1) * sizePage,
     take: sizePage,
   });
 
   const inventoryCount = await prisma.inventory.count({
-    where: { inv_status: 'Active' , inv_name: searchParams.search ? { contains: searchParams.search } : undefined },
+    where: { inv_status: 'Active', 
+      product: {
+        prod_name: searchParams.search ? { contains: searchParams.search } : undefined },
+      },
   });
 
  
@@ -45,7 +50,7 @@ const InventoryList = async ({ searchParams }: Props) => {
           <Table.Row>
             <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Product Name</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Restock</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Trigger</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Store</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Bin Name</Table.ColumnHeaderCell>
@@ -79,7 +84,7 @@ const InventoryList = async ({ searchParams }: Props) => {
                 </HoverCard.Root>
               </Table.Cell>
 
-              <Table.Cell>{item.inv_quantity}</Table.Cell>
+              <Table.Cell>{item.inv_restock}</Table.Cell>
               <Table.Cell>{item.inv_trigger}</Table.Cell>
               <Table.Cell>{item.store?.store_name}</Table.Cell>
               <Table.Cell>{item.bin?.bin_name}_{item.bin?.bin_id}</Table.Cell>

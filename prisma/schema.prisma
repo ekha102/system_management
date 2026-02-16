@@ -64,6 +64,7 @@ model Inventory {
   product       Product         @relation(fields: [prod_id], references: [prod_id])
 
   inv_quantity  Int             @default(0)
+  inv_restock   Int             @default(1)
   inv_trigger   Int             @default(1)
   inv_status    InventoryStatus @default(Active)
   inv_createdAt DateTime        @default(now())
@@ -84,7 +85,7 @@ model Inventory {
 
 enum InvTranType {
   INITIAL   //First time setting quantity +
-  PURCHASE  //You bought more (Costco run 🛒) +
+  PURCHASE  //You bought more (Costco) +
   CONSUMED  //You used/consumed something -
   ADJUST    //Fixing a counting mistake +/-
   DISCARD   //Expired, broken, thrown away -

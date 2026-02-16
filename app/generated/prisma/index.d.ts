@@ -5434,6 +5434,7 @@ export namespace Prisma {
     inv_id: number | null
     prod_id: number | null
     inv_quantity: number | null
+    inv_restock: number | null
     inv_trigger: number | null
     bin_id: number | null
     loc_id: number | null
@@ -5444,6 +5445,7 @@ export namespace Prisma {
     inv_id: number | null
     prod_id: number | null
     inv_quantity: number | null
+    inv_restock: number | null
     inv_trigger: number | null
     bin_id: number | null
     loc_id: number | null
@@ -5454,6 +5456,7 @@ export namespace Prisma {
     inv_id: number | null
     prod_id: number | null
     inv_quantity: number | null
+    inv_restock: number | null
     inv_trigger: number | null
     inv_status: $Enums.InventoryStatus | null
     inv_createdAt: Date | null
@@ -5468,6 +5471,7 @@ export namespace Prisma {
     inv_id: number | null
     prod_id: number | null
     inv_quantity: number | null
+    inv_restock: number | null
     inv_trigger: number | null
     inv_status: $Enums.InventoryStatus | null
     inv_createdAt: Date | null
@@ -5482,6 +5486,7 @@ export namespace Prisma {
     inv_id: number
     prod_id: number
     inv_quantity: number
+    inv_restock: number
     inv_trigger: number
     inv_status: number
     inv_createdAt: number
@@ -5498,6 +5503,7 @@ export namespace Prisma {
     inv_id?: true
     prod_id?: true
     inv_quantity?: true
+    inv_restock?: true
     inv_trigger?: true
     bin_id?: true
     loc_id?: true
@@ -5508,6 +5514,7 @@ export namespace Prisma {
     inv_id?: true
     prod_id?: true
     inv_quantity?: true
+    inv_restock?: true
     inv_trigger?: true
     bin_id?: true
     loc_id?: true
@@ -5518,6 +5525,7 @@ export namespace Prisma {
     inv_id?: true
     prod_id?: true
     inv_quantity?: true
+    inv_restock?: true
     inv_trigger?: true
     inv_status?: true
     inv_createdAt?: true
@@ -5532,6 +5540,7 @@ export namespace Prisma {
     inv_id?: true
     prod_id?: true
     inv_quantity?: true
+    inv_restock?: true
     inv_trigger?: true
     inv_status?: true
     inv_createdAt?: true
@@ -5546,6 +5555,7 @@ export namespace Prisma {
     inv_id?: true
     prod_id?: true
     inv_quantity?: true
+    inv_restock?: true
     inv_trigger?: true
     inv_status?: true
     inv_createdAt?: true
@@ -5647,6 +5657,7 @@ export namespace Prisma {
     inv_id: number
     prod_id: number
     inv_quantity: number
+    inv_restock: number
     inv_trigger: number
     inv_status: $Enums.InventoryStatus
     inv_createdAt: Date
@@ -5680,6 +5691,7 @@ export namespace Prisma {
     inv_id?: boolean
     prod_id?: boolean
     inv_quantity?: boolean
+    inv_restock?: boolean
     inv_trigger?: boolean
     inv_status?: boolean
     inv_createdAt?: boolean
@@ -5702,6 +5714,7 @@ export namespace Prisma {
     inv_id?: boolean
     prod_id?: boolean
     inv_quantity?: boolean
+    inv_restock?: boolean
     inv_trigger?: boolean
     inv_status?: boolean
     inv_createdAt?: boolean
@@ -5712,7 +5725,7 @@ export namespace Prisma {
     store_id?: boolean
   }
 
-  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "prod_id" | "inv_quantity" | "inv_trigger" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id" | "store_id", ExtArgs["result"]["inventory"]>
+  export type InventoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"inv_id" | "prod_id" | "inv_quantity" | "inv_restock" | "inv_trigger" | "inv_status" | "inv_createdAt" | "inv_updatedAt" | "checkedBin" | "bin_id" | "loc_id" | "store_id", ExtArgs["result"]["inventory"]>
   export type InventoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     product?: boolean | ProductDefaultArgs<ExtArgs>
     bin?: boolean | Inventory$binArgs<ExtArgs>
@@ -5735,6 +5748,7 @@ export namespace Prisma {
       inv_id: number
       prod_id: number
       inv_quantity: number
+      inv_restock: number
       inv_trigger: number
       inv_status: $Enums.InventoryStatus
       inv_createdAt: Date
@@ -6120,6 +6134,7 @@ export namespace Prisma {
     readonly inv_id: FieldRef<"Inventory", 'Int'>
     readonly prod_id: FieldRef<"Inventory", 'Int'>
     readonly inv_quantity: FieldRef<"Inventory", 'Int'>
+    readonly inv_restock: FieldRef<"Inventory", 'Int'>
     readonly inv_trigger: FieldRef<"Inventory", 'Int'>
     readonly inv_status: FieldRef<"Inventory", 'InventoryStatus'>
     readonly inv_createdAt: FieldRef<"Inventory", 'DateTime'>
@@ -7614,6 +7629,7 @@ export namespace Prisma {
     inv_id: 'inv_id',
     prod_id: 'prod_id',
     inv_quantity: 'inv_quantity',
+    inv_restock: 'inv_restock',
     inv_trigger: 'inv_trigger',
     inv_status: 'inv_status',
     inv_createdAt: 'inv_createdAt',
@@ -7990,6 +8006,7 @@ export namespace Prisma {
     inv_id?: IntFilter<"Inventory"> | number
     prod_id?: IntFilter<"Inventory"> | number
     inv_quantity?: IntFilter<"Inventory"> | number
+    inv_restock?: IntFilter<"Inventory"> | number
     inv_trigger?: IntFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
@@ -8009,6 +8026,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
@@ -8032,6 +8050,7 @@ export namespace Prisma {
     NOT?: InventoryWhereInput | InventoryWhereInput[]
     prod_id?: IntFilter<"Inventory"> | number
     inv_quantity?: IntFilter<"Inventory"> | number
+    inv_restock?: IntFilter<"Inventory"> | number
     inv_trigger?: IntFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
@@ -8051,6 +8070,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
@@ -8073,6 +8093,7 @@ export namespace Prisma {
     inv_id?: IntWithAggregatesFilter<"Inventory"> | number
     prod_id?: IntWithAggregatesFilter<"Inventory"> | number
     inv_quantity?: IntWithAggregatesFilter<"Inventory"> | number
+    inv_restock?: IntWithAggregatesFilter<"Inventory"> | number
     inv_trigger?: IntWithAggregatesFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusWithAggregatesFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeWithAggregatesFilter<"Inventory"> | Date | string
@@ -8376,6 +8397,7 @@ export namespace Prisma {
 
   export type InventoryCreateInput = {
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -8392,6 +8414,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -8405,6 +8428,7 @@ export namespace Prisma {
 
   export type InventoryUpdateInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8421,6 +8445,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8436,6 +8461,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -8448,6 +8474,7 @@ export namespace Prisma {
 
   export type InventoryUpdateManyMutationInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8459,6 +8486,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8877,6 +8905,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
@@ -8891,6 +8920,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
@@ -8901,6 +8931,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
@@ -8915,6 +8946,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     inv_status?: SortOrder
     inv_createdAt?: SortOrder
@@ -8929,6 +8961,7 @@ export namespace Prisma {
     inv_id?: SortOrder
     prod_id?: SortOrder
     inv_quantity?: SortOrder
+    inv_restock?: SortOrder
     inv_trigger?: SortOrder
     bin_id?: SortOrder
     loc_id?: SortOrder
@@ -9578,6 +9611,7 @@ export namespace Prisma {
 
   export type InventoryCreateWithoutLocationInput = {
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9593,6 +9627,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9636,6 +9671,7 @@ export namespace Prisma {
     inv_id?: IntFilter<"Inventory"> | number
     prod_id?: IntFilter<"Inventory"> | number
     inv_quantity?: IntFilter<"Inventory"> | number
+    inv_restock?: IntFilter<"Inventory"> | number
     inv_trigger?: IntFilter<"Inventory"> | number
     inv_status?: EnumInventoryStatusFilter<"Inventory"> | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFilter<"Inventory"> | Date | string
@@ -9648,6 +9684,7 @@ export namespace Prisma {
 
   export type InventoryCreateWithoutBinInput = {
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9663,6 +9700,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9701,6 +9739,7 @@ export namespace Prisma {
 
   export type InventoryCreateWithoutStoreInput = {
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9716,6 +9755,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9754,6 +9794,7 @@ export namespace Prisma {
 
   export type InventoryCreateWithoutProductInput = {
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -9768,6 +9809,7 @@ export namespace Prisma {
   export type InventoryUncheckedCreateWithoutProductInput = {
     inv_id?: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10044,6 +10086,7 @@ export namespace Prisma {
 
   export type InventoryCreateWithoutTransactionsInput = {
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10059,6 +10102,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10087,6 +10131,7 @@ export namespace Prisma {
 
   export type InventoryUpdateWithoutTransactionsInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10102,6 +10147,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10116,6 +10162,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10127,6 +10174,7 @@ export namespace Prisma {
 
   export type InventoryUpdateWithoutLocationInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10142,6 +10190,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10156,6 +10205,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10169,6 +10219,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10180,6 +10231,7 @@ export namespace Prisma {
 
   export type InventoryUpdateWithoutBinInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10195,6 +10247,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10209,6 +10262,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10222,6 +10276,7 @@ export namespace Prisma {
     inv_id?: number
     prod_id: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10233,6 +10288,7 @@ export namespace Prisma {
 
   export type InventoryUpdateWithoutStoreInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10248,6 +10304,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10262,6 +10319,7 @@ export namespace Prisma {
     inv_id?: IntFieldUpdateOperationsInput | number
     prod_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10274,6 +10332,7 @@ export namespace Prisma {
   export type InventoryCreateManyProductInput = {
     inv_id?: number
     inv_quantity?: number
+    inv_restock?: number
     inv_trigger?: number
     inv_status?: $Enums.InventoryStatus
     inv_createdAt?: Date | string
@@ -10286,6 +10345,7 @@ export namespace Prisma {
 
   export type InventoryUpdateWithoutProductInput = {
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10300,6 +10360,7 @@ export namespace Prisma {
   export type InventoryUncheckedUpdateWithoutProductInput = {
     inv_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10314,6 +10375,7 @@ export namespace Prisma {
   export type InventoryUncheckedUpdateManyWithoutProductInput = {
     inv_id?: IntFieldUpdateOperationsInput | number
     inv_quantity?: IntFieldUpdateOperationsInput | number
+    inv_restock?: IntFieldUpdateOperationsInput | number
     inv_trigger?: IntFieldUpdateOperationsInput | number
     inv_status?: EnumInventoryStatusFieldUpdateOperationsInput | $Enums.InventoryStatus
     inv_createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -156,6 +156,7 @@ exports.Prisma.InventoryScalarFieldEnum = {
   inv_id: 'inv_id',
   prod_id: 'prod_id',
   inv_quantity: 'inv_quantity',
+  inv_restock: 'inv_restock',
   inv_trigger: 'inv_trigger',
   inv_status: 'inv_status',
   inv_createdAt: 'inv_createdAt',

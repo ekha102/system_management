@@ -38,6 +38,12 @@ const CheckInHomePage = async ({ searchParams }: Props) => {
           store_id: true,
           store_name: true,
         }
+      },
+      product: {
+        select: {
+          prod_id: true,
+          prod_name: true,
+        }
       }
     },
     skip: (currentPage - 1) * sizePage,

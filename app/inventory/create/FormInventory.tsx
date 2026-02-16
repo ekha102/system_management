@@ -13,7 +13,7 @@ import { Bin, Location, Product, Store } from '@/app/generated/prisma';
 
 interface ItemForm {
   prod_id: number | null;
-  // inv_quantity: number;
+  inv_quantity: number;
   inv_trigger: number;
   bin_id: number | null;
   loc_id: number | null;
@@ -68,15 +68,17 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
       ...values,
       isBinEnabled: values.checkedBin, // true / false
     };
-    console.log("Payload to submit:", payload);
-    // try {
-    //   await axios.post('/api/inventory', payload);
-    //   setIsSubmiting(true);
-    //   router.push('/inventory');
-    // } catch (error) {
-    //   setIsErrorApi("Error occurred while creating item.");
-    //   setIsSubmiting(false);
-    // }
+    // console.log("Payload to submit:", payload);
+    
+    try {
+      setIsSubmiting(true);  // Always disable the button on the top of the function
+      await axios.post('/api/inventory', payload);
+      
+      router.push('/inventory');
+    } catch (error) {
+      setIsSubmiting(false);
+      setIsErrorApi("Error occurred while creating item.");
+    }
   }
 
   return (
@@ -110,28 +112,10 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
                     <Select.Content>
                       <Select.Group>
                         {products?.map((product) => (
-                          <Select.Item key={product.prod_id} value={String(product.prod_id)}>{product.prod_id} - 
-                            {product.prod_name}
+                          <Select.Item key={product.prod_id} value={String(product.prod_id)}>{product.prod_id} - {product.prod_name}
                           </Select.Item>
                           
                         ))}
-
-
-              
-                                
-           
-                       
-
-
-
-
-
-
-
-
-
-
-
 
                       </Select.Group>
                     </Select.Content>

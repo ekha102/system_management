@@ -39,7 +39,7 @@ const CheckInTable = ({ checkInItems }: Props) => {
           {checkInItems.map((item) => (
             <Table.Row key={item.inv_id}>
               <Table.RowHeaderCell>{item.inv_id}</Table.RowHeaderCell>
-              <Table.Cell>{item.inv_name}</Table.Cell>
+              <Table.Cell>{item.product.prod_name}</Table.Cell>
               <Table.Cell>{item.inv_quantity}</Table.Cell>
               <Table.Cell>{item.inv_trigger}</Table.Cell>
               <Table.Cell>{getInventoryStatus(item)}</Table.Cell>

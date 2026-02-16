@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import { Flex, Box } from "@radix-ui/themes";
 import Footer from "./Footer";
 import AdminShell from "./AdminShell";
+import { isDatabaseConnected } from "@/lib/dbHealth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,11 +23,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+  const connected = await isDatabaseConnected();
+
+  if (!connected) {
+    return (
+      <html lang="en">
+        <body className="flex items-center justify-center h-screen bg-gray-100">
+          <div className="bg-white p-10 rounded-xl shadow-lg text-center">
+            <h1 className="text-3xl font-bold text-red-600">
+              Database Not Running
+            </h1>
+            <p className="mt-4 text-gray-600">
+              Please start MySQL on localhost:3307
+            </p>
+          </div>
+        </body>
+      </html>
+    );
+  }
+
+
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>

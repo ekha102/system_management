@@ -6,6 +6,9 @@ import TotalProducts from "./TotalProducts"
 import TotalStores from "./TotalStores"
 import TotalBins from "./TotalBins"
 import TotalLocations from "./TotalLocations"
+import StatusLow from "./StatusLow"
+import StatusNormal from "./StatusNormal"
+import StatusHigh from "./StatusHigh"
 
 const DashBoardPage = () => {
   return (
@@ -17,6 +20,13 @@ const DashBoardPage = () => {
         <TotalStores />
         <TotalBins/>
         <TotalLocations />
+      </Grid>
+
+      {/* Row 2 Status */}
+      <Grid  columns={{ initial: "2", sm: "4", lg: "8" }} gap="4" mb="6" width="100%">
+        <StatusLow />
+        <StatusNormal />
+        <StatusHigh />
       </Grid>
 
       {/* 🔹 ROW 2 — LATEST INVENTORY */}
