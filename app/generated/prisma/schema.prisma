@@ -45,6 +45,7 @@ model Store {
 model Product {
   prod_id   Int      @id @default(autoincrement())
   prod_name String
+  prod_sku  String?  @unique
   prod_desc String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -87,7 +88,7 @@ model Inventory {
 
 enum InvTranType {
   INITIAL //First time setting quantity +
-  PURCHASE //You bought more (Costco run 🛒) +
+  PURCHASE //You bought more (Costco) +
   CONSUMED //You used/consumed something -
   ADJUST //Fixing a counting mistake +/-
   DISCARD //Expired, broken, thrown away -

@@ -14,7 +14,7 @@ const EditLocationButton = ({ locDetail }: Props) => {
   const [open, setOpen] = useState(false);
 
   const handleEdit = (locDetail: Location) => {
-    console.log("Location Detail: ", locDetail);
+    // console.log("Location Detail: ", locDetail);
     setLocIdDetail(locDetail);
     setOpen(true);
   }

@@ -8,6 +8,7 @@ import Footer from "./Footer";
 import AdminShell from "./AdminShell";
 import { isDatabaseConnected } from "@/lib/dbHealth";
 import Maintenance from "./Maintenance";
+import MaintenanceBanner from "./MaintenanceBanner";
 
 
 export const metadata: Metadata = {
@@ -69,6 +70,7 @@ const maintenanceMode = process.env.MAINTENANCE_MODE === "true";
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <MaintenanceBanner/>
         <main className="p-5">
           <Providers>
             <Providers>

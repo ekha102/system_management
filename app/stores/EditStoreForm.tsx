@@ -32,7 +32,7 @@ const EditStoreForm = ({ storeItem }: Props) => {
 
 
   const onSubmit = async (values: IFormInput) => {
-    console.log("Submit store: ", values);
+    // console.log("Submit store: ", values);
     try {
       await axios.put(`/api/stores/${store_id}`, values);
       reset();

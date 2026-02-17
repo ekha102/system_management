@@ -4452,6 +4452,7 @@ export namespace Prisma {
   export type ProductMinAggregateOutputType = {
     prod_id: number | null
     prod_name: string | null
+    prod_sku: string | null
     prod_desc: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4460,6 +4461,7 @@ export namespace Prisma {
   export type ProductMaxAggregateOutputType = {
     prod_id: number | null
     prod_name: string | null
+    prod_sku: string | null
     prod_desc: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4468,6 +4470,7 @@ export namespace Prisma {
   export type ProductCountAggregateOutputType = {
     prod_id: number
     prod_name: number
+    prod_sku: number
     prod_desc: number
     createdAt: number
     updatedAt: number
@@ -4486,6 +4489,7 @@ export namespace Prisma {
   export type ProductMinAggregateInputType = {
     prod_id?: true
     prod_name?: true
+    prod_sku?: true
     prod_desc?: true
     createdAt?: true
     updatedAt?: true
@@ -4494,6 +4498,7 @@ export namespace Prisma {
   export type ProductMaxAggregateInputType = {
     prod_id?: true
     prod_name?: true
+    prod_sku?: true
     prod_desc?: true
     createdAt?: true
     updatedAt?: true
@@ -4502,6 +4507,7 @@ export namespace Prisma {
   export type ProductCountAggregateInputType = {
     prod_id?: true
     prod_name?: true
+    prod_sku?: true
     prod_desc?: true
     createdAt?: true
     updatedAt?: true
@@ -4597,6 +4603,7 @@ export namespace Prisma {
   export type ProductGroupByOutputType = {
     prod_id: number
     prod_name: string
+    prod_sku: string | null
     prod_desc: string | null
     createdAt: Date
     updatedAt: Date
@@ -4624,6 +4631,7 @@ export namespace Prisma {
   export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     prod_id?: boolean
     prod_name?: boolean
+    prod_sku?: boolean
     prod_desc?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4636,12 +4644,13 @@ export namespace Prisma {
   export type ProductSelectScalar = {
     prod_id?: boolean
     prod_name?: boolean
+    prod_sku?: boolean
     prod_desc?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"prod_id" | "prod_name" | "prod_desc" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"prod_id" | "prod_name" | "prod_sku" | "prod_desc" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     inventories?: boolean | Product$inventoriesArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
@@ -4655,6 +4664,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       prod_id: number
       prod_name: string
+      prod_sku: string | null
       prod_desc: string | null
       createdAt: Date
       updatedAt: Date
@@ -5030,6 +5040,7 @@ export namespace Prisma {
   interface ProductFieldRefs {
     readonly prod_id: FieldRef<"Product", 'Int'>
     readonly prod_name: FieldRef<"Product", 'String'>
+    readonly prod_sku: FieldRef<"Product", 'String'>
     readonly prod_desc: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
     readonly updatedAt: FieldRef<"Product", 'DateTime'>
@@ -7617,6 +7628,7 @@ export namespace Prisma {
   export const ProductScalarFieldEnum: {
     prod_id: 'prod_id',
     prod_name: 'prod_name',
+    prod_sku: 'prod_sku',
     prod_desc: 'prod_desc',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -7697,6 +7709,7 @@ export namespace Prisma {
 
   export const ProductOrderByRelevanceFieldEnum: {
     prod_name: 'prod_name',
+    prod_sku: 'prod_sku',
     prod_desc: 'prod_desc'
   };
 
@@ -7947,6 +7960,7 @@ export namespace Prisma {
     NOT?: ProductWhereInput | ProductWhereInput[]
     prod_id?: IntFilter<"Product"> | number
     prod_name?: StringFilter<"Product"> | string
+    prod_sku?: StringNullableFilter<"Product"> | string | null
     prod_desc?: StringNullableFilter<"Product"> | string | null
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
@@ -7956,6 +7970,7 @@ export namespace Prisma {
   export type ProductOrderByWithRelationInput = {
     prod_id?: SortOrder
     prod_name?: SortOrder
+    prod_sku?: SortOrderInput | SortOrder
     prod_desc?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7965,6 +7980,7 @@ export namespace Prisma {
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
     prod_id?: number
+    prod_sku?: string
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
@@ -7973,11 +7989,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     updatedAt?: DateTimeFilter<"Product"> | Date | string
     inventories?: InventoryListRelationFilter
-  }, "prod_id">
+  }, "prod_id" | "prod_sku">
 
   export type ProductOrderByWithAggregationInput = {
     prod_id?: SortOrder
     prod_name?: SortOrder
+    prod_sku?: SortOrderInput | SortOrder
     prod_desc?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7994,6 +8011,7 @@ export namespace Prisma {
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     prod_id?: IntWithAggregatesFilter<"Product"> | number
     prod_name?: StringWithAggregatesFilter<"Product"> | string
+    prod_sku?: StringNullableWithAggregatesFilter<"Product"> | string | null
     prod_desc?: StringNullableWithAggregatesFilter<"Product"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
@@ -8340,6 +8358,7 @@ export namespace Prisma {
 
   export type ProductCreateInput = {
     prod_name: string
+    prod_sku?: string | null
     prod_desc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8349,6 +8368,7 @@ export namespace Prisma {
   export type ProductUncheckedCreateInput = {
     prod_id?: number
     prod_name: string
+    prod_sku?: string | null
     prod_desc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8357,6 +8377,7 @@ export namespace Prisma {
 
   export type ProductUpdateInput = {
     prod_name?: StringFieldUpdateOperationsInput | string
+    prod_sku?: NullableStringFieldUpdateOperationsInput | string | null
     prod_desc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8366,6 +8387,7 @@ export namespace Prisma {
   export type ProductUncheckedUpdateInput = {
     prod_id?: IntFieldUpdateOperationsInput | number
     prod_name?: StringFieldUpdateOperationsInput | string
+    prod_sku?: NullableStringFieldUpdateOperationsInput | string | null
     prod_desc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8375,6 +8397,7 @@ export namespace Prisma {
   export type ProductCreateManyInput = {
     prod_id?: number
     prod_name: string
+    prod_sku?: string | null
     prod_desc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8382,6 +8405,7 @@ export namespace Prisma {
 
   export type ProductUpdateManyMutationInput = {
     prod_name?: StringFieldUpdateOperationsInput | string
+    prod_sku?: NullableStringFieldUpdateOperationsInput | string | null
     prod_desc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8390,6 +8414,7 @@ export namespace Prisma {
   export type ProductUncheckedUpdateManyInput = {
     prod_id?: IntFieldUpdateOperationsInput | number
     prod_name?: StringFieldUpdateOperationsInput | string
+    prod_sku?: NullableStringFieldUpdateOperationsInput | string | null
     prod_desc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8812,6 +8837,7 @@ export namespace Prisma {
   export type ProductCountOrderByAggregateInput = {
     prod_id?: SortOrder
     prod_name?: SortOrder
+    prod_sku?: SortOrder
     prod_desc?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8824,6 +8850,7 @@ export namespace Prisma {
   export type ProductMaxOrderByAggregateInput = {
     prod_id?: SortOrder
     prod_name?: SortOrder
+    prod_sku?: SortOrder
     prod_desc?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8832,6 +8859,7 @@ export namespace Prisma {
   export type ProductMinOrderByAggregateInput = {
     prod_id?: SortOrder
     prod_name?: SortOrder
+    prod_sku?: SortOrder
     prod_desc?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9849,6 +9877,7 @@ export namespace Prisma {
 
   export type ProductCreateWithoutInventoriesInput = {
     prod_name: string
+    prod_sku?: string | null
     prod_desc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9857,6 +9886,7 @@ export namespace Prisma {
   export type ProductUncheckedCreateWithoutInventoriesInput = {
     prod_id?: number
     prod_name: string
+    prod_sku?: string | null
     prod_desc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9965,6 +9995,7 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutInventoriesInput = {
     prod_name?: StringFieldUpdateOperationsInput | string
+    prod_sku?: NullableStringFieldUpdateOperationsInput | string | null
     prod_desc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9973,6 +10004,7 @@ export namespace Prisma {
   export type ProductUncheckedUpdateWithoutInventoriesInput = {
     prod_id?: IntFieldUpdateOperationsInput | number
     prod_name?: StringFieldUpdateOperationsInput | string
+    prod_sku?: NullableStringFieldUpdateOperationsInput | string | null
     prod_desc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

@@ -21,7 +21,7 @@ const LatestAddProducts = async () => {
       } 
     },
   });
-  console.log("Display 5 latest", displayFiveLatestProducts);
+  // console.log("Display 5 latest", displayFiveLatestProducts);
 
   return (
     <>

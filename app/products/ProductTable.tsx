@@ -23,6 +23,7 @@ const ProductTable = ({ products }: Props) => {
         {products.map((product) => (
           <Table.Row key={product.prod_id}>
             <Table.RowHeaderCell>{product.prod_id}</Table.RowHeaderCell>
+            <Table.Cell>{product.prod_sku}</Table.Cell>
             <Table.Cell>{product.prod_name}</Table.Cell>
             <Table.Cell>{product.prod_desc}</Table.Cell>
             <Table.Cell>{product.createdAt.toLocaleDateString()}</Table.Cell>

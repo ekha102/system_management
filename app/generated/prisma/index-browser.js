@@ -147,6 +147,7 @@ exports.Prisma.StoreScalarFieldEnum = {
 exports.Prisma.ProductScalarFieldEnum = {
   prod_id: 'prod_id',
   prod_name: 'prod_name',
+  prod_sku: 'prod_sku',
   prod_desc: 'prod_desc',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -203,6 +204,7 @@ exports.Prisma.StoreOrderByRelevanceFieldEnum = {
 
 exports.Prisma.ProductOrderByRelevanceFieldEnum = {
   prod_name: 'prod_name',
+  prod_sku: 'prod_sku',
   prod_desc: 'prod_desc'
 };
 

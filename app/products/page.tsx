@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma/client";
 import ProductTable from "./ProductTable";
+import ButtonCreateProduct from "./ButtonCreateProduct";
 
 
 const ProductPage = async () => {
@@ -9,6 +10,7 @@ const ProductPage = async () => {
 
   return (
     <>
+      <ButtonCreateProduct/>
       <ProductTable products={products}/>
     </>
   );
