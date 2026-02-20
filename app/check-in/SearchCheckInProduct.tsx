@@ -16,7 +16,7 @@ const SearchCheckInProduct = () => {
 
     lastValueRef.current = value;
 
-    await delay(1500); // ⏱️ 1.5 sec
+    // await delay(1500); // ⏱️ 1.5 sec
 
     //  If the value has changed during the delay, we don't want to trigger the search. Also, if the value is empty, we don't want to trigger the search.
     if (value !== lastValueRef.current) return;

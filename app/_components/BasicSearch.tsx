@@ -40,7 +40,7 @@ const BasicSearch = (props: BasicSearchProps) => {
     setValue(newValue);
     lastValueRef.current = newValue
 
-    await delay(delayMs)
+    // await delay(delayMs)
 
     // If user typed again during the delay → cancel this search
     if (lastValueRef.current !== newValue) return

@@ -1,9 +1,9 @@
 
 
 import { prisma } from '@/prisma/client'
-import { notFound } from 'next/navigation';
 import React from 'react'
 import EditForm from './editForm';
+import { notFound } from "next/navigation";
 
 
 interface Props {
@@ -30,11 +30,15 @@ const EditIventoryItem = async ({ params }: Props) => {
 
 
 
-  if (!productItem) notFound();
+
 
   const bins = await prisma.bin.findMany();
   const locations = await prisma.location.findMany();
   const stores = await prisma.store.findMany();
+
+  if (!productItem) {
+    notFound(); // 🔥 this triggers not-found.tsx
+  }
 
 
 

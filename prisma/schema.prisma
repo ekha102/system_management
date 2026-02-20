@@ -60,9 +60,9 @@ enum InventoryStatus {
 model Inventory {
   inv_id        Int             @id @default(autoincrement())
   
-  // 🔗 Product Relation (Many inventory rows per product)
+  // Product Relation (Many inventory rows per product)
   prod_id       Int
-  product       Product         @relation(fields: [prod_id], references: [prod_id])
+  
 
   inv_quantity  Int             @default(0)
   inv_restock   Int             @default(1)
@@ -79,7 +79,8 @@ model Inventory {
   bin      Bin?      @relation(fields: [bin_id], references: [bin_id])
   location Location? @relation(fields: [loc_id], references: [loc_id])
   store    Store?    @relation(fields: [store_id], references: [store_id])
-
+  product  Product   @relation(fields: [prod_id], references: [prod_id])
+  
   transactions InventoryTransaction[]
   @@unique([prod_id, bin_id, loc_id, store_id])
 }
