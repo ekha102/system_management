@@ -29,8 +29,8 @@ const ProductTable = ({ products }: Props) => {
                 <Link className="text-blue-600 hover:text-blue-700 hover:underline font-medium" href={`/products/${product.prod_id}`}>{product.prod_sku}</Link>
               </Table.Cell>
               <Table.Cell>{product.prod_name}</Table.Cell>
-              <Table.Cell>{product.createdAt.toLocaleDateString()}</Table.Cell>
-              <Table.Cell>{product.updatedAt.toLocaleDateString()}</Table.Cell>
+              <Table.Cell>{new Date(product.createdAt).toLocaleString("en-US", {hour12: true})}</Table.Cell>
+              <Table.Cell>{new Date(product.updatedAt).toLocaleString("en-US", {hour12: true})}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

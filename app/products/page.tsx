@@ -5,7 +5,11 @@ import ButtonCreateProduct from "./ButtonCreateProduct";
 
 const ProductPage = async () => {
 
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany({
+    orderBy: {
+      prod_id: "desc",
+    },
+  });
   // console.log("products: ", products);
 
   return (

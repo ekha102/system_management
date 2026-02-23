@@ -18,7 +18,7 @@ export const GET = async (request: NextRequest) => {
     return NextResponse.json({ error: "SKU required" }, { status: 400 });
   }
 
-  // await delay(5000);
+  
   const existingSku = await ProdSkuLogic(prodSku);
 
  

@@ -58,7 +58,7 @@ const CreateProductForm = () => {
       } else {
         clearErrors("prod_sku"); // ✅ remove error
         setSkuAvailable(true);
-        toast.success("SKU is available ✅");
+        // toast.success("SKU is availableddd ✅");
       }
 
     } catch (error) {
@@ -107,6 +107,7 @@ const CreateProductForm = () => {
             <TextField.Root
               placeholder="Product Name"
               {...register("prod_name")}
+              disabled={isSubmitting}
             />
             {errors.prod_name && (
               <Text color="red" size="1">
@@ -121,12 +122,13 @@ const CreateProductForm = () => {
               <TextField.Root
                 placeholder="SKU"
                 {...register("prod_sku")}
-                disabled={isCheckingSku}
+                disabled={isCheckingSku || isSubmitting}
+                
               />
               <Button
                 type="button"
                 size="2"
-                disabled={isCheckingSku}
+                disabled={isCheckingSku || isSubmitting}
                 onClick={handleCheckSku}
               >
                 {isCheckingSku ? "Checking..." : "Check SKU"}
@@ -150,7 +152,7 @@ const CreateProductForm = () => {
           <Box>
             <TextArea
               placeholder="Product description..."
-              {...register("prod_desc")}
+              {...register("prod_desc")} disabled={isSubmitting}
             />
             {errors.prod_desc && (
               <Text color="red" size="1">

@@ -4,14 +4,15 @@ import { InvalidationCreateProduct } from "@/app/_components/InvalidationCreateP
 import { Product } from "@/app/generated/prisma/client";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Flex, Box, TextField, Button, TextArea, Text, Heading } from "@radix-ui/themes";
+import { Flex, Box, TextField, Button, TextArea, Text, Heading, Spinner } from "@radix-ui/themes";
 import axios from "axios";
 
 import { register } from "module";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { isValid, z } from "zod";
+import { z } from "zod";
 
 interface props {
   productEdit: {
@@ -26,19 +27,20 @@ type ProductFormData = z.infer<typeof InvalidationCreateProduct>;
 
 const ProductEditForm = ({ productEdit }: props) => {
   // console.log("Inside Product form: ", productEdit);
-  const [skuAvailable, setSkuAvailable] = useState(false);
+  const router = useRouter();
 
   const { prod_id, prod_name, prod_sku, prod_desc } = productEdit;
 
 
-  const { register, handleSubmit, getValues, setError, formState: { errors } } = useForm<ProductFormData>({
+  const { register, handleSubmit, getValues, setError, reset, formState: { errors, isValid, isSubmitting } } = useForm<ProductFormData>({
     resolver: zodResolver(InvalidationCreateProduct),
     defaultValues: {
       prod_name,
       prod_sku,
       prod_desc,
     },
-    // mode: "onChange",
+    mode: "onChange",
+
   });
 
 
@@ -65,7 +67,7 @@ const ProductEditForm = ({ productEdit }: props) => {
         } else {
           setError("prod_sku", {
             type: "manual",
-            message: "SKU is available ✅"
+            message: "SKU is availabled ✅"
           })
         }
       }
@@ -81,54 +83,76 @@ const ProductEditForm = ({ productEdit }: props) => {
 
   const onSubmit = async (values: ProductFormData) => {
     // console.log("Submit: ", values);
+
     try {
       const response = await axios.put(`/api/products/${prod_id}`, values);
       if (response.status === 200) {
+        reset();
         toast.success(response.data.message);
-        console.log("Updated Product: ", response.data.product);
+        router.replace("/products");
       } else {
         toast.error("Failed to update product");
       }
     } catch (error) {
       // get error message from backend and show in toast
-      toast.error(`Error: ${error.response.data.error}`);
+      toast.error(`Error: ${error?.response?.data?.error}`);
     }
   }
 
+
+  const handleDelete = async (prod_id: number) => {
+    // console.log("prod_id: ", prod_id)
+    try {
+      const response = await axios.delete(`/api/products/${prod_id}`);
+      console.log("Delete response: ", response.data.message);
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        router.replace("/products");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.error);
+    }
+
+
+  }
 
 
   return (
     <>
 
       <Heading size="6">Edit Product ID: {prod_id}</Heading>
+      <Flex direction="row" gap="6" className="w-1/2">
+        <form onSubmit={handleSubmit(onSubmit)}>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+          <Flex direction="column" gap="5">
+            <Box>
+              <TextField.Root placeholder="Product name" {...register("prod_name")} disabled={isSubmitting} />
+              {errors.prod_name && <Text color="red" size="1">{errors.prod_name?.message}</Text>}
+            </Box>
 
-        <Flex direction="column" gap="5" className="w-1/4">
-          <Box>
-            <TextField.Root placeholder="Product name" {...register("prod_name")} />
-            {errors.prod_name && <Text color="red" size="1">{errors.prod_name?.message}</Text>}
-          </Box>
-
-          <Box>
-            <Flex direction="row" gapX="2">
-              <TextField.Root placeholder="SKU" {...register("prod_sku")} />
-              <Button type="button" onClick={handleCheckSku}>Check SKU</Button>
-            </Flex>
-            {errors.prod_sku && <Text color="red" size="1">{errors.prod_sku.message}</Text>}
-          </Box>
-
-
-          <Box>
-            <TextField.Root placeholder="Product Description" {...register("prod_desc")} />
-            {errors.prod_desc && <Text color="red" size="1">{errors.prod_desc.message}</Text>}
-          </Box>
+            <Box>
+              <Flex direction="row" gapX="2">
+                <TextField.Root placeholder="SKU" {...register("prod_sku")} disabled={isSubmitting} />
+                <Button type="button" disabled={isSubmitting} onClick={handleCheckSku}>Check SKU</Button>
+              </Flex>
+              {errors.prod_sku && <Text color="red" size="1">{errors.prod_sku.message}</Text>}
+            </Box>
 
 
-          <Button type="submit">Submit</Button>
-        </Flex>
+            <Box>
+              <TextField.Root placeholder="Product Description" {...register("prod_desc")} disabled={isSubmitting} />
+              {errors.prod_desc && <Text color="red" size="1">{errors.prod_desc.message}</Text>}
+            </Box>
 
-      </form>
+
+            <Button disabled={isSubmitting} type="submit">{isSubmitting ? <Spinner/> : "Submit"}</Button>
+          </Flex>
+
+        </form>
+
+        <Button disabled={isSubmitting} color="red" onClick={() => handleDelete(prod_id)}>Delete</Button>
+
+      </Flex>
       <Toaster position="top-center" />
     </>
   )
