@@ -1,0 +1,42 @@
+[33mce9f967[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m first commit
+[33m0b42d2d[m Added: the edit page and delete the product item
+[33mfbcc181[m Added: Create the API for the backend
+[33m81e0dae[m Added: the create form for product add in the list
+[33m31ac62a[m Added: The maintenance page to the layout of the app
+[33me4cf238[m Added: the dbHealth function to check, the db is lived or offline
+[33ma2d397c[m Added the product name and prod id in the inventory form
+[33m9b9c1e5[m Added Dashboard and format layout to left side
+[33mdeff623[m Added the pagination to inventory page
+[33mba678b3[m Added the new field for trigger in input and edit form
+[33m4626c79[m Added the  dashboard in the app
+[33m476f900[m Added the store field in the inventory list
+[33m3834bb4[m Created the store entry page and connect to the backend
+[33m0e5d30b[m Created stores page and database table
+[33md440079[m Fixed the edit form for the bin and loc displayed correctly base on the request
+[33me63516f[m Fixed the logic for bin and location
+[33m698f5bf[m Due to the validation in checkBin, the data was not reaching the onSubmit function. I have temporarily commented out checkBin.
+[33ma31e9d8[m Go to create checkBin for checking the bin existing or not
+[33m1c05e0e[m Still fixing the switch value
+[33md29dc64[m Added the switch toggled for display Bin or Location
+[33mc314d32[m Fixed the location page for edit and delete
+[33m000800f[m Fixed the bin edit page display correctly and create page
+[33m7bed48a[m Added modify form for bin
+[33m876c650[m Enhanced the edit for location form and connect withe api
+[33mc41eb34[m Created the location form and will enhance for edit page
+[33m2602588[m Added the locations page and connect backend data with location table
+[33me32fb2e[m Added bin id inside the fill out inventory form to use the form in the futher use
+[33mfa5881d[m Added the page for create bin
+[33m524127d[m Created the bin page and displayed the table of bin
+[33mb21b04b[m Modified the inventory table and created the bin table in backend. Changed the form input to top today schema.
+[33m488c2f1[m Created the inventory detail page to display information of item
+[33m803c530[m Added the try catch to check for the API put into backend and form invalidation
+[33m10df044[m Created the edit form for inventory and connected to backend
+[33m147c365[m Added in for deleting item in the table and currently working on the edit data
+[33mee38a23[m Added in try catch to handle the api call into the backend error
+[33m8744fb5[m Added axios into the post form to backend
+[33mfd60249[m Added the input text for inventory
+[33m32a5f0b[m Added the navbar into the app
+[33m14276fb[m comment of change
+[33m0d0ce69[m Change
+[33m1217cf4[m Added the next auth
+[33m90b1745[m Initial commit from Create Next App

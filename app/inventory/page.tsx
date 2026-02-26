@@ -13,7 +13,7 @@ interface Props {
 
 const InventoryPage = ({ searchParams }: Props) => {
   
-
+  // Testing
   return (
     <div>
       <ButtonCreateItem />
