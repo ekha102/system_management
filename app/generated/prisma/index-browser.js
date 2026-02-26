@@ -159,6 +159,7 @@ exports.Prisma.InventoryScalarFieldEnum = {
   inv_quantity: 'inv_quantity',
   inv_restock: 'inv_restock',
   inv_trigger: 'inv_trigger',
+  inv_alerted: 'inv_alerted',
   inv_status: 'inv_status',
   inv_createdAt: 'inv_createdAt',
   inv_updatedAt: 'inv_updatedAt',
@@ -211,6 +212,13 @@ exports.Prisma.ProductOrderByRelevanceFieldEnum = {
 exports.Prisma.InventoryTransactionOrderByRelevanceFieldEnum = {
   invtran_note: 'invtran_note'
 };
+exports.InventoryAlertLevel = exports.$Enums.InventoryAlertLevel = {
+  Initial: 'Initial',
+  High: 'High',
+  Medium: 'Medium',
+  Low: 'Low'
+};
+
 exports.InventoryStatus = exports.$Enums.InventoryStatus = {
   Active: 'Active',
   Inactive: 'Inactive'

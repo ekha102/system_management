@@ -6,7 +6,7 @@ import React from 'react'
 
 const ButtonCreateItem = () => {
   return (
-    <Button><Link href="/inventory/create">Create Item</Link></Button>
+    <Button><Link href="/inventory/create">Create Inventory</Link></Button>
   )
 }
 

@@ -8,17 +8,9 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch, Table } from '@radix-ui/themes';
 import { Bin, Location, Product, Store } from '@/app/generated/prisma';
+import { z } from 'zod';
 
 
-
-interface ItemForm {
-  prod_id: number | null;
-  inv_quantity: number;
-  inv_trigger: number;
-  bin_id: number | null;
-  loc_id: number | null;
-  checkedBin: boolean;    //Add Check Bin
-}
 
 interface Props {
   bins?: Bin[];
@@ -27,6 +19,8 @@ interface Props {
   products?: Product[]
 }
 
+// Define the form data type based on Zod schema
+type ItemForm = z.infer<typeof ValidationInventoryCreateItem>;
 
 
 const FormInventory = ({ bins, locations, stores, products }: Props) => {
@@ -51,6 +45,7 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
     },
   });
 
+  // Handle the conversion of select value to number or null
   const handleNumberSelectChange = (
     value: string,
     onChange: (value: number | null) => void
@@ -68,7 +63,7 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
       ...values,
       isBinEnabled: values.checkedBin, // true / false
     };
-    // console.log("Payload to submit:", payload);
+    console.log("Payload to submit:", payload);
     
     try {
       setIsSubmiting(true);  // Always disable the button on the top of the function
@@ -131,15 +126,23 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
             {errors.inv_desc && <Text color='red'>{errors.inv_desc.message}</Text>}
           </Box> */}
 
-          <Box maxWidth="250px">
+          {/* Quantity input  */}
+          {/* <Box maxWidth="250px">
             <TextField.Root disabled={isSubmiting} type="number" placeholder="Quantity" {...register("inv_quantity", { valueAsNumber: true })} />
             {errors.inv_quantity && <Text color='red'>{errors.inv_quantity.message}</Text>}
-          </Box>
+          </Box> */}
+
 
           {/* Added new input field for trigger */}
           <Box maxWidth="250px">
             <TextField.Root disabled={isSubmiting} type="number" placeholder="Trigger" {...register("inv_trigger", { valueAsNumber: true })} />
             {errors.inv_trigger && <Text color='red'>{errors.inv_trigger.message}</Text>}
+          </Box>
+
+          {/* Added new input field for restock */}
+          <Box maxWidth="250px">
+            <TextField.Root disabled={isSubmiting} type="number" placeholder="Restock" {...register("inv_restock", { valueAsNumber: true })} />
+            {errors.inv_restock && <Text color='red'>{errors.inv_restock.message}</Text>}
           </Box>
 
           {/* Store selection */}

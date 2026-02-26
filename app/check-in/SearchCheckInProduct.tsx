@@ -2,7 +2,6 @@
 
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons"
 import { TextField } from "@radix-ui/themes"
-import delay from "delay"
 import { useRouter } from "next/navigation"
 import { useRef } from "react"
 

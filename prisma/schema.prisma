@@ -57,6 +57,13 @@ enum InventoryStatus {
   Inactive
 }
 
+enum InventoryAlertLevel {
+  Initial
+  High
+  Medium
+  Low
+}
+
 model Inventory {
   inv_id        Int             @id @default(autoincrement())
   
@@ -67,6 +74,7 @@ model Inventory {
   inv_quantity  Int             @default(0)
   inv_restock   Int             @default(1)
   inv_trigger   Int             @default(1)
+  inv_alerted   InventoryAlertLevel @default(Initial)
   inv_status    InventoryStatus @default(Active)
   inv_createdAt DateTime        @default(now())
   inv_updatedAt DateTime        @updatedAt
