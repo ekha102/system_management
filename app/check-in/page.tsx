@@ -1,7 +1,6 @@
 import { prisma } from "@/prisma/client";
 import CheckInTable from "./CheckInTable";
 import Pagination from "../_components/Pagination";
-import SearchCheckInProduct from "./SearchCheckInProduct";
 import BasicSearch from "../_components/BasicSearch";
 
 
@@ -13,12 +12,14 @@ type Props = {
 }
 const CheckInHomePage = async ({ searchParams }: Props) => {
 
-  const currentPage = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
+  const params = await searchParams;
+  
+  const currentPage = parseInt(params.page || "1"); // Default to page 1 if not provided
   const sizePage = 5; // Number of items per page
 
   const checkInItems = await prisma.inventory.findMany({
     where: {
-      inv_status: "Active", inv_name: searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined
+      inv_status: "Active", inv_name: params.searchCheckInProduct ? { contains: params.searchCheckInProduct } : undefined
     }, 
     include: {
       bin: {
