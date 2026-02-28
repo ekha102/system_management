@@ -12,14 +12,17 @@ type Props = {
 }
 const CheckInHomePage = async ({ searchParams }: Props) => {
 
-  const params = await searchParams;
   
-  const currentPage = parseInt(params.page || "1"); // Default to page 1 if not provided
+  const currentPage = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
   const sizePage = 5; // Number of items per page
-
+  const searchParamProduct = searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined
   const checkInItems = await prisma.inventory.findMany({
     where: {
-      inv_status: "Active", inv_name: params.searchCheckInProduct ? { contains: params.searchCheckInProduct } : undefined
+      inv_status: "Active", 
+      product: {
+        // Find the search for the product name
+        prod_name: searchParamProduct
+      },
     }, 
     include: {
       bin: {
@@ -52,7 +55,11 @@ const CheckInHomePage = async ({ searchParams }: Props) => {
   });
 
   const checkInCount = await prisma.inventory.count({
-    where: { inv_status: "Active", inv_name: searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined },
+    where: { inv_status: "Active", 
+      product: {
+        prod_name: searchParamProduct
+      },
+    },
   });
 
   return (

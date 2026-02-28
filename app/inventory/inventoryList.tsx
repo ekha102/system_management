@@ -20,25 +20,32 @@ const InventoryList = async ({ searchParams }: Props) => {
 
   const page = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
   const sizePage = 5; // Number of items per page
+  const searchParamsProduct = searchParams.search ? { contains: searchParams.search } : undefined;
 
   const items = await prisma.inventory.findMany({
-    where: { inv_status: 'Active', 
+    where: {
+      inv_status: 'Active',
       product: {
-        prod_name: searchParams.search ? { contains: searchParams.search } : undefined },
+        // Find the search Params product name
+        prod_name: searchParamsProduct
       },
+    },
     include: { bin: true, location: true, store: true, product: true },
     skip: (page - 1) * sizePage,
     take: sizePage,
   });
 
   const inventoryCount = await prisma.inventory.count({
-    where: { inv_status: 'Active', 
+    where: {
+      inv_status: 'Active',
       product: {
-        prod_name: searchParams.search ? { contains: searchParams.search } : undefined },
+        // Find the search Params product name
+        prod_name: searchParamsProduct
       },
+    },
   });
 
- 
+
 
 
 
