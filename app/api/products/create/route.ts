@@ -1,4 +1,4 @@
-import { InvalidationCreateProduct } from "@/app/_components/InvalidationCreateProduct";
+import { ValidationCreateProduct } from "@/app/_components/ValidationCreateProduct";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { ProdSkuLogic } from "../ProdSkuLogic";
@@ -11,7 +11,7 @@ export const POST = async (request: NextRequest) => {
 
   
 
-  const validation = InvalidationCreateProduct.safeParse(body);
+  const validation = ValidationCreateProduct.safeParse(body);
   // console.log("Validation", validation);
   if (validation.error)
     return NextResponse.json({ message: "Validation failed", errors: validation.error.format() }, { status: 400 });

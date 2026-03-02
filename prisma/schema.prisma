@@ -4,10 +4,14 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  output   = "../node_modules/.prisma/client"
 }
+
+
+
 
 generator erd {
   provider = "prisma-erd-generator"
@@ -116,3 +120,27 @@ model InventoryTransaction {
 
   inventory Inventory @relation(fields: [inv_id], references: [inv_id])
 }
+
+
+enum Role {
+  ADMIN
+  MANAGER
+  STAFF
+  CHECKIN_OPERATOR
+  CHECKOUT_OPERATOR
+  REPORT_VIEWER
+}
+
+model User {
+  user_id        Int       @id @default(autoincrement())
+  user_username  String    @unique @db.VarChar(15)
+  user_password  String
+  user_fullName  String    @db.VarChar(50)
+  use_role           Role      @default(STAFF)
+
+  user_isActive       Boolean   @default(true)
+
+  user_createdAt      DateTime  @default(now())
+  user_updatedAt      DateTime  @updatedAt
+}
+

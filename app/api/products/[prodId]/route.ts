@@ -1,4 +1,4 @@
-import { InvalidationCreateProduct } from "@/app/_components/InvalidationCreateProduct";
+import { ValidationCreateProduct } from "@/app/_components/ValidationCreateProduct";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { ProdSkuLogic } from "../ProdSkuLogic";
@@ -11,7 +11,7 @@ interface props {
 export const PUT = async (request: NextRequest, { params }: props) => {
   // Get prod id from params and body from request
   // Exist the prodId in DB or return 404
-  // Validate body with InvalidationCreateProduct
+  // Validate body with ValidationCreateProduct
   // If valid → update the product in DB and return success response with status 200
   // else → return validation error response status 400 with error details
 
@@ -30,8 +30,8 @@ export const PUT = async (request: NextRequest, { params }: props) => {
   }
 
 
-  // Validate the request body using InvalidationCreateProduct
-  const validation = InvalidationCreateProduct.safeParse(body);
+  // Validate the request body using ValidationCreateProduct
+  const validation = ValidationCreateProduct.safeParse(body);
 
   // If validation fails, return 400 with error details
   if (!validation.success)

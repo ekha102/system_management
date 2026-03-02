@@ -1,4 +1,4 @@
-import { ValidationInventoryCreateItem } from "@/app/_components/invalidationInventoryCreate";
+import { ValidationInventoryCreateItem } from "@/app/_components/ValidationInventoryCreate";
 import { InventoryAlertLevel } from "@/app/generated/prisma";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";

@@ -1,11 +1,10 @@
-import DashboardPage from "./dashboard/page";
+
+
+import { redirect } from "next/navigation";
 
 export default function Home() {
   return (
-    <>
-      
-      <DashboardPage />
-      {/* <Pagination itemCount={100} itemsSize={10} currentPage={parseInt(searchParams.page || "1")} /> */}
-    </>
+    // When the page is started redirect the user to login page:
+    redirect("/login")
   );
 }
