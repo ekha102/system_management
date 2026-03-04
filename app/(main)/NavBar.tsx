@@ -2,15 +2,19 @@
 import { Box, Flex, Text, IconButton } from "@radix-ui/themes"
 import { Cross2Icon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   FaHome, FaBoxes, FaSignInAlt, FaSignOutAlt,
   FaArchive, FaMapMarkerAlt, FaStore, FaChartBar, FaTag
 } from "react-icons/fa"
 import { useEffect } from "react"
+import axios from "axios"
 
 const links = [
-  { label: "Dashboard", href: "/", icon: <FaHome /> },
+  // the dashboard route lives under (main)/dashboard, so its actual path is `/dashboard`.
+  // the previous `/` link triggered the root redirect (which sends users to /login),
+  // causing a full page reload. point to the correct route instead.
+  { label: "Dashboard", href: "/dashboard", icon: <FaHome /> },
   { label: "Inventory", href: "/inventory", icon: <FaBoxes /> },
   { label: "Check-In", href: "/check-in", icon: <FaSignInAlt /> },
   { label: "Check-Out", href: "/check-out", icon: <FaSignOutAlt /> },
@@ -19,13 +23,37 @@ const links = [
   { label: "Locations", href: "/locations", icon: <FaMapMarkerAlt /> },
   { label: "Stores", href: "/stores", icon: <FaStore /> },
   { label: "Reports", href: "/reports", icon: <FaChartBar /> },
+  { label: "Users", href: "/users", icon: <FaChartBar /> },
 ]
 
 const NavBar = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
   const pathname = usePathname()
+  const router = useRouter()
+
+
   useEffect(() => {
-  setOpen(false)
-}, [pathname])
+    setOpen(false)
+  }, [pathname])
+
+  
+  const handleLogout = async () => {
+    console.log("Logout");
+    try {
+      await axios.post("/api/auth/logout", {}, // no body needed
+      {
+        withCredentials: true, // important if using cookies
+      })
+      // console.log("", response)
+
+      router.replace("/login") // better than push for logout
+    } catch (error) {
+      console.error("Logout failed:", error)
+    }
+  }
+
+
+
+
   return (
     <>
       {/* Desktop Sidebar */}
@@ -36,29 +64,52 @@ const NavBar = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
           borderRight: "1px solid var(--gray-5)",
           padding: "16px",
           background: "var(--gray-1)",
+          height: "100vh",
         }}
       >
-        <Text size="4" weight="bold" mb="5">Admin Panel</Text>
-        <Flex direction="column" gap="2">
-          {links.map(link => {
-            const active = pathname === link.href
-            return (
-              <Link key={link.href} href={link.href} style={{ textDecoration: "none" }}>
-                <Flex
-                  align="center"
-                  gap="3"
-                  p="2"
-                  style={{
-                    borderRadius: 8,
-                    background: active ? "var(--accent-3)" : "transparent",
-                  }}
-                >
-                  {link.icon}
-                  <Text>{link.label}</Text>
-                </Flex>
-              </Link>
-            )
-          })}
+        <Flex direction="column" justify="between" style={{ height: "100%" }}>
+
+          {/* TOP SECTION */}
+          <Box>
+            <Text size="4" weight="bold" mb="5">Admin Panel</Text>
+            <Flex direction="column" gap="2">
+              {links.map(link => {
+                const active = pathname === link.href
+                return (
+                  <Link key={link.href} href={link.href} style={{ textDecoration: "none" }}>
+                    <Flex
+                      align="center"
+                      gap="3"
+                      p="2"
+                      style={{
+                        borderRadius: 8,
+                        background: active ? "var(--accent-3)" : "transparent",
+                      }}
+                    >
+                      {link.icon}
+                      <Text>{link.label}</Text>
+                    </Flex>
+                  </Link>
+                )
+              })}
+            </Flex>
+          </Box>
+
+          {/* BOTTOM LOGOUT */}
+          <Flex
+            align="center"
+            gap="3"
+            p="2"
+            onClick={handleLogout}
+            style={{
+              borderRadius: 8,
+              cursor: "pointer"
+            }}
+          >
+            <FaSignOutAlt />
+            <Text>Logout</Text>
+          </Flex>
+
         </Flex>
       </Box>
 
@@ -103,6 +154,20 @@ const NavBar = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
                   </Flex>
                 </Link>
               ))}
+            </Flex>
+            {/* Mobile Logout */}
+            <Flex
+              align="center"
+              gap="3"
+              p="2"
+              onClick={handleLogout}
+              style={{
+                borderRadius: 8,
+                cursor: "pointer",
+              }}
+            >
+              <FaSignOutAlt />
+              <Text>Logout</Text>
             </Flex>
           </Box>
         </Box>

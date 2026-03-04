@@ -1,69 +1,96 @@
-import { prisma } from "@/prisma/client";
-import { NextRequest, NextResponse } from "next/server"
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
+import { prisma } from "@/prisma/client"; 
+import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt"; import jwt from "jsonwebtoken"; 
+import { ValidationLogin } from "@/app/_components/ValidationLogin";
 
 export const POST = async (request: NextRequest) => {
-  const body = await request.json();
-  // console.log("Body", body)
-  const { username, password } = body;
-  const normalizedUsername = username.toLowerCase();
+  try {
+    const body = await request.json();
+    const validation = ValidationLogin.safeParse(body);
 
-  if (!username || !password)
-    return NextResponse.json({ error: "Username and password are required" }, { status: 400 })
+    // 400 – Invalid input
+    if (!validation.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid input data",
+          errors: validation.error.format(),
+        },
+        { status: 400 }
+      );
+    }
 
-  const existingUser = await prisma.user.findUnique({
-    where: { user_username: normalizedUsername },
-  });
+    const { user_username, user_password } = validation.data;
+    const normalizedUsername = user_username.toLowerCase();
 
-  // console.log("existingUser", existingUser)
-  if (!existingUser)
-    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+    const existingUser = await prisma.user.findUnique({
+      where: { user_username: normalizedUsername },
+    });
 
-  const isValid = await bcrypt.compare(
-    password,
-    existingUser.user_password
-  );
+    // 401 – Username not found
+    if (!existingUser) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid username or password",
+        },
+        { status: 401 }
+      );
+    }
 
-  if (!isValid) {
+    const isValidPassword = await bcrypt.compare(
+      user_password,
+      existingUser.user_password
+    );
+
+    // 401 – Wrong password
+    if (!isValidPassword) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid username or password",
+        },
+        { status: 401 }
+      );
+    }
+
+    // 200 – Success
+    const token = jwt.sign(
+      {
+        user_id: existingUser.user_id,
+        role: existingUser.use_role, 
+      },
+      process.env.JWT_SECRET!,
+      { expiresIn: "1h" }
+    );
+
+    const response = NextResponse.json(
+      {
+        success: true,
+        message: "Login successful",
+      },
+      { status: 200 }
+    );
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+    });
+
+    return response;
+
+  } catch (error) {
+    console.error("Login error:", error);
+
+    // 500 – Server error
     return NextResponse.json(
-      { error: "Invalid credentials" },
-      { status: 401 }
+      {
+        success: false,
+        message: "Internal server error",
+      },
+      { status: 500 }
     );
   }
-
-  // Added the JWT:
-  const token = jwt.sign(
-    {
-      user_id: existingUser.user_id,
-      role: existingUser.use_role,
-    },
-    process.env.JWT_SECRET!,
-    { expiresIn: "1d" }
-  );
-
-  // console.log("Token: ", token)
-
-  const res = NextResponse.json({ success: true });
-
-  res.cookies.set("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/",
-  });
-  // console.log("Cookie set: token =", token);
-
-  return res;
-
-  // return NextResponse.json({
-  //   message: "Login successful",
-  //   user: {
-  //     id: existingUser.user_id,
-  //     username: existingUser.user_username,
-  //     role: existingUser.use_role,
-  //   },
-  // });
-
-}
+};

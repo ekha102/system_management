@@ -4,7 +4,7 @@ export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
-import { Role } from "@prisma/client";
+
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -15,7 +15,8 @@ export function middleware(req: NextRequest) {
    */
   if (
     pathname === "/api/auth/login" ||
-    pathname === "/api/auth/login/create-account"
+    pathname === "/api/auth/login/create-account" ||
+    pathname === "/api/auth/logout"
   ) {
     return NextResponse.next();
   }

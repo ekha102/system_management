@@ -11,12 +11,13 @@ import {
   Text,
   Heading,
   Box,
+  Spinner,
 } from "@radix-ui/themes";
 import axios from "axios";
-import { resolve } from "path";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ValidationCreateAccount } from "@/app/_components/ValidationCreateAccount";
 import { z } from "zod";
+import { Eye, EyeClosed } from "lucide-react";
 
 
 
@@ -25,59 +26,48 @@ type FormData = z.infer<typeof ValidationCreateAccount>;
 
 
 const CreateAccount = () => {
-  const [usernameAvailable, setUsernameAvailable] = useState(false);
 
 
-  const { register, handleSubmit, setError, clearErrors, formState: { errors, isSubmitting } } = useForm<FormData>({
+  const [showPassword, setShowPassword] = useState(false);  // Show/hide password textfield
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Show/hide confirm password textfield
+  const [usernameAvailable, setUsernameAvailable] = useState(false); // Username is available
+
+  const { register, handleSubmit, setError, getValues, clearErrors, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(ValidationCreateAccount),
     mode: "onBlur"
 
   });
 
-  // RHF register object
-  const usernameRegister = register("user_username");
 
-  /**
-   * ✅ Username availability check (onBlur)
-   */
-  const handleUsernameBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
-    // Keep RHF behavior
-    usernameRegister.onBlur(e);
+  const handleUsernameBlur = async () => {
+    const checkUsername = getValues("user_username").trim();
+    
+    // If the username is empty then return
+    if (!checkUsername) return;
 
-    const username = e.target.value.trim();
-    if (!username) return;
-
+    // Send the data to backend:
+    const response = await axios.get('/api/auth/check-username', { params: { checkUsername } })
     try {
-      const res = await axios.get(`/api/auth/check-username?username=${username}`);
-
-      if (!res.data.available) {
-        setUsernameAvailable(false);
-        setError("user_username", {
-          type: "manual",
-          message: "Username already taken",
-        });
-      } else {
-        setUsernameAvailable(true);
-        clearErrors("user_username");
+      // Checking for the response return
+      if (response.status === 200) {
+        if (response.data.available) {
+          setUsernameAvailable(false);
+          setError("user_username", {
+            type: "manual",
+            message: "Username already taken",
+          });
+        } else {
+          clearErrors("user_username");
+          setUsernameAvailable(true)
+        }
       }
-    } catch {
+    } catch (error) {
       setUsernameAvailable(false);
       setError("user_username", {
         type: "manual",
         message: "Unable to verify username",
       });
     }
-  };
-
-  /**
-   * ✅ Clear error when user types again
-   */
-  const handleUsernameChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setUsernameAvailable(false);
-    clearErrors("user_username");
-    usernameRegister.onChange(e);
   };
 
 
@@ -100,80 +90,115 @@ const CreateAccount = () => {
     <Flex align="center" justify="center" style={{ height: "100vh" }}>
       <Card size="4" style={{ width: 380 }}>
         <Heading align="center" mb="4">
-          Create Inventory Account
+          Create Account
         </Heading>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Flex direction="column" gap="3">
+          <Flex direction="column" gap="5">
 
             {/* Username */}
-            <Box my="2">
-              <TextField.Root placeholder="Username" {...register("user_username")} onBlur={handleUsernameBlur} onChange={handleUsernameChange}/>
-              
-              {/* Error (red) */}
-              {errors.user_username && (
-                <Text color="red" size="2">
-                  {errors.user_username.message}
-                </Text>
-              )}
+            <Box>
+              <Flex direction="column" gap="1">
+                <TextField.Root
+                  placeholder="Username"
+                  {...register("user_username")}
+                  onBlur={handleUsernameBlur}
+                  disabled={isSubmitting}
+                />
 
-              {/* Success (green) */}
-              {!errors.user_username && usernameAvailable && (
-                <Text color="green" size="2">
-                  Username is available
-                </Text>
-              )}
+                {errors.user_username && (
+                  <Text color="red" size="2" style={{ minHeight: 20 }}>
+                    {errors.user_username.message}
+                  </Text>
+                )}
+
+                {!errors.user_username && usernameAvailable && (
+                  <Text color="green" size="2" style={{ minHeight: 20 }}>
+                    Username is available
+                  </Text>
+                )}
+              </Flex>
             </Box>
 
-
-
-
-
-
-
-
-
-
             {/* Full Name */}
-            <TextField.Root
-              placeholder="Full Name"
-              {...register("user_fullName")}
-            />
-            {errors.user_fullName && (
-              <Text color="red" size="2">
-                {errors.user_fullName.message}
-              </Text>
-            )}
+            <Box>
+              <Flex direction="column" gap="1">
+                <TextField.Root
+                  placeholder="Full Name"
+                  {...register("user_fullName")}
+                  disabled={isSubmitting}
+                />
+
+                {errors.user_fullName && (
+                  <Text color="red" size="2" style={{ minHeight: 20 }}>
+                    {errors.user_fullName.message}
+                  </Text>
+                )}
+              </Flex>
+            </Box>
 
             {/* Password */}
-            <TextField.Root
-              type="password"
-              placeholder="Password"
-              {...register("user_password")}
-            />
-            {errors.user_password && (
-              <Text color="red" size="2">
-                {errors.user_password.message}
-              </Text>
-            )}
+            <Box>
+              <Flex direction="column" gap="1">
+                <TextField.Root
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  {...register("user_password")}
+                  disabled={isSubmitting}
+                >
+                  <TextField.Slot side="right">
+                    <Button
+                      variant="soft"
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                      {showPassword ? <Eye /> : <EyeClosed />}
+                    </Button>
+                  </TextField.Slot>
+                </TextField.Root>
+
+                {errors.user_password && (
+                  <Text color="red" size="2" style={{ minHeight: 20 }}>
+                    {errors.user_password.message}
+                  </Text>
+                )}
+              </Flex>
+            </Box>
 
             {/* Confirm Password */}
-            <TextField.Root
-              type="password"
-              placeholder="Confirm Password"
-              {...register("user_confirmPassword")}
-            />
-            {errors.user_confirmPassword && (
-              <Text color="red" size="2">
-                {errors.user_confirmPassword.message}
-              </Text>
-            )}
+            <Box>
+              <Flex direction="column" gap="1">
+                <TextField.Root
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  {...register("user_confirmPassword")}
+                  disabled={isSubmitting}
+                >
+                  <TextField.Slot side="right">
+                    <Button
+                      variant="soft"
+                      type="button"
+                      onClick={() =>
+                        setShowConfirmPassword((prev) => !prev)
+                      }
+                    >
+                      {showConfirmPassword ? <Eye /> : <EyeClosed />}
+                    </Button>
+                  </TextField.Slot>
+                </TextField.Root>
 
-
+                {errors.user_confirmPassword && (
+                  <Text color="red" size="2" style={{ minHeight: 20 }}>
+                    {errors.user_confirmPassword.message}
+                  </Text>
+                )}
+              </Flex>
+            </Box>
 
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Creating..." : "Create Account"}
+              {isSubmitting ? <><Spinner mr="2"/>Creating...</> : "Create Account"}
             </Button>
+
           </Flex>
         </form>
       </Card>
