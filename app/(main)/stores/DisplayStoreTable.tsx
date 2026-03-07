@@ -2,14 +2,24 @@ import { Table } from "@radix-ui/themes";
 import DeleteStore from "./DeleteStore";
 
 import EditStoreButton from "./EditStoreButton";
+import { Store } from "@prisma/client";
+import { permission } from "process";
+
 
 interface Props {
-  storesList: any[];
+  storesList: Store[];
+  canEditStore: Boolean;
+  canDelStore: Boolean;
+
+
 }
 
-const DisplayStoreTable = ({ storesList }: Props) => {
+const DisplayStoreTable = ({ storesList, canEditStore, canDelStore }: Props) => {
 
   // console.log("Stores List in table: ", storesList);
+
+
+
 
 
   return (
@@ -21,7 +31,7 @@ const DisplayStoreTable = ({ storesList }: Props) => {
             <Table.ColumnHeaderCell>Store Name</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Store Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
+            {(canEditStore || canDelStore) && <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>}
           </Table.Row>
         </Table.Header>
 
@@ -32,10 +42,16 @@ const DisplayStoreTable = ({ storesList }: Props) => {
               <Table.RowHeaderCell>{ele.store_name}</Table.RowHeaderCell>
               <Table.Cell>{ele.store_desc}</Table.Cell>
               <Table.Cell>{ele.store_createdAt.toDateString()}</Table.Cell>
-              <Table.Cell>
-                <EditStoreButton storeItem={ele} />
-                <DeleteStore storeId={ele.store_id}/>
-              </Table.Cell>
+              {(canEditStore || canDelStore) &&
+                <Table.Cell>
+
+                  {canEditStore && <EditStoreButton storeItem={ele} />}
+                  {canDelStore && <DeleteStore storeId={ele.store_id} />}
+
+                </Table.Cell>
+
+              }
+
             </Table.Row>
           ))}
         </Table.Body>

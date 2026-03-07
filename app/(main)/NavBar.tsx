@@ -5,10 +5,13 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import {
   FaHome, FaBoxes, FaSignInAlt, FaSignOutAlt,
-  FaArchive, FaMapMarkerAlt, FaStore, FaChartBar, FaTag
+  FaArchive, FaMapMarkerAlt, FaStore, FaChartBar, FaTag,
+  FaUsers
 } from "react-icons/fa"
 import { useEffect } from "react"
 import axios from "axios"
+import DisplayName from "./DisplayName"
+
 
 const links = [
   // the dashboard route lives under (main)/dashboard, so its actual path is `/dashboard`.
@@ -23,10 +26,11 @@ const links = [
   { label: "Locations", href: "/locations", icon: <FaMapMarkerAlt /> },
   { label: "Stores", href: "/stores", icon: <FaStore /> },
   { label: "Reports", href: "/reports", icon: <FaChartBar /> },
-  { label: "Users", href: "/users", icon: <FaChartBar /> },
+  { label: "Users", href: "/users", icon: <FaUsers /> },
 ]
 
-const NavBar = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) => {
+const NavBar = ({ open, setOpen, tokenUser }: { open: boolean; setOpen: (v: boolean) => void, tokenUser:[] }) => {
+ 
   const pathname = usePathname()
   const router = useRouter()
 
@@ -71,7 +75,7 @@ const NavBar = ({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
 
           {/* TOP SECTION */}
           <Box>
-            <Text size="4" weight="bold" mb="5">Admin Panel</Text>
+            <Text size="4" weight="bold" mb="5">{tokenUser.user_fullName}</Text>
             <Flex direction="column" gap="2">
               {links.map(link => {
                 const active = pathname === link.href

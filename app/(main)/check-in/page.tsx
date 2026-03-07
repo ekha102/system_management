@@ -2,6 +2,8 @@ import { prisma } from "@/prisma/client";
 import CheckInTable from "./CheckInTable";
 import Pagination from "../../_components/Pagination";
 import BasicSearch from "../../_components/BasicSearch";
+import { getUserFromToken } from "@/lib/auth";
+import { authorize } from "@/lib/authorize";
 
 
 type Props = {
@@ -16,6 +18,16 @@ const CheckInHomePage = async ({ searchParams }: Props) => {
   const currentPage = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
   const sizePage = 5; // Number of items per page
   const searchParamProduct = searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined
+
+
+  const user = getUserFromToken();
+
+  const auth = authorize(user.role, ["CHECKIN_OPERATOR"]);
+
+  if (!auth.allowed) {
+    return <div>{auth.message}</div>;
+  }
+
   const checkInItems = await prisma.inventory.findMany({
     where: {
       inv_status: "Active", 

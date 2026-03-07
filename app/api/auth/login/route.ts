@@ -1,6 +1,6 @@
-import { prisma } from "@/prisma/client"; 
+import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt"; import jwt from "jsonwebtoken"; 
+import bcrypt from "bcrypt"; import jwt from "jsonwebtoken";
 import { ValidationLogin } from "@/app/_components/ValidationLogin";
 
 export const POST = async (request: NextRequest) => {
@@ -25,7 +25,11 @@ export const POST = async (request: NextRequest) => {
 
     const existingUser = await prisma.user.findUnique({
       where: { user_username: normalizedUsername },
+      include: {
+        role: true
+      }
     });
+
 
     // 401 – Username not found
     if (!existingUser) {
@@ -58,12 +62,14 @@ export const POST = async (request: NextRequest) => {
     const token = jwt.sign(
       {
         user_id: existingUser.user_id,
-        role: existingUser.use_role, 
+        user_fullName: existingUser.user_fullName,
+        user_roleId: existingUser.user_roleId,
       },
       process.env.JWT_SECRET!,
-      { expiresIn: "1h" }
+      { expiresIn: process.env.JWT_EXPIRES_IN! }
     );
 
+    
     const response = NextResponse.json(
       {
         success: true,
@@ -82,7 +88,6 @@ export const POST = async (request: NextRequest) => {
     return response;
 
   } catch (error) {
-    console.error("Login error:", error);
 
     // 500 – Server error
     return NextResponse.json(

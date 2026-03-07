@@ -1,13 +1,14 @@
 'use client';
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Dialog, Flex, Text, TextField } from "@radix-ui/themes";
+import { Button, Dialog, Flex, Spinner, Text, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ValidationStoreForm } from "../../_components/ValidationStoreForm";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingOverlay from "@/app/_components/LoadingOverlay";
 
 interface IFormInput {
   store_name: string,
@@ -32,14 +33,13 @@ const StoreFormInput = ({ onClose }: StoreFormInputProps) => {
       setIsSubmitting(true);
       await axios.post('/api/stores', values);
       reset();
-      toast.success("Store created successfully!");
+      onClose();          // close immediately
+      // toast.success("Store created successfully!");
       router.refresh();
-      setTimeout(() => {
-        onClose();
-      }, 800);
+    
     } catch (error) {
       // console.log(error);
-      toast.error("Failed to create store. Please try again.");
+      // toast.error("Failed to create store. Please try again.");
     } finally {
       setIsSubmitting(false);
       
@@ -78,6 +78,8 @@ const StoreFormInput = ({ onClose }: StoreFormInputProps) => {
           </label>
         </Flex>
 
+        
+
         <Flex gap="3" mt="4" justify="end">
           <Dialog.Close>
             <Button
@@ -88,11 +90,16 @@ const StoreFormInput = ({ onClose }: StoreFormInputProps) => {
             </Button>
           </Dialog.Close>
 
-          <Button disabled={isSubmitting} type="submit">Submit</Button>
+          <Button 
+          disabled={isSubmitting} 
+          type="submit">{isSubmitting ? <><Spinner/>Submitting</> : "Submit"}</Button>
         </Flex>
       </form>
 
-      <Toaster position="top-center" />
+
+      {isSubmitting && <LoadingOverlay />}
+
+      {/* <Toaster position="top-center" /> */}
     </>
 
   )

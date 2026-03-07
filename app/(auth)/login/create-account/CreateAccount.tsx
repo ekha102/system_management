@@ -73,7 +73,7 @@ const CreateAccount = () => {
 
 
   const onSubmit = async (data: FormData) => {
-    // console.log("Data:", data)
+    console.log("Data:", data)
     const request = await axios.post("/api/auth/login/create-account", data);
 
 
