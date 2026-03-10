@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
-  console.log("Body: ", body)
+  // console.log("Body: ", body)
   // const { username, fullName, password } = body;
 
   const validation = ValidationCreateAccount.safeParse(body);

@@ -7,7 +7,8 @@ import jwt from "jsonwebtoken";
 
 
 export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+  const { pathname } = req.nextUrl;  // Get current pathname on server, not same as router path. the router uses for react compoment.
+
 
   /**
    * 1. Explicitly ALLOW auth APIs
@@ -34,7 +35,8 @@ export function middleware(req: NextRequest) {
    */
   const token = req.cookies.get("token")?.value;
   const isAuthRoute = pathname.startsWith("/login");
-
+  console.log("!toeen", !token)
+  // If the user does NOT have a token
   if (!token) {
     if (!isAuthRoute) {
       return NextResponse.redirect(new URL("/login", req.url));

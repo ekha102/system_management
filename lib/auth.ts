@@ -11,8 +11,9 @@ export const getUserFromToken = () => {
   }
 
   try {
-    // Get the token for username and role:
+    // Get the token from username and role:
     const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    // console.log("Decode out token: ", decoded)
 
     return decoded as {
       user_id: number;

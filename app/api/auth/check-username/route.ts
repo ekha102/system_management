@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {
 
-  // const username = request.nextUrl.searchParams.get("username");
+  
   const { searchParams } = new URL(request.url);
   const checkUsername = searchParams.get("checkUsername");
-  console.log("BE username: ", checkUsername);
+  // console.log("BE username: ", checkUsername);
 
   // Validation for username is not empty or no value
   if (!checkUsername)

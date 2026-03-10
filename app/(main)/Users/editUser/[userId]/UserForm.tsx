@@ -132,9 +132,6 @@ const UserForm = ({ userDetail, roleList, moduleList }: Props) => {
 
 
 
-
-
-
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Updating..." : "Update"}
           </Button>

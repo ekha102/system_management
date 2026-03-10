@@ -41,7 +41,7 @@ const CreateAccount = () => {
 
   const handleUsernameBlur = async () => {
     const checkUsername = getValues("user_username").trim();
-    
+
     // If the username is empty then return
     if (!checkUsername) return;
 
@@ -73,14 +73,19 @@ const CreateAccount = () => {
 
 
   const onSubmit = async (data: FormData) => {
-    console.log("Data:", data)
-    const request = await axios.post("/api/auth/login/create-account", data);
+    // console.log("Data:", data)
+    try {
+      // Send to the backend API to post:
+      const request = await axios.post("/api/auth/login/create-account", data);
+      if (request.status === 201) {
+        // When the user completed for creating account, force the user to sign to get JWT
+        redirect("/login");
+      }
 
+    } catch (error) {
 
-    if (request.status === 201) {
-      // When the user completed for creating account, force the user to sign to get JWT
-      redirect("/login");
     }
+
 
 
 
@@ -196,7 +201,7 @@ const CreateAccount = () => {
             </Box>
 
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <><Spinner mr="2"/>Creating...</> : "Create Account"}
+              {isSubmitting ? <><Spinner mr="2" />Creating...</> : "Create Account"}
             </Button>
 
           </Flex>

@@ -40,7 +40,7 @@ export default function LoginScreen() {
         router.replace("/dashboard"); // redirect after login
       }
 
-      // Return Error for status: 400/401/500
+    // Return Error for status: 400/401/500
     } catch (err: any) {
       const message =
         err?.response?.data?.message || "Something went wrong";
