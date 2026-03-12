@@ -1,28 +1,69 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
-export const POST = () => {
-  try {
-    // create a response object and then mutate it, rather than passing
-    // the response into another json call.
-    const res = NextResponse.json(
-      { success: true, message: "Logged out successfully" },
-      { status: 200 }
-    );
+export async function middleware(req: NextRequest) {
 
-    res.cookies.set("token", "", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      expires: new Date(0),
-      maxAge : 0,
-      path: "/",
-    });
+  const token = req.cookies.get("token")?.value;
+  const refreshToken = req.cookies.get("refreshToken")?.value;
 
-    return res;
-  } catch (error) {
-    return NextResponse.json(
-      { success: false, message: "Logout failed" },
-      { status: 500 }
-    );
+  const { pathname } = req.nextUrl;
+
+  // Allow login page and auth APIs without auth check
+  if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/api/auth")
+  ) {
+    return NextResponse.next();
   }
+
+  // No access token → redirect to login
+  if (!token) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  try {
+    // Verify access token
+    jwt.verify(token, process.env.JWT_SECRET!);
+
+    // Token valid → continue
+    return NextResponse.next();
+
+  } catch {
+
+    // Access token expired → try refresh
+    if (!refreshToken) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    try {
+
+      // Call refresh endpoint
+      const refreshResponse = await fetch(
+        new URL("/api/auth/refresh", req.url),
+        {
+          method: "POST",
+          headers: {
+            cookie: req.headers.get("cookie") || "",
+          },
+        }
+      );
+
+      if (refreshResponse.ok) {
+        // Refresh succeeded → continue request
+        return NextResponse.next();
+      }
+
+      // Refresh failed
+      return NextResponse.redirect(new URL("/login", req.url));
+
+    } catch {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+  }
+}
+
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
 };

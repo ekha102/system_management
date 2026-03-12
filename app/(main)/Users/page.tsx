@@ -7,14 +7,14 @@ import { redirect } from "next/navigation";
 
 
 
-const UserPage = async () => {
 
+const UserPage = async () => {
 
   const tokenUser = getUserFromToken();
 
 
   const permissions = await getValidateUserRole(tokenUser);
-  console.log("Permission:", permissions)
+  // console.log("Permission:", permissions)
 
 
   if (!permissions.includes("User.View")) {

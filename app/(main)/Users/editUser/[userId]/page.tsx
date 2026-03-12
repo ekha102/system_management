@@ -1,5 +1,5 @@
 import { Heading } from "@radix-ui/themes"
-import UserForm from "./UserForm"
+import UserForm from "./EditUserForm"
 import { prisma } from "@/prisma/client"
 
 

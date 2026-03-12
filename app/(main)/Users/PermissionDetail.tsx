@@ -1,6 +1,12 @@
+import { Permission } from "@prisma/client";
 import { Table, Text } from "@radix-ui/themes";
 
-const PermissionDetail = ({ permission }) => {
+interface Props {
+  permission: Permission[]
+}
+
+
+const PermissionDetail = ({ permission }: Props) => {
   console.log("passing permission to detail", permission)
 
   

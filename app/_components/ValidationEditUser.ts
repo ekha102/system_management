@@ -1,11 +1,16 @@
 import { z } from "zod";
 
-
 export const ValidationEditUser = z.object({
-  // user_username: 
-  // z.string()
-  // .min(3, "Username must be at least 3 characters"),
-  user_fullName: z
-    .string()
-    .min(2, "Full name must be at least 2 characters"),
-})
+  user_id: z.number(),
+  user_fullName: z.string().min(1, "Full name is required"),
+  role_id: z.number().nullable(),
+
+  permissions: z.record(
+    z.object({
+      view: z.boolean(),
+      create: z.boolean(),
+      edit: z.boolean(),
+      delete: z.boolean(),
+    })
+  )
+});

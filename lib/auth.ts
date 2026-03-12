@@ -1,28 +1,33 @@
-import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
 
 export const getUserFromToken = () => {
 
-  const token = cookies().get("token")?.value;
-
+  const cookieStore = cookies();
+  const token = cookieStore.get("token")?.value;
 
   if (!token) {
     return null;
   }
 
   try {
-    // Get the token from username and role:
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    // console.log("Decode out token: ", decoded)
 
-    return decoded as {
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET!
+    ) as {
       user_id: number;
       user_fullName: string;
       user_roleId: number;
     };
+
+    return decoded;
+
   } catch (error) {
-    return null
+
+    console.log("Token expired or invalid");
+
+    return null;
+
   }
-
-
 };

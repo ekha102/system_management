@@ -10,7 +10,6 @@ import {
 } from "react-icons/fa"
 import { useEffect } from "react"
 import axios from "axios"
-import DisplayName from "./DisplayName"
 
 
 const links = [

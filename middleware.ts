@@ -1,62 +1,57 @@
-// middleware.ts
-export const runtime = "nodejs";
-
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
+export async function middleware(req: NextRequest) {
 
-export function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl;  // Get current pathname on server, not same as router path. the router uses for react compoment.
+  const token = req.cookies.get("token")?.value;
+  const refreshToken = req.cookies.get("refreshToken")?.value;
 
+  const { pathname } = req.nextUrl;
 
-  /**
-   * 1. Explicitly ALLOW auth APIs
-   * (login must NEVER be blocked)
-   */
   if (
-    pathname === "/api/auth/login" ||
-    pathname === "/api/auth/login/create-account" ||
-    pathname === "/api/auth/logout"
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/api/auth")
   ) {
     return NextResponse.next();
   }
 
-  /**
-   * ✅ 2. Ignore all other API routes
-   * (protect APIs separately if needed)
-   */
-  if (pathname.startsWith("/api")) {
-    return NextResponse.next();
-  }
-
-  /**
-   * 🔐 3. Page protection starts here
-   */
-  const token = req.cookies.get("token")?.value;
-  const isAuthRoute = pathname.startsWith("/login");
-  console.log("!toeen", !token)
-  // If the user does NOT have a token
   if (!token) {
-    if (!isAuthRoute) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
-    return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   try {
+
     jwt.verify(token, process.env.JWT_SECRET!);
 
-    // Logged-in user should not see login page
-    if (isAuthRoute) {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    return NextResponse.next();
+
+  } catch {
+
+    if (!refreshToken) {
+      return NextResponse.redirect(new URL("/login", req.url));
     }
 
-    return NextResponse.next();
-  } catch {
-    const res = NextResponse.redirect(new URL("/login", req.url));
-    res.cookies.delete("token");
-    return res;
+    try {
+
+      const refresh = await fetch(
+        new URL("/api/auth/refresh", req.url),
+        {
+          method: "POST",
+          headers: {
+            cookie: req.headers.get("cookie") || "",
+          },
+        }
+      );
+
+      if (refresh.ok) {
+        return NextResponse.next();
+      }
+
+      return NextResponse.redirect(new URL("/login", req.url));
+
+    } catch {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 }
 

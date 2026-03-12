@@ -2,7 +2,8 @@ import { prisma } from "@/prisma/client";
 import CheckInTable from "./CheckInTable";
 import Pagination from "../../_components/Pagination";
 import BasicSearch from "../../_components/BasicSearch";
-import { getUserFromToken } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { getUserFromToken } from "@/lib/auth/getUserFromToken";
 import { authorize } from "@/lib/authorize";
 
 
@@ -22,7 +23,11 @@ const CheckInHomePage = async ({ searchParams }: Props) => {
 
   const user = getUserFromToken();
 
-  const auth = authorize(user.role, ["CHECKIN_OPERATOR"]);
+  if (!user) {
+    redirect("/login");
+  }
+
+  const auth = authorize(user.user_roleId, ["CHECKIN_OPERATOR"]);
 
   if (!auth.allowed) {
     return <div>{auth.message}</div>;

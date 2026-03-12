@@ -118,6 +118,17 @@ model InventoryTransaction {
   inventory Inventory @relation(fields: [inv_id], references: [inv_id])
 }
 
+
+model RefreshToken {
+  refresh_id        Int      @id @default(autoincrement())
+  refresh_token     String   @unique
+  refresh_userId    Int
+  refresh_user      User     @relation(fields: [refresh_userId], references: [user_id])
+  refresh_expiresAt DateTime
+  refresh_revoked   Boolean  @default(false)
+  createdAt         DateTime @default(now())
+}
+
 enum UserStatus {
   ACTIVE
   INACTIVE
@@ -128,14 +139,14 @@ model User {
   user_username String @unique
   user_password String
   user_fullName String
-
   user_status UserStatus @default(ACTIVE)
 
   user_roleId Int
   role        Role @relation(fields: [user_roleId], references: [role_id])
 
-  user_createdAt DateTime @default(now())
-  user_updatedAt DateTime @updatedAt
+  user_createdAt DateTime       @default(now())
+  user_updatedAt DateTime       @updatedAt
+  RefreshToken   RefreshToken[]
 }
 
 model Role {
@@ -179,3 +190,4 @@ model RolePermission {
 
   @@id([roleId, permissionId])
 }
+

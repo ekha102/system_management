@@ -15,7 +15,7 @@ interface Props {
 
 const UserTableView = ({ userList }: Props) => {
   const [openRow, setOpenRow] = useState<number | null>(null);
-  console.log("user List in children", userList)
+  // console.log("user List in children", userList)
 
 
   return (
@@ -40,7 +40,7 @@ const UserTableView = ({ userList }: Props) => {
             <React.Fragment key={user.user_id}>
               {/* MAIN ROW */}
               <Table.Row>
-                <Table.Cell>
+                <Table.RowHeaderCell>
                   <IconButton
                     size="1"
                     variant="ghost"
@@ -50,8 +50,8 @@ const UserTableView = ({ userList }: Props) => {
                   >
                     {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                   </IconButton>
-                </Table.Cell>
-                <Table.RowHeaderCell>{user.user_id}</Table.RowHeaderCell>
+                </Table.RowHeaderCell>
+                <Table.Cell>{user.user_id}</Table.Cell>
                 <Table.Cell>{user.user_username}</Table.Cell>
                 <Table.Cell>{user.user_fullName}</Table.Cell>
                 <Table.Cell>{user.role?.role_name}</Table.Cell>
