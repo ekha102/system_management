@@ -1,8 +1,11 @@
 import { z } from "zod";
+import { CreateAccountBase } from "./ValidationCreateAccount";
 
 export const ValidationEditUser = z.object({
   user_id: z.number(),
-  user_fullName: z.string().min(1, "Full name is required"),
+
+  user_fullName: CreateAccountBase.shape.user_fullName,
+
   role_id: z.number().nullable(),
 
   permissions: z.record(

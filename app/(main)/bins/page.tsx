@@ -1,17 +1,22 @@
 import { prisma } from '@/prisma/client'
-import { Table } from '@radix-ui/themes'
 import React from 'react'
-import CreateButtonBin from './CreateButtonBin';
 import BinViewTable from './BinViewTable';
-import BinForm from './_BinForm';
+import Breadcrumb from '@/app/_components/Breadcrumb';
 
 const Bins = async () => {
+
+  // Define for breadcrumb:
+  const breadcrumbList = [
+    { label: "Bins", href: "/bins" },
+  ]
+  
 
   const bins = await prisma.bin.findMany();
   // console.log("Bin: ", bins);
 
   return (
     <>
+      <Breadcrumb items={breadcrumbList} />
       <BinViewTable bins={bins} />
      
     </>

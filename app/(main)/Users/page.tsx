@@ -1,9 +1,7 @@
 import { prisma } from "@/prisma/client"
 import UserTableView from "./UserTableView";
-import { authorize } from "@/lib/authorize";
 import { getUserFromToken } from "@/lib/auth";
 import { getValidateUserRole } from "@/lib/validateUserRole";
-import { redirect } from "next/navigation";
 
 
 
@@ -17,9 +15,12 @@ const UserPage = async () => {
   // console.log("Permission:", permissions)
 
 
-  if (!permissions.includes("User.View")) {
-    redirect("/dashboard");
-
+  if (!permissions.includes("users.view")) {
+    return (
+      <div className="flex justify-center items-center font-bold h-screen text-red-600 text-xl">
+        You do not have permission to access this page.
+      </div>
+    );
   }
 
 

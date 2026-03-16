@@ -1,3 +1,4 @@
+import { Capitalize } from "@/app/_components/Capitalize";
 import { Permission } from "@prisma/client";
 import { Table, Text } from "@radix-ui/themes";
 
@@ -33,8 +34,8 @@ const PermissionDetail = ({ permission }: Props) => {
           {permission.map((ele) => (
             <Table.Row key={ele.permission.perm_id}>
               <Table.Cell>{ele.permission.perm_id}</Table.Cell>
-              <Table.Cell>{ele.permission.module.module_name}</Table.Cell>
-              <Table.Cell>{ele.permission.action.action_name}</Table.Cell>
+              <Table.Cell>{Capitalize(ele.permission.module.module_name)}</Table.Cell>
+              <Table.Cell>{Capitalize(ele.permission.action.action_name)}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

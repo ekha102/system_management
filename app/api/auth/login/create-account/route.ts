@@ -38,7 +38,7 @@ export const POST = async (request: NextRequest) => {
         user_fullName: user_fullName,
         user_password: hashedPassword,
         user_status: "ACTIVE",
-        user_roleId: 2,
+        user_roleId: 6,
       }
     });
 

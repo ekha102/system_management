@@ -1,9 +1,10 @@
 "use client";
 
+import { Capitalize } from "@/app/_components/Capitalize";
 import { ValidationEditUser } from "@/app/_components/ValidationEditUser";
 import { hasPermission } from "@/lib/permissions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Module, Role, User } from "@prisma/client";
+import { Module, Role } from "@prisma/client";
 import {
   Button,
   Select,
@@ -13,6 +14,9 @@ import {
   Table,
   Text
 } from "@radix-ui/themes";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -25,19 +29,25 @@ interface Props {
 type FormData = z.infer<typeof ValidationEditUser>;
 
 const EditUserForm = ({ userDetail, roleList, moduleList }: Props) => {
-
+  // Desctructuring the userDetails:
   const { user_id, user_fullName } = userDetail ?? {};
   const role_id = userDetail?.role?.role_id ?? null;
 
-  const permissions =
-    userDetail?.role?.permissions?.map(
-      (p: any) =>
-        `${p.permission.module.module_name}.${p.permission.action.action_name}`
-    ) || [];
+  const router = useRouter();
+  const [checkingRoleId, setCheckingRoleId] = useState(role_id);
 
+
+
+  // Mapping the module and action names into "user.view"
+  const permissions = userDetail?.role?.permissions?.map((p: any) => (
+    `${p.permission.module.module_name}.${p.permission.action.action_name}`)
+  ) || [];
+
+  // Grouping them into the user -> view: true, create: false
   const groupedPermissions = permissions.reduce((acc: any, perm: string) => {
     const [module, action] = perm.split(".");
 
+    // If the module and action is existed then display skip this if statement:
     if (!acc[module]) {
       acc[module] = {
         view: false,
@@ -46,16 +56,19 @@ const EditUserForm = ({ userDetail, roleList, moduleList }: Props) => {
         delete: false,
       };
     }
+    // After skip if the statement - this module and action is existed add the true for them.
+    acc[module][action] = true;
 
-    acc[module][action.toLowerCase()] = true;
 
     return acc;
   }, {});
+  // console.log("Grouped Permissions", groupedPermissions);
 
   const {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(ValidationEditUser),
@@ -67,11 +80,35 @@ const EditUserForm = ({ userDetail, roleList, moduleList }: Props) => {
     }
   });
 
-  const onSubmit = async (data: FormData) => {
-    console.log("Submitted data:", data);
+
+
+
+  // Role Change:
+  const handleRoleChange = (roleId: number) => {
+    if (roleId === 6) {
+      setValue("permissions", {});
+    }
+    setCheckingRoleId(roleId);
   };
 
-  const actions = ["create", "view", "edit", "delete"];
+
+
+
+
+  const onSubmit = async (data: FormData) => {
+    console.log("Submitted before-data:", data);
+    if (data.role_id === 6) {
+      data.permissions = {};
+    }
+    console.log("Submitted after-data:", data);
+
+    await axios.put("/api/roles", data);
+    router.push("/users")
+  };
+
+
+
+  const actions = ["view", "create", "edit", "delete"];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -109,19 +146,17 @@ const EditUserForm = ({ userDetail, roleList, moduleList }: Props) => {
 
                 <Select.Root
                   value={field.value ? String(field.value) : ""}
-                  onValueChange={(value) =>
-                    field.onChange(value ? Number(value) : null)
-                  }
+                  onValueChange={(value) => {
+                    // console.log("Value inside the select option: ", value);
+                    // console.log("Type of value:", typeof value);
+                    field.onChange(Number(value));
+                    handleRoleChange(Number(value));
+                  }}
                 >
                   <Select.Trigger placeholder="Select role" />
 
                   <Select.Content>
                     <Select.Group>
-
-                      <Select.Item value="null">
-                        Unassigned
-                      </Select.Item>
-
                       {roleList.map((role) => (
                         <Select.Item
                           key={role.role_id}
@@ -149,70 +184,70 @@ const EditUserForm = ({ userDetail, roleList, moduleList }: Props) => {
       </div>
 
       {/* Permission Table */}
+      {checkingRoleId !== 6 &&
+        <div className="mt-6 overflow-hidden rounded-lg border">
+          <Table.Root variant="surface">
+            <Table.Header>
+              <Table.Row>
 
-      <div className="mt-6 overflow-hidden rounded-lg border">
-
-        <Table.Root>
-
-          <Table.Header>
-            <Table.Row>
-
-              <Table.ColumnHeaderCell>
-                Module
-              </Table.ColumnHeaderCell>
-
-              {actions.map((action) => (
-                <Table.ColumnHeaderCell key={action}>
-                  {action.charAt(0).toUpperCase() + action.slice(1)}
+                <Table.ColumnHeaderCell>
+                  Module
                 </Table.ColumnHeaderCell>
-              ))}
-
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-
-            {moduleList.map((module) => (
-
-              <Table.Row key={module.module_id}>
-
-                <Table.RowHeaderCell>
-                  {module.module_name}
-                </Table.RowHeaderCell>
 
                 {actions.map((action) => (
-
-                  <Table.Cell key={action}>
-
-                    <Controller
-                      name={`permissions.${module.module_name}.${action}`}
-                      control={control}
-                      defaultValue={hasPermission(
-                        permissions,
-                        module.module_name,
-                        action
-                      )}
-                      render={({ field }) => (
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      )}
-                    />
-
-                  </Table.Cell>
-
+                  <Table.ColumnHeaderCell key={action}>
+                    {action.charAt(0).toUpperCase() + action.slice(1)}
+                  </Table.ColumnHeaderCell>
                 ))}
 
               </Table.Row>
+            </Table.Header>
 
-            ))}
+            <Table.Body>
 
-          </Table.Body>
+              {moduleList.map((module) => (
 
-        </Table.Root>
+                <Table.Row key={module.module_id} className="hover:bg-gray-100 transition-colors" >
 
-      </div>
+                  <Table.RowHeaderCell>
+                    {Capitalize(module.module_name)}
+                  </Table.RowHeaderCell>
+
+                  {actions.map((action) => (
+
+                    <Table.Cell key={action}>
+
+                      <Controller
+                        name={`permissions.${module.module_name}.${action}`}
+                        control={control}
+                        defaultValue={hasPermission(
+                          permissions,
+                          module.module_name,
+                          action
+                        )}
+                        render={({ field }) => (
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        )}
+                      />
+
+                    </Table.Cell>
+
+                  ))}
+
+                </Table.Row>
+
+              ))}
+
+            </Table.Body>
+
+          </Table.Root>
+
+        </div>
+      }
+
 
       <Button mt="5" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Updating..." : "Update"}

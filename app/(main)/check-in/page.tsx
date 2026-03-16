@@ -2,10 +2,9 @@ import { prisma } from "@/prisma/client";
 import CheckInTable from "./CheckInTable";
 import Pagination from "../../_components/Pagination";
 import BasicSearch from "../../_components/BasicSearch";
-import { redirect } from "next/navigation";
-import { getUserFromToken } from "@/lib/auth/getUserFromToken";
-import { authorize } from "@/lib/authorize";
 
+import { getUserFromToken } from "@/lib/auth";
+import { getValidateUserRole } from "@/lib/validateUserRole";
 
 type Props = {
   searchParams: {
@@ -15,23 +14,32 @@ type Props = {
 }
 const CheckInHomePage = async ({ searchParams }: Props) => {
 
+
+
+  const tokenUser = getUserFromToken();
+  
+  
+    const permissions = await getValidateUserRole(tokenUser);
+    // console.log("Permission:", permissions)
+  
+  
+    if (!permissions.includes("checkin.view")) {
+      return (
+        <div className="flex justify-center items-center font-bold h-screen text-red-600 text-xl">
+          You do not have permission to access this page.
+        </div>
+      );
+    }
+  
+
+
   
   const currentPage = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
   const sizePage = 5; // Number of items per page
   const searchParamProduct = searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined
 
 
-  const user = getUserFromToken();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  const auth = authorize(user.user_roleId, ["CHECKIN_OPERATOR"]);
-
-  if (!auth.allowed) {
-    return <div>{auth.message}</div>;
-  }
+  
 
   const checkInItems = await prisma.inventory.findMany({
     where: {

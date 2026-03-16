@@ -2,6 +2,7 @@ import { prisma } from "@/prisma/client";
 import ProductEditForm from "./ProductEditForm";
 import delay from "delay";
 import { notFound } from "next/navigation";
+import Breadcrumb from "@/app/_components/Breadcrumb";
 
 
 interface Props {
@@ -12,6 +13,12 @@ interface Props {
 
 const ProductEditPage = async ({ params }: Props) => {
   const { prod_id } = params;
+
+  // Define for breadcrumb:
+  const breadcrumbList = [
+    { label: "Products", href: "/products" },
+    { label: "Edit", href: `/products/${prod_id}`},
+  ]
 
   // await delay(500);
   const productEdit = await prisma.product.findUnique({
@@ -32,9 +39,10 @@ const ProductEditPage = async ({ params }: Props) => {
 
 
   return (
-    <>
+    <div className="space-y-4">
+      <Breadcrumb items={breadcrumbList} />
       <ProductEditForm productEdit={productEdit}/>
-    </>
+    </div>
   );
 };
 

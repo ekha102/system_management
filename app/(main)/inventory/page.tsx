@@ -1,6 +1,7 @@
 
 import InventoryList from './inventoryList'
 import ButtonCreateItem from './buttonCreateItem'
+import Breadcrumb from '@/app/_components/Breadcrumb';
 
 
 
@@ -12,10 +13,16 @@ interface Props {
 };
 
 const InventoryPage = ({ searchParams }: Props) => {
+
+  // Define for breadcrumb:
+  const breadcrumbList = [
+    { label: "Inventory", href: "/inventory" },
+  ]
   
   
   return (
-    <div>
+    <div className='space-y-4'>
+      <Breadcrumb items={breadcrumbList} />
       <ButtonCreateItem />
       <InventoryList searchParams={searchParams} />
     </div>

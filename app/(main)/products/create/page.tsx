@@ -10,6 +10,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { z } from "zod";
+import Breadcrumb from "../../../_components/Breadcrumb";
+
+
 
 type ProductFormData = z.infer<typeof ValidationCreateProduct>;
 
@@ -17,6 +20,11 @@ const CreateProductForm = () => {
   const router = useRouter();
   const [isCheckingSku, setIsCheckingSku] = useState(false);
   const [skuAvailable, setSkuAvailable] = useState(false);
+
+  const breadcrumbList = [
+    { label: "Products", href: "/products" },
+    { label: "Create", href: "/products/create"}
+  ];
 
   const {
     register,
@@ -47,7 +55,7 @@ const CreateProductForm = () => {
       setIsCheckingSku(true);
       setSkuAvailable(false);
 
-      const response = await axios.get("/api/products/check-sku", {params: { prodSku } });
+      const response = await axios.get("/api/products/check-sku", { params: { prodSku } });
 
       if (response.data.existingSku) {
         setError("prod_sku", {
@@ -98,7 +106,12 @@ const CreateProductForm = () => {
   };
 
   return (
-    <>
+    <div className="space-y-4">
+      {/* Breadcrumb */}
+      <Breadcrumb items={breadcrumbList} />
+
+
+
       <form onSubmit={handleSubmit(onsubmit)}>
         <Flex direction="column" gap="5" className="w-1/4">
 
@@ -123,7 +136,7 @@ const CreateProductForm = () => {
                 placeholder="SKU"
                 {...register("prod_sku")}
                 disabled={isCheckingSku || isSubmitting}
-                
+
               />
               <Button
                 type="button"
@@ -173,7 +186,7 @@ const CreateProductForm = () => {
       </form>
 
       <Toaster position="top-center" />
-    </>
+    </div>
   );
 };
 
