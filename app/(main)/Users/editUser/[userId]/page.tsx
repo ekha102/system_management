@@ -1,6 +1,7 @@
 import { Heading } from "@radix-ui/themes"
 import UserForm from "./EditUserForm"
 import { prisma } from "@/prisma/client"
+import Breadcrumb from "@/app/_components/Breadcrumb"
 
 
 
@@ -11,6 +12,11 @@ interface Props {
 }
 
 const EditPage = async ({ params }: Props) => {
+  // Define Breadcrumb 
+  const breadcrumbList = [
+    {label: 'Users', href:'/users'},
+    {label: 'Edit'}
+  ];
 
   const { userId } = params;
 
@@ -50,10 +56,10 @@ const EditPage = async ({ params }: Props) => {
 
 
   return (
-    <>
-      <Heading>User Edit</Heading>
+    <div className="space-y-4">
+      <Breadcrumb items={breadcrumbList} />
       <UserForm userDetail={userDetail} roleList={roleList} moduleList={moduleList}/>
-    </>
+    </div>
   )
 }
 export default EditPage

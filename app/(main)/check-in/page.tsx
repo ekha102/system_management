@@ -39,7 +39,7 @@ const CheckInHomePage = async ({ searchParams }: Props) => {
   const searchParamProduct = searchParams.searchCheckInProduct ? { contains: searchParams.searchCheckInProduct } : undefined
 
 
-  
+   
 
   const checkInItems = await prisma.inventory.findMany({
     where: {

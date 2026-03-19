@@ -6,7 +6,7 @@ import { ValidationInventoryCreateItem } from '@/app/_components/ValidationInven
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch, Table } from '@radix-ui/themes';
+import { Callout, Flex, Box, TextField, Button, Spinner, Text, Select, Switch } from '@radix-ui/themes';
 import { Bin, Location, Product, Store } from '@/app/generated/prisma';
 import { z } from 'zod';
 
@@ -27,8 +27,9 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
 
   const [isErrorApi, setIsErrorApi] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
-  const [isEnabledBin, setEnabledBin] = useState(false)
+  // const [isEnabledBin, setEnabledBin] = useState(false);
   const router = useRouter();
+  
   // console.log("current state of isEnabledBin: ", isEnabledBin);
 
 
@@ -38,21 +39,23 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
   // console.log("Location Passed to form: ", locations);
 
 
-  const { register, control, handleSubmit, formState: { errors } } = useForm<ItemForm>({
+  const { register, control, handleSubmit, watch, formState: { errors } } = useForm<ItemForm>({
     resolver: zodResolver(ValidationInventoryCreateItem),
     defaultValues: {
-      checkedBin: false, // 👈 switch default OFF
+      checkedBin: false,
     },
   });
 
+  const isEnabledBin = watch("checkedBin");
+
   // Handle the conversion of select value to number or null
-  const handleNumberSelectChange = (
-    value: string,
-    onChange: (value: number | null) => void
-  ) => {
-    const numberValue = value ? Number(value) : null;
-    onChange(numberValue);
-  };
+  // const handleNumberSelectChange = (
+  //   value: string,
+  //   onChange: (value: number | null) => void
+  // ) => {
+  //   const numberValue = value ? Number(value) : null;
+  //   onChange(numberValue);
+  // };
 
 
   const onSubmit = async (values: ItemForm) => {
@@ -64,11 +67,11 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
       isBinEnabled: values.checkedBin, // true / false
     };
     console.log("Payload to submit:", payload);
-    
+
     try {
       setIsSubmiting(true);  // Always disable the button on the top of the function
       await axios.post('/api/inventory', payload);
-      
+
       router.push('/inventory');
     } catch (error) {
       setIsSubmiting(false);
@@ -92,14 +95,12 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
             <Controller
               name="prod_id"
               control={control}
-              defaultValue={null} // first render is null
+              // defaultValue={null} // first render is null
               render={({ field }) => (
                 <Box maxWidth="250px">
                   <Select.Root
-                    // onValueChange={(value) => field.onChange(value ? Number(value) : null)}
-                    onValueChange={(value) => handleNumberSelectChange(value, field.onChange)
-                    }
-                    // onValueChange={handleProductChange}
+                    value={field.value ? String(field.value) : ""}
+                    onValueChange={(value) => field.onChange(Number(value))}
                     disabled={isSubmiting}
                   >
                     <Select.Trigger placeholder="Select product" />
@@ -109,7 +110,7 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
                         {products?.map((product) => (
                           <Select.Item key={product.prod_id} value={String(product.prod_id)}>{product.prod_id} - {product.prod_name}
                           </Select.Item>
-                          
+
                         ))}
 
                       </Select.Group>
@@ -175,33 +176,23 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
           />
 
 
-
-          {/* Insert the new Switch Button here  */}
-          {/* <Controller
-            name="checkedBin"
-            control={control}
-            render={({ field }) => (
-              <Switch
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
-            )}
-          /> */}
-
+          {/* Toggle for CheckedBin  */}
           <Controller
             name="checkedBin"
             control={control}
             // defaultValue={false}
             render={({ field }) => (
               <Switch
-                checked={isEnabledBin}
+                checked={Boolean(field.value)}
                 onCheckedChange={(checked) => {
-                  setEnabledBin(checked);
                   field.onChange(checked);
+                  // setEnabledBin(checked);
                 }}
               />
             )}
           />
+
+
 
           {isEnabledBin ? <Controller
             name="bin_id"
@@ -210,13 +201,10 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
             render={({ field }) => (
               <Box maxWidth="250px">
                 <Select.Root
-                  // If field.value is null, show "" in the select; otherwise convert number to string
-                  // value={field.value ? String(field.value) : ""}
-
-                  // When user selects something:
-                  // - if they choose the empty option, store null
-                  // - otherwise convert the selected string back to a number
-                  onValueChange={(value) => field.onChange(value ? Number(value) : null)}
+                  value={field.value ? String(field.value) : ""}
+                  onValueChange={(value) =>
+                          field.onChange(Number(value))
+                        }
                   disabled={isSubmiting}
                 >
                   <Select.Trigger placeholder="Select bin" />

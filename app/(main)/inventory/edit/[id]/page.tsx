@@ -6,6 +6,7 @@ import EditForm from './editForm';
 import { notFound } from "next/navigation";
 
 
+
 interface Props {
   params: { id: string }
 }
@@ -24,6 +25,7 @@ const EditIventoryItem = async ({ params }: Props) => {
       bin: true,
       location: true,
       store: true,
+      product: true,
     },
   });
 
@@ -35,16 +37,19 @@ const EditIventoryItem = async ({ params }: Props) => {
   const bins = await prisma.bin.findMany();
   const locations = await prisma.location.findMany();
   const stores = await prisma.store.findMany();
+  const products = await prisma.product.findMany();
 
   if (!productItem) {
     notFound(); // 🔥 this triggers not-found.tsx
   }
 
+  console.log("Display inventory: ", JSON.stringify(productItem, null, 2))
+
 
 
 
   return (
-    <EditForm productItem={productItem} bins={bins} locations={locations} stores={stores} />
+    <EditForm productItem={productItem} bins={bins} locations={locations} stores={stores} products={products}/>
   )
 }
 

@@ -1,12 +1,17 @@
 import { prisma } from "@/prisma/client"
-import UserTableView from "./UserTableView";
 import { getUserFromToken } from "@/lib/auth";
 import { getValidateUserRole } from "@/lib/validateUserRole";
+import Breadcrumb from "@/app/_components/Breadcrumb";
+import UserTableView from "./UserTableView";
 
 
 
 
 const UserPage = async () => {
+  // Define Breadcrumb:
+  const breadcrumbList = [
+    {label: 'Users', href:'/users'}
+  ]
 
   const tokenUser = getUserFromToken();
 
@@ -47,10 +52,11 @@ const UserPage = async () => {
 
 
   return (
-    <>
+    <div className="space-y-4">
+      <Breadcrumb items={breadcrumbList} />
       <UserTableView
         userList={userList} />
-    </>
+    </div>
   )
 }
 export default UserPage;

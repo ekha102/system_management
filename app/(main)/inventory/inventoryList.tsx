@@ -19,7 +19,7 @@ type Props = {
 const InventoryList = async ({ searchParams }: Props) => {
 
   const page = parseInt(searchParams.page || "1"); // Default to page 1 if not provided
-  const sizePage = 5; // Number of items per page
+  const sizePage = 10; // Number of items per page
   const searchParamsProduct = searchParams.search ? { contains: searchParams.search } : undefined;
 
   const items = await prisma.inventory.findMany({

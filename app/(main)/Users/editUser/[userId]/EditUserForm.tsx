@@ -143,39 +143,28 @@ const EditUserForm = ({ userDetail, roleList, moduleList }: Props) => {
             control={control}
             render={({ field }) => (
               <Box maxWidth="300px">
-
                 <Select.Root
                   value={field.value ? String(field.value) : ""}
-                  onValueChange={(value) => {
-                    // console.log("Value inside the select option: ", value);
-                    // console.log("Type of value:", typeof value);
-                    field.onChange(Number(value));
+                  onValueChange={(value) => {field.onChange(Number(value));
                     handleRoleChange(Number(value));
                   }}
                 >
                   <Select.Trigger placeholder="Select role" />
-
                   <Select.Content>
                     <Select.Group>
                       {roleList.map((role) => (
-                        <Select.Item
-                          key={role.role_id}
-                          value={String(role.role_id)}
-                        >
+                        <Select.Item key={role.role_id} value={String(role.role_id)}>
                           {role.role_name}
                         </Select.Item>
                       ))}
-
                     </Select.Group>
                   </Select.Content>
                 </Select.Root>
-
                 {errors.role_id && (
                   <Text color="red">
                     {errors.role_id.message}
                   </Text>
                 )}
-
               </Box>
             )}
           />

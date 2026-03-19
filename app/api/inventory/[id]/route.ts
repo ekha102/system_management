@@ -52,7 +52,7 @@ export async function PUT(request: NextRequest, {params}: Props ) {
     return NextResponse.json({error: "Item not found"}, {status: 404}); 
 
 
-  const {inv_name, inv_desc, inv_quantity, inv_trigger, checkedBin, bin_id, loc_id} = validate.data;
+  const {prod_id, inv_restock, checkedBin, inv_quantity, inv_trigger,  bin_id, loc_id} = validate.data;
   console.log("Validated Data:", validate.data);
   
  
@@ -62,10 +62,10 @@ export async function PUT(request: NextRequest, {params}: Props ) {
   const updateItem = await prisma.inventory.update({
     where: {inv_id: parseInt(params.id)},
     data: { 
-      inv_name,
-      inv_desc,
-      inv_quantity,
+      prod_id,
+      inv_restock,
       inv_trigger,
+      inv_quantity,
       checkedBin,
       bin_id: finalBinId,
       loc_id: finalLocId
