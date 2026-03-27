@@ -277,7 +277,7 @@ const EditForm = ({ productItem, bins, locations, stores, products }: Props) => 
                                 key={bin.bin_id}
                                 value={String(bin.bin_id)}
                               >
-                                {bin.bin_name}_{bin.bin_id}
+                                {bin.bin_name}
                               </Select.Item>
                             ))}
                           </Select.Group>

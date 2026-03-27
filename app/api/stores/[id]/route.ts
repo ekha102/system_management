@@ -1,19 +1,51 @@
 import { ValidationStoreForm } from "@/app/_components/ValidationStoreForm";
-import { getUserFromToken } from "@/lib/auth";
+import { getUserFromToken } from "@/lib/--auth";
 import { hasPermission } from "@/lib/permissions";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 
 export const DELETE = async (request: NextRequest, { params }: { params: { id: string } }) => {
-  const user = getUserFromToken();
+  const user = await getUserFromToken();
 
-  if (!hasPermission(user?.role, "store.delete")) {
-  return NextResponse.json(
-    { message: "Forbidden" },
-    { status: 403 }
-  );
-}
+  if (!user) {
+    return NextResponse.json(
+      { message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
+  const currentUser = await prisma.user.findUnique({
+    where: { user_id: user.user_id },
+    include: {
+      role: {
+        include: {
+          permissions: {
+            include: {
+              permission: {
+                include: {
+                  module: true,
+                  action: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const permissions =
+    currentUser?.role.permissions.map(
+      (p) => `${p.permission.module.module_name}.${p.permission.action.action_name}`
+    ) || [];
+
+  if (!hasPermission(permissions, "stores", "delete")) {
+    return NextResponse.json(
+      { message: "Forbidden" },
+      { status: 403 }
+    );
+  }
   const { id } = params;
 
   // Here you would add your logic to delete the store from your database

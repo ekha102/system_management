@@ -2,7 +2,7 @@ import { prisma } from '@/prisma/client';
 import DisplayStoreTable from './DisplayStoreTable'
 import CreateStore from './CreateStore';
 import { Heading } from '@radix-ui/themes';
-import { getUserFromToken } from "@/lib/auth";
+import { getUserFromToken } from "@/lib/--auth";
 import { getValidateUserRole } from "@/lib/validateUserRole";
 import Breadcrumb from '@/app/_components/Breadcrumb';
 
@@ -17,7 +17,7 @@ const storePage = async () => {
     { label: "Stores", href: "/stores" },
   ]
 
-  const tokenUser = getUserFromToken();
+  const tokenUser = await getUserFromToken();
 
 
   const permissions = await getValidateUserRole(tokenUser);

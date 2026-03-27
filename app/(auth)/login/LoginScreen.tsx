@@ -1,22 +1,24 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Box, Button, Flex, Spinner, Text, TextField } from "@radix-ui/themes";
-import axios from "axios";
 import { z } from "zod";
 import { ValidationLogin } from "@/app/_components/ValidationLogin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+
 
 type FormData = z.infer<typeof ValidationLogin>;
 
 export default function LoginScreen() {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);  // Show/hide
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -30,22 +32,34 @@ export default function LoginScreen() {
   });
 
   const onSubmit = async (data: FormData) => {
+    console.log(">> checking:", data)
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/auth/login", data);
+      const response = await signIn("credentials", {
+        user_username: data.user_username,
+        password: data.user_password,
+        redirect: false,
+        callbackUrl: "/dashboard",
+      });
 
-      // If login successful
-      if (response.status === 200) {
-        router.replace("/dashboard"); // redirect after login
+      console.log("signIn response", response);
+
+      if (response?.ok) {
+        router.replace("/dashboard");
+        return;
       }
 
-    // Return Error for status: 400/401/500
+      setError("root", {
+        message:
+          response?.error ||
+          `Sign in failed (status: ${response?.status || "unknown"})`,
+      });
+      // Return Error for status: 400/401/500
     } catch (err: any) {
-      const message =
-        err?.response?.data?.message || "Something went wrong";
-
-      setError("root", { message });
+      setError("root", {
+        message: err?.message || "Something went wrong"
+      });
     } finally {
       setLoading(false);
     }
@@ -130,3 +144,4 @@ export default function LoginScreen() {
     </div>
   );
 }
+

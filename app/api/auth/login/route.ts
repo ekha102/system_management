@@ -1,129 +1,116 @@
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
-import { cookies } from "next/headers";
 import { ValidationLogin } from "@/app/_components/ValidationLogin";
-import { createAccessToken } from "@/lib/auth/CreateAccessToken";
-import { createRefreshToken } from "@/lib/auth/createRefreshToken";
+import jwt from "jsonwebtoken";
 
 export const POST = async (request: NextRequest) => {
-  try {
 
-    // 1️⃣ Parse request body
-    const body = await request.json();
+  // 1️⃣ Parse request body
+  const body = await request.json();
 
-    const validation = ValidationLogin.safeParse(body);
+  // 2️⃣ Validate input
+  const validation = ValidationLogin.safeParse(body);
 
-    if (!validation.success) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid input data",
-          errors: validation.error.format(),
-        },
-        { status: 400 }
-      );
-    }
-
-    const { user_username, user_password } = validation.data;
-
-    // Normalize username
-    const normalizedUsername = user_username.toLowerCase();
-
-    // 2️⃣ Find user
-    const existingUser = await prisma.user.findUnique({
-      where: {
-        user_username: normalizedUsername,
+  if (!validation.success) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Invalid input data",
+        errors: validation.error.format(),
       },
-      include: {
-        role: true,
-      },
-    });
-
-    if (!existingUser) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid username or password",
-        },
-        { status: 401 }
-      );
-    }
-
-    // 3️⃣ Verify password
-    const isValidPassword = await bcrypt.compare(
-      user_password,
-      existingUser.user_password
+      { status: 400 }
     );
+  }
 
-    if (!isValidPassword) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Invalid username or password",
-        },
-        { status: 401 }
-      );
-    }
+  const { user_username, user_password } = validation.data;
 
-    const { user_id, user_fullName, user_roleId } = existingUser;
+  // 3️⃣ Normalize username
+  const normalizedUsername = user_username.toLowerCase();
 
-    // 4️⃣ Create access token (short-lived)
-    const accessToken = createAccessToken({
-      user_id,
-      user_fullName,
-      user_roleId,
-    });
-    console.log("Created by the accessToken", accessToken)
+  // 4️⃣ Find user
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      user_username: normalizedUsername,
+    },
+    include: {
+      role: true,
+    },
+  });
 
-    // 5️⃣ Create refresh token (long-lived)
-    const refreshToken = createRefreshToken({
-      user_id,
-      // user_fullName,
-      // user_roleId,
-    });
-
-    // 6️⃣ Store refresh token in database
-    const dbcreateRefreshToken = await prisma.refreshToken.create({
-      data: {
-        refresh_token: refreshToken,
-        refresh_userId: user_id,
-        refresh_expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  if (!existingUser) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Invalid username or password",
       },
-    });
+      { status: 401 }
+    );
+  }
 
-    console.log("Create the refresh token in db", dbcreateRefreshToken)
+  // Verify password
+  const isValidPassword = await bcrypt.compare(
+    user_password,
+    existingUser.user_password
+  );
 
-    // 7️⃣ Set cookies (Next.js 15 requires await cookies())
-    const cookieStore = await cookies();
+  console.log("isValidPassword", isValidPassword)
 
-    cookieStore.set("token", accessToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      path: "/",
-    });
+  if (!isValidPassword) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Invalid username or password",
+      },
+      { status: 401 }
+    );
+  }
+  
+  try {
+    const { user_id, user_fullName, user_roleId } = existingUser;
+    console.log("existingUser", existingUser)
 
-    cookieStore.set("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-    });
-
-    // 8️⃣ Return response
-    return NextResponse.json({
-      success: true,
-      message: "Login successful",
-      user: {
+    const token = jwt.sign(
+      {
         user_id,
         user_fullName,
         user_roleId,
       },
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: "1d",
+      }
+    );
+    console.log("Checking Token", token);
+
+    // Create response first
+    const response = NextResponse.json(
+      {
+        success: true,
+        message: "Login successfully",
+        user: {
+          user_id,
+          user_fullName,
+          user_roleId,
+        },
+      },
+      { status: 200 }
+    );
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24, // 1 day
     });
 
-  } catch (error) {
+    // Return response
+    console.log("Login successfully")
+    return response;
 
-    console.error("Login error:", error);
+  } catch (error) {
+    console.error("Login error:");
 
     return NextResponse.json(
       {
@@ -132,7 +119,5 @@ export const POST = async (request: NextRequest) => {
       },
       { status: 500 }
     );
-
   }
 };
-

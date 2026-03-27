@@ -16,9 +16,10 @@ import {
   FaTag,
   FaUsers
 } from "react-icons/fa"
+import { signOut } from "next-auth/react";
 
 import { useEffect, useState } from "react"
-import axios from "axios"
+
 
 
 const links = [
@@ -47,12 +48,13 @@ const links = [
 const NavBar = ({
   open,
   setOpen,
-  tokenUser
+  user_fullName
 }: {
   open: boolean
   setOpen: (v: boolean) => void
-  tokenUser: any
+  user_fullName: string
 }) => {
+  console.log("User name", user_fullName)
 
   const pathname = usePathname()
   const router = useRouter()
@@ -65,20 +67,13 @@ const NavBar = ({
 
 
   const handleLogout = async () => {
+  await signOut({
+    redirect: false, // prevent auto redirect (optional)
+  });
 
-    try {
-
-      await axios.post("/api/auth/logout", {}, {
-        withCredentials: true
-      })
-
-      router.replace("/login")
-
-    } catch (error) {
-      console.error("Logout failed:", error)
-    }
-
-  }
+  // manual redirect (like your old behavior)
+  router.replace("/login");
+};
 
 
   const renderLinks = () => {
@@ -232,7 +227,7 @@ const NavBar = ({
           <Box>
 
             <Text size="4" weight="bold" mb="5">
-              {tokenUser.user_fullName}
+              {user_fullName}
             </Text>
 
             <Flex direction="column" gap="2">
@@ -244,11 +239,7 @@ const NavBar = ({
           </Box>
 
 
-          <Flex
-            align="center"
-            gap="3"
-            p="2"
-            onClick={handleLogout}
+          <Flex align="center" gap="3" p="2" onClick={handleLogout}
             style={{
               borderRadius: 8,
               cursor: "pointer"

@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { SessionProvider } from "next-auth/react";
 
 // Radix
 import { Theme as RadixTheme } from "@radix-ui/themes";
@@ -11,14 +12,16 @@ import muiTheme from "./mui-theme";
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={muiTheme}>
-        <CssBaseline />
+    <SessionProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <CssBaseline />
 
-        <RadixTheme>
-          {children}
-        </RadixTheme>
-      </ThemeProvider>
-    </StyledEngineProvider>
+          <RadixTheme>
+            {children}
+          </RadixTheme>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </SessionProvider>
   );
 }

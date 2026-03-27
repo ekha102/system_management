@@ -94,7 +94,7 @@ const InventoryList = async ({ searchParams }: Props) => {
               <Table.Cell>{item.inv_restock}</Table.Cell>
               <Table.Cell>{item.inv_trigger}</Table.Cell>
               <Table.Cell>{item.store?.store_name}</Table.Cell>
-              <Table.Cell>{item.bin?.bin_name}_{item.bin?.bin_id}</Table.Cell>
+              <Table.Cell>{item.bin?.bin_name}</Table.Cell>
               <Table.Cell>{item.location?.loc_name}</Table.Cell>
               <Table.Cell>
                 <Flex gap="2">

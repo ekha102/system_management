@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/client"
-import { getUserFromToken } from "@/lib/auth";
+import { getUserFromToken } from "@/lib/--auth";
 import { getValidateUserRole } from "@/lib/validateUserRole";
 import Breadcrumb from "@/app/_components/Breadcrumb";
 import UserTableView from "./UserTableView";
@@ -13,7 +13,7 @@ const UserPage = async () => {
     {label: 'Users', href:'/users'}
   ]
 
-  const tokenUser = getUserFromToken();
+  const tokenUser = await getUserFromToken();
 
 
   const permissions = await getValidateUserRole(tokenUser);

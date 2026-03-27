@@ -48,16 +48,6 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
 
   const isEnabledBin = watch("checkedBin");
 
-  // Handle the conversion of select value to number or null
-  // const handleNumberSelectChange = (
-  //   value: string,
-  //   onChange: (value: number | null) => void
-  // ) => {
-  //   const numberValue = value ? Number(value) : null;
-  //   onChange(numberValue);
-  // };
-
-
   const onSubmit = async (values: ItemForm) => {
     // console.log("current state of isEnabledBin in submiting : ", isEnabledBin);
     // console.log("Switch value:", values.checkedBin);

@@ -3,7 +3,7 @@ import CheckInTable from "./CheckInTable";
 import Pagination from "../../_components/Pagination";
 import BasicSearch from "../../_components/BasicSearch";
 
-import { getUserFromToken } from "@/lib/auth";
+import { getUserFromToken } from "@/lib/--auth";
 import { getValidateUserRole } from "@/lib/validateUserRole";
 
 type Props = {
@@ -16,7 +16,7 @@ const CheckInHomePage = async ({ searchParams }: Props) => {
 
 
 
-  const tokenUser = getUserFromToken();
+  const tokenUser = await getUserFromToken();
   
   
     const permissions = await getValidateUserRole(tokenUser);

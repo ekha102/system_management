@@ -6,24 +6,19 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons"
 import NavBar from "./NavBar"
 import Footer from "./Footer"
 
-const AdminShell = ({
-  children,
-  tokenUser
-}: {
-  children: React.ReactNode
-  tokenUser: {
-    user_id: number
-    user_username: string
-    role_name?: string
-  } | null
-}) => {
+type AdminShellProps = {
+  children: React.ReactNode;
+  user_fullName?: string; // ✅ ADD THIS
+};
+
+const AdminShell = ({ children, user_fullName }: AdminShellProps) => {
   const [open, setOpen] = useState(false)
 
   return (
     <Flex style={{ height: "100vh", overflow: "hidden" }}>
 
       {/* Sidebar */}
-      <NavBar open={open} setOpen={setOpen} tokenUser={tokenUser} />
+      <NavBar open={open} setOpen={setOpen} user_fullName={user_fullName} />
 
       {/* Main Area */}
       <Flex direction="column" style={{ flex: 1, overflow: "hidden" }}>

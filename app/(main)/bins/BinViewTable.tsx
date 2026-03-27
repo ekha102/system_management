@@ -4,6 +4,7 @@ import CreateButtonBin from './CreateButtonBin'
 import { Bin } from '../../generated/prisma'
 import EditBin from './EditBin'
 import BinDeleteButton from './BinDeleteButton'
+import { CustomFormatDate } from '@/app/_components/CustomFormatDate'
 
 
 interface Props {
@@ -19,11 +20,12 @@ const BinViewTable = ({ bins }: Props) => {
         <CreateButtonBin />
       </Box>
       
-      <Table.Root>
+      <Table.Root variant='surface'>
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Created Date</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Action</Table.ColumnHeaderCell>
           </Table.Row>
@@ -33,7 +35,8 @@ const BinViewTable = ({ bins }: Props) => {
           {bins.map((bin) =>
             <Table.Row key={bin.bin_id}>
               <Table.RowHeaderCell>{bin.bin_id}</Table.RowHeaderCell>
-              <Table.Cell>{bin.bin_name}_{bin.bin_id}</Table.Cell>
+              <Table.Cell>{bin.bin_name}</Table.Cell>
+              <Table.Cell>{CustomFormatDate(bin.bin_createdAt)}</Table.Cell>
               <Table.Cell>{bin.bin_desc}</Table.Cell>
               <Table.Cell>
                 <Flex direction="row" gap="2">
