@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { ValidationCheckIn } from "../../_components/ValidationCheckIn"
 import { Inventory } from "../../generated/prisma"
+import ButtonCheckIn from "./ButtonCheckIn"
 
 
 interface Props {
@@ -44,9 +45,10 @@ const CheckInTable = ({ checkInItems }: Props) => {
               <Table.Cell>{item.inv_trigger}</Table.Cell>
               <Table.Cell>{item.inv_restock}</Table.Cell>
               <Table.Cell>{item.inv_alerted}</Table.Cell>
-              <Table.Cell>{item.bin?.bin_name}_{item.bin?.bin_id}</Table.Cell>
+              <Table.Cell>{item.bin?.bin_name}</Table.Cell>
               <Table.Cell>{item.location?.loc_name}</Table.Cell>
               <Table.Cell>
+                <ButtonCheckIn itemId={item.inv_id} />
               </Table.Cell>
             </Table.Row>
           ))}

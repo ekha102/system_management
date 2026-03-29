@@ -1,30 +1,27 @@
-import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
-import { authConfig } from "./auth.config";
-
-const { auth } = NextAuth(authConfig);
+import { auth } from "@/auth";
 
 export default auth((req) => {
+  const pathname = req.nextUrl.pathname;
   const isLoggedIn = !!req.auth;
 
-  const { pathname } = req.nextUrl;
+  const isPublicRoute =
+    pathname === "/login" ||
+    pathname === "/login/create-account";
 
-  // ✅ Allow public routes
-  if (
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/api/auth")
-  ) {
-    return NextResponse.next();
+  const isAuthApi = pathname.startsWith("/api/auth");
+
+  if (isLoggedIn && isPublicRoute) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  // ❌ Block if not logged in
-  if (!isLoggedIn) {
+  if (!isLoggedIn && !isPublicRoute && !isAuthApi) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  return NextResponse.next(); // ✅ correct
+  return NextResponse.next();
 });
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/((?!_next|favicon.ico).*)"],
 };

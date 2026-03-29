@@ -1,6 +1,5 @@
 
-import { Grid, Box, Card, Heading, Flex, Text } from "@radix-ui/themes"
-import { CubeIcon, ArchiveIcon, BackpackIcon } from "@radix-ui/react-icons"
+import { Grid, Box, Card, Heading} from "@radix-ui/themes"
 import LatestAddProducts from "./LatestAddProducts"
 import TotalProducts from "./TotalProducts"
 import TotalStores from "./TotalStores"

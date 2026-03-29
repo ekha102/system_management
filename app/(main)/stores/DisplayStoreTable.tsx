@@ -3,7 +3,7 @@ import DeleteStore from "./DeleteStore";
 
 import EditStoreButton from "./EditStoreButton";
 import { Store } from "@prisma/client";
-import { permission } from "process";
+
 
 
 interface Props {

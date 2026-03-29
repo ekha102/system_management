@@ -20,7 +20,7 @@ const ReportHomePage = async () => {
     }
   });
 
-  console.log(reportDetail)
+  // console.log(reportDetail)
 
 
   return (

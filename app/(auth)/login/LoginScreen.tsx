@@ -32,34 +32,28 @@ export default function LoginScreen() {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log(">> checking:", data)
-
+    console.log("Submitting form with data:", data);
     try {
       setLoading(true);
-      const response = await signIn("credentials", {
+
+      const res = await signIn("credentials", {
         user_username: data.user_username,
-        password: data.user_password,
+        user_password: data.user_password,
         redirect: false,
-        callbackUrl: "/dashboard",
+        redirectTo: "/dashboard",
       });
 
-      console.log("signIn response", response);
-
-      if (response?.ok) {
-        router.replace("/dashboard");
+      if (!res?.ok || res.error) {
+        setError("root", {
+          message: "Incorrect username or password",
+        });
         return;
       }
 
-      setError("root", {
-        message:
-          response?.error ||
-          `Sign in failed (status: ${response?.status || "unknown"})`,
-      });
-      // Return Error for status: 400/401/500
-    } catch (err: any) {
-      setError("root", {
-        message: err?.message || "Something went wrong"
-      });
+      router.replace(res.url ?? "/dashboard");
+      router.refresh();
+    } catch (error) {
+      console.log(error)
     } finally {
       setLoading(false);
     }

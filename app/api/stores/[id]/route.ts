@@ -1,5 +1,5 @@
 import { ValidationStoreForm } from "@/app/_components/ValidationStoreForm";
-import { getUserFromToken } from "@/lib/--auth";
+import { getUserFromToken } from "@/lib/auth/getUserFromToken";
 import { hasPermission } from "@/lib/permissions";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";

@@ -1,8 +1,8 @@
-import { getUserFromToken } from "@/lib/--auth";
+
 import AdminShell from "./AdminShell";
 import MaintenanceBanner from "./MaintenanceBanner";
 import { auth } from "@/auth";
-
+import { redirect } from "next/navigation";
 
 export default async function MainLayout({
   children,
@@ -11,9 +11,14 @@ export default async function MainLayout({
 }) {
   const session = await auth();
   const user = session?.user;
+
+  if (!user) {
+    redirect("/login");
+  }
+
   const user_fullName = user.user_fullName;
 
-  console.log(">> checking tokenUser", user_fullName)
+
 
   return (
     <>

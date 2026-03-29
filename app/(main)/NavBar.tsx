@@ -54,7 +54,6 @@ const NavBar = ({
   setOpen: (v: boolean) => void
   user_fullName: string
 }) => {
-  console.log("User name", user_fullName)
 
   const pathname = usePathname()
   const router = useRouter()

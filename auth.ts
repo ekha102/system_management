@@ -1,87 +1,80 @@
 import NextAuth from "next-auth";
-import { ZodError } from "zod";
 import Credentials from "next-auth/providers/credentials";
-import { signInSchema } from "./lib/zod";
-import { prisma } from "@/prisma/client";
-import bcrypt from "bcrypt";
+import { authConfig } from "./auth.config";
 
-export const { handlers, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
+
   providers: [
     Credentials({
+      id: "credentials",
+      name: "Credentials",
       credentials: {
         user_username: {},
         user_password: {},
       },
-      authorize: async (credentials) => {
-        try {
-          const { user_username, password } = await signInSchema.parseAsync(credentials);
+      async authorize(credentials) {
+        if (!credentials) return null;
 
-          // Find user in database (login uses lowercase username from signIn schema)
-          const user = await prisma.user.findUnique({ where: { user_username } });
-          if (!user) {
-            throw new Error("Invalid credentials.");
-          }
+        const { user_username, user_password } = credentials as {
+          user_username: string;
+          user_password: string;
+        };
 
-          // Verify password with bcrypt
-          const isValid = await bcrypt.compare(password, user.user_password);
-          if (!isValid) {
-            throw new Error("Invalid credentials.");
-          }
 
-          // Return user object with fullname and roleId
-          return {
-            user_id: user.user_id,
-            user_username: user.user_username,
-            user_fullName: user.user_fullName,
-            user_roleId: user.user_roleId,
-          };
-        } catch (error) {
-          if (error instanceof ZodError) {
-            return null;
-          }
-          throw error;
-        }
+        console.log("user_username, user_password", user_username, user_password);
+
+        const { prisma } = await import("./prisma/client");
+        const bcryptModule = await import("bcrypt");
+        const bcrypt = bcryptModule.default ?? bcryptModule;
+
+        const user = await prisma.user.findUnique({
+          where: { user_username },
+        });
+        console.log("User found:", user);
+
+        if (!user) return null;
+
+        const isValid = await bcrypt.compare(
+          user_password,
+          user.user_password
+        );
+        console.log("Password: ", isValid);
+
+        if (!isValid) return null;
+
+        return {
+          id: user.user_id,
+          user_id: user.user_id,
+          user_username: user.user_username,
+          user_fullName: user.user_fullName,
+          user_roleId: user.user_roleId,
+        };
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
+
   callbacks: {
-  async jwt({ token, user }) {
-    if (user) {
-      console.log("🔥 USER FROM AUTHORIZE:", user); // ✅ DEBUG
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.user_id;
+        token.user_id = user.user_id;
+        token.user_username = user.user_username;
+        token.user_fullName = user.user_fullName;
+        token.user_roleId = user.user_roleId;
+      }
+      return token;
+    },
 
-      token.id = user.id.toString();   // ✅ FIX
-      token.user_username = user.user_username;
-      token.user_fullName = user.user_fullName;
-      token.user_roleId = user.user_roleId;
-    }
-
-    console.log("🔥 TOKEN:", token); // ✅ PRINT TOKEN
-
-    return token;
-  },
-
-  async session({ session, token }) {
-    console.log("🔥 TOKEN IN SESSION:", token); // ✅ DEBUG
-
-    if (session.user) {
-      session.user = {
-        ...session.user,
-        id: token.id as string,
-        user_username: token.user_username as string,
-        user_fullName: token.user_fullName as string,
-        user_roleId: token.user_roleId as number,
-      };
-    }
-
-    console.log("🔥 FINAL SESSION:", session); // ✅ PRINT SESSION
-
-    return session;
-  },
-},
-  pages: {
-    signIn: "/login",
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.user_id;
+        session.user.user_id = token.user_id;
+        session.user.user_username = token.user_username;
+        session.user.user_fullName = token.user_fullName;
+        session.user.user_roleId = token.user_roleId;
+      }
+      return session;
+    },
   },
 });

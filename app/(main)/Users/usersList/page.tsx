@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/client"
-import { getUserFromToken } from "@/lib/--auth";
+import { getUserFromToken } from "@/lib/auth/getUserFromToken";
 import { getValidateUserRole } from "@/lib/validateUserRole";
 import Breadcrumb from "@/app/_components/Breadcrumb";
 import UserTableView from "./UserTableView";

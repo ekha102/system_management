@@ -1,11 +1,10 @@
 import { prisma } from '@/prisma/client';
 import DisplayStoreTable from './DisplayStoreTable'
 import CreateStore from './CreateStore';
-import { Heading } from '@radix-ui/themes';
-import { getUserFromToken } from "@/lib/--auth";
-import { getValidateUserRole } from "@/lib/validateUserRole";
 import Breadcrumb from '@/app/_components/Breadcrumb';
-
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { getValidateUserRole } from "@/lib/validateUserRole";
 
 
 
@@ -17,11 +16,19 @@ const storePage = async () => {
     { label: "Stores", href: "/stores" },
   ]
 
-  const tokenUser = await getUserFromToken();
+  const session = await auth();
+  const user_id = session?.user?.user_id;
+  console.log("user_id", user_id)
 
 
-  const permissions = await getValidateUserRole(tokenUser);
-  // console.log("Permission:", permissions)
+  if (!user_id) {
+    redirect("/login");
+  }
+
+
+
+
+  const permissions = await getValidateUserRole(user_id);
 
 
   if (!permissions.includes("stores.view")) {
@@ -49,7 +56,7 @@ const storePage = async () => {
         {canCreateStore && <CreateStore />}
 
       </div>
-      <DisplayStoreTable storesList={storesList} canEditStore={canEditStore} canDelStore={canDelStore}/>
+      <DisplayStoreTable storesList={storesList} canEditStore={canEditStore} canDelStore={canDelStore} />
     </div>
   )
 }
