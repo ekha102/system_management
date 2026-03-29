@@ -1,4 +1,7 @@
 import { prisma } from "@/prisma/client";
+import CheckInFormItem from "./CheckInFormItem";
+
+
 
 interface Props {
   params: { checkInId: string }
@@ -16,11 +19,13 @@ const CheckInForm = async ({ params }: Props) => {
     },
   })
 
-  console.log("Check In Item Details:", checkInItemDetails);
+  // console.log("Check In Item Details:", checkInItemDetails);
 
 
   return (
-    <>Check In Form</>
+    <>
+      <CheckInFormItem checkInItemDetails={checkInItemDetails}/>
+    </>
   )
 }
 
