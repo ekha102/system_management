@@ -1,71 +1,123 @@
-import { Inventory } from "@prisma/client"
-import z from "zod";
-import { useForm } from "react-hook-form";
+"use client";
+import { ValidationCheckInEdit } from "@/app/_components/ValidationCheckInEdit";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Inventory } from "@prisma/client";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+  Callout,
+  Flex,
+  Box,
+  TextField,
+  Button,
+  Spinner,
+  Text,
+  Select,
+  Switch,
+  Grid
+} from '@radix-ui/themes';
+import axios from "axios";
+import { Controller, useForm } from "react-hook-form";
+import z from "zod";
+
 
 interface Props {
   checkInItemDetails: Inventory | null
 }
 
-type FormData = z.infer<typeof loginSchema>;
+type FormData = z.infer<typeof ValidationCheckInEdit>;
 
-export const loginSchema = z.object({
-  username: z.string().min(2, "Username is too short"),
-});
 
 const CheckInFormItem = ({ checkInItemDetails }: Props) => {
-  console.log("Check In Item Details in CheckInFormItem Component:", checkInItemDetails)
 
-  const form = useForm<FormData>({
-    resolver: zodResolver(loginSchema),
+
+  console.log("Check In Item Details in CheckInFormItem Component:", checkInItemDetails);
+  const { inv_id, inv_quantity, product } = checkInItemDetails;
+  const { prod_name } = product;
+  console.log("Product name: ", prod_name)
+
+  const { register, control, handleSubmit, } = useForm<FormData>({
+    resolver: zodResolver(ValidationCheckInEdit),
     defaultValues: {
-      username: "",
+      inv_id,
+      prod_name,
+      invtran_change: 0,
+      invtran_type: "PURCHASE",
+      invtran_note: "",
     },
   });
 
 
   const onSubmit = (data: FormData) => {
-    console.log("Form Data:", data);
+    console.log("Check-In:", data);
+    axios.post(`/api/check-in/${inv_id}`, data);
   };
 
+  // ✅ Create Form for edit check-in item details 
+  // ✅ Get the data from edit to display in the form 
+  // ✅ Validated the data
+  // ✅ Put data to api
+  // We need to update the inventory transaction table and also update the inventory quantity in the inventory table 
 
- 
   return (
     <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Text align="right">ID Inventory:</Text>
+        <TextField.Root
+          disabled={true}
+          {...register("inv_id")}
+        />
 
-          {/* Username */}
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter username" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <Text align="right">Product</Text>
+        <TextField.Root
+          // disabled={isSubmiting}
+          {...register("prod_name")}
+        />
 
-        
+        {/* Inventory Change Value increment or decrement:  */}
+        <Text align="right">Inventory Change:</Text>
+        <TextField.Root
+          // disabled={isSubmiting}
+          {...register("invtran_change", { valueAsNumber: true })}
+        />
 
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+        {/* Change Type */}
+        <Text align="right">Change Type</Text>
+        <Controller
+          name="invtran_type"
+          control={control}
+          render={({ field }) => (
 
+            <Box>
+              <Select.Root value={field.value ? String(field.value) : ""}
+                onValueChange={(value) => field.onChange(value)}
+              >
+                <Select.Trigger />
+                <Select.Content>
+                  <Select.Group>
+                    <Select.Item value="PURCHASE">Purchase</Select.Item>
+                    <Select.Item value="ADJUST">Adjust</Select.Item>
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            </Box>
+          )}
+        />
+
+
+
+        {/* Note */}
+        <Text align="right">Note:</Text>
+        <TextField.Root
+          {...register("invtran_note")}
+        />
+
+        <Button type="submit">Submit</Button>
+
+
+
+
+
+
+      </form >
 
 
     </>

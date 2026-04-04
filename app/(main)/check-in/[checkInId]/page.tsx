@@ -17,6 +17,11 @@ const CheckInForm = async ({ params }: Props) => {
     where: {
       inv_id: parseInt(checkInId),
     },
+    include: {
+      product: true,
+      // inventorytransaction: true,
+    },
+    
   })
 
   // console.log("Check In Item Details:", checkInItemDetails);
