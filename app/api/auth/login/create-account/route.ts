@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
-  // console.log("Body: ", body)
+  console.log("Body: ", body)
   // const { username, fullName, password } = body;
 
   const validation = ValidationCreateAccount.safeParse(body);
@@ -38,7 +38,7 @@ export const POST = async (request: NextRequest) => {
         user_fullName: user_fullName,
         user_password: hashedPassword,
         user_status: "ACTIVE",
-        user_roleId: 6,
+        user_roleId: 1, // Default role ID for new users
       }
     });
 

@@ -22,7 +22,7 @@ export const PUT = async (request: NextRequest) => {
     return NextResponse.json({ error: "Item not found" }, { status: 404 });
 
   try {
-    const createCheckIn = prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx) => {
       await tx.inventoryTransaction.create({
         data: {
           inv_id,

@@ -3,9 +3,8 @@ import CheckInTable from "./CheckInTable";
 import Pagination from "../../_components/Pagination";
 import BasicSearch from "../../_components/BasicSearch";
 
-import { getValidateUserRole } from "@/lib/validateUserRole";
-import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+// export const dynamic = "force-dynamic";
+export const revalidate = 30;
 
 type SearchParams = {
   page?: string;
@@ -17,21 +16,6 @@ const CheckInHomePage = async ({
 }: {
   searchParams: SearchParams;
 }) => {
-
-
-
-
-  // const permissions = await getValidateUserRole(user_id);
-  // console.log("permissions: ", permissions)
-
-
-  // if (!permissions.includes("checkin.view")) {
-  //   return (
-  //     <div className="flex justify-center items-center font-bold h-screen text-red-600 text-xl">
-  //       You do not have permission to access this page.
-  //     </div>
-  //   );
-  // }
 
 
 

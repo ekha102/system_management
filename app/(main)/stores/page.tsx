@@ -18,7 +18,7 @@ const storePage = async () => {
 
   const session = await auth();
   const user_id = session?.user?.user_id;
-  console.log("user_id", user_id)
+  
 
 
   if (!user_id) {

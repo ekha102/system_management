@@ -31,6 +31,7 @@ const CreateAccount = () => {
   const [showPassword, setShowPassword] = useState(false);  // Show/hide password textfield
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); //Show/hide confirm password textfield
   const [usernameAvailable, setUsernameAvailable] = useState(false); // Username is available
+  const router = useRouter();
 
   const { register, handleSubmit, setError, getValues, clearErrors, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(ValidationCreateAccount),
@@ -77,17 +78,15 @@ const CreateAccount = () => {
     try {
       // Send to the backend API to post:
       const request = await axios.post("/api/auth/login/create-account", data);
+      console.log("Request: ", request)
       if (request.status === 201) {
         // When the user completed for creating account, force the user to sign to get JWT
-        redirect("/login");
+        router.push("/login?created=true");
       }
 
     } catch (error) {
-
+      console.log(error);
     }
-
-
-
 
   };
 

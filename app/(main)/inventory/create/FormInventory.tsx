@@ -206,7 +206,7 @@ const FormInventory = ({ bins, locations, stores, products }: Props) => {
 
                       {bins.map((bin) => (
                         <Select.Item key={bin.bin_id} value={String(bin.bin_id)}>
-                          {bin.bin_name}_{bin.bin_id}
+                          {bin.bin_name}
                         </Select.Item>
                       ))}
                     </Select.Group>

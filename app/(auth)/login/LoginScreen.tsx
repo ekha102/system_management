@@ -32,7 +32,7 @@ export default function LoginScreen() {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("Submitting form with data:", data);
+    // console.log("Submitting form with data:", data);
     try {
       setLoading(true);
 

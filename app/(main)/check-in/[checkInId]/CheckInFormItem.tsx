@@ -15,6 +15,7 @@ import {
   Grid
 } from '@radix-ui/themes';
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 
@@ -27,12 +28,13 @@ type FormData = z.infer<typeof ValidationCheckInEdit>;
 
 
 const CheckInFormItem = ({ checkInItemDetails }: Props) => {
+  const router = useRouter();
 
 
-  console.log("Check In Item Details in CheckInFormItem Component:", checkInItemDetails);
-  const { inv_id, inv_quantity, product } = checkInItemDetails;
+  // console.log("Check In Item Details in CheckInFormItem Component:", checkInItemDetails);
+  const { inv_id, product } = checkInItemDetails;
   const { prod_name } = product;
-  console.log("Product name: ", prod_name)
+  // console.log("Product name: ", prod_name)
 
   const { register, control, handleSubmit, } = useForm<FormData>({
     resolver: zodResolver(ValidationCheckInEdit),
@@ -46,9 +48,15 @@ const CheckInFormItem = ({ checkInItemDetails }: Props) => {
   });
 
 
-  const onSubmit = (data: FormData) => {
-    console.log("Check-In:", data);
-    axios.post(`/api/check-in/${inv_id}`, data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      // console.log("Check-In:", data);
+      const response = await axios.post(`/api/check-in/${inv_id}`, data);
+      // console.log("Response return: ", response);
+      router.push("/check-in");
+    } catch (error) {
+      console.error("Error submitting check-in:", error);
+    }
   };
 
   // ✅ Create Form for edit check-in item details 
