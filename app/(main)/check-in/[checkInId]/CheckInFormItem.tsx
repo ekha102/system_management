@@ -12,31 +12,28 @@ import {
   Text,
   Select,
   Switch,
-  Grid
-} from '@radix-ui/themes';
+  Grid,
+} from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 
-
 interface Props {
-  checkInItemDetails: Inventory | null
+  checkInItemDetails: Inventory | null;
 }
 
 type FormData = z.infer<typeof ValidationCheckInEdit>;
 
-
 const CheckInFormItem = ({ checkInItemDetails }: Props) => {
   const router = useRouter();
-
 
   // console.log("Check In Item Details in CheckInFormItem Component:", checkInItemDetails);
   const { inv_id, product } = checkInItemDetails;
   const { prod_name } = product;
   // console.log("Product name: ", prod_name)
 
-  const { register, control, handleSubmit, } = useForm<FormData>({
+  const { register, control, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(ValidationCheckInEdit),
     defaultValues: {
       inv_id,
@@ -46,7 +43,6 @@ const CheckInFormItem = ({ checkInItemDetails }: Props) => {
       invtran_note: "",
     },
   });
-
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -59,20 +55,17 @@ const CheckInFormItem = ({ checkInItemDetails }: Props) => {
     }
   };
 
-  // ✅ Create Form for edit check-in item details 
-  // ✅ Get the data from edit to display in the form 
+  // ✅ Create Form for edit check-in item details
+  // ✅ Get the data from edit to display in the form
   // ✅ Validated the data
   // ✅ Put data to api
-  // We need to update the inventory transaction table and also update the inventory quantity in the inventory table 
+  // We need to update the inventory transaction table and also update the inventory quantity in the inventory table
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Text align="right">ID Inventory:</Text>
-        <TextField.Root
-          disabled={true}
-          {...register("inv_id")}
-        />
+        <TextField.Root disabled={true} {...register("inv_id")} />
 
         <Text align="right">Product</Text>
         <TextField.Root
@@ -93,42 +86,28 @@ const CheckInFormItem = ({ checkInItemDetails }: Props) => {
           name="invtran_type"
           control={control}
           render={({ field }) => (
-
-            <Box>
-              <Select.Root value={field.value ? String(field.value) : ""}
+           <Box>
+              <Select.Root
+                value={field.value ? String(field.value) : ""}
                 onValueChange={(value) => field.onChange(value)}
               >
                 <Select.Trigger />
                 <Select.Content>
-                  <Select.Group>
-                    <Select.Item value="PURCHASE">Purchase</Select.Item>
-                    <Select.Item value="ADJUST">Adjust</Select.Item>
-                  </Select.Group>
+                  <Select.Item value="PURCHASE">Purchase</Select.Item>
+                  <Select.Item value="ADJUST">Adjust</Select.Item>
                 </Select.Content>
               </Select.Root>
-            </Box>
+           </Box>
           )}
         />
 
-
-
         {/* Note */}
         <Text align="right">Note:</Text>
-        <TextField.Root
-          {...register("invtran_note")}
-        />
+        <TextField.Root {...register("invtran_note")} />
 
         <Button type="submit">Submit</Button>
-
-
-
-
-
-
-      </form >
-
-
+      </form>
     </>
-  )
-}
-export default CheckInFormItem
+  );
+};
+export default CheckInFormItem;

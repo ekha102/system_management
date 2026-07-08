@@ -40,7 +40,7 @@ export async function DELETE(request:NextRequest, {params}: Props) {
 
 export async function PUT(request: NextRequest, {params}: Props ) {
   const body = await request.json();
-  // console.log("Put Body:", body);
+  console.log("Put Body:", body);
   const validate = ValidationInventoryCreateItem.safeParse(body);
   if (validate.error)
     return NextResponse.json(validate.error.errors, { status: 400 });

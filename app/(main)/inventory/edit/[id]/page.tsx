@@ -43,8 +43,7 @@ const EditIventoryItem = async ({ params }: Props) => {
     notFound(); // 🔥 this triggers not-found.tsx
   }
 
-  console.log("Display inventory: ", JSON.stringify(productItem, null, 2))
-
+ 
 
 
 

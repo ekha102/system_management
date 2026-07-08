@@ -1,13 +1,12 @@
-import z from "zod";
+import { z } from "zod";
 
 export const ValidationInventoryCreateItem = z.object({
   prod_id: z.number().min(1, "Product must be at least 1"),
-  // inv_desc: z.string().min(1, 'Required field.').max(1000),
-  // inv_quantity:  z.number().min(1, "Quantity must be at least 1").max(100, "Quantity must be less than or equal to 100"),
+  inv_quantity: z.number().min(0, "Quantity must be at least 0"),
   inv_trigger: z.number().min(1, "Trigger must be at least 1"),
   inv_restock: z.number().min(1, "Restock must be at least 1"),
-  store_id: z.number().nullable().optional(), // Add store_id
-  checkedBin: z.boolean().default(false), // ✅ ADD THIS
+  store_id: z.number().nullable().optional(),
+  checkedBin: z.boolean().default(false),
   bin_id: z.number().nullable().optional(),
-  loc_id: z.number().nullable().optional(), // 👈 still required logically
+  loc_id: z.number().nullable().optional(),
 });

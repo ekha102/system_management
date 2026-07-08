@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type Props = {
   items: {
     label: string
@@ -22,12 +24,7 @@ const Breadcrumb = ({ items }: Props) => {
                     {item.label}
                   </span>
                 ) : (
-                  <a
-                    href={item.href}
-                    className="hover:text-gray-700 hover:underline"
-                  >
-                    {item.label}
-                  </a>
+                  <Link href={item.href} className="hover:text-gray-700 hover:underline">{item.label}</Link>
                 )}
               </li>
 

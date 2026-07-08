@@ -54,7 +54,6 @@ model Product {
   prod_desc String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   inventories Inventory[] // ✅ One Product → Many Inventory records
 }
 

@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/client";
-import CheckOutForm from "./checkOutForm";
+import CheckOutForm from "./CheckOutForm";
 
 
 
@@ -9,8 +9,8 @@ interface Props {
 
 
 const PageFormCheckOut = async ({params}: Props) => {
-  const { checkOutId } = params;
-  console.log("Check Out ID", checkOutId);
+  const { checkOutId } = await params;
+  // console.log("Check Out ID", checkOutId);
 
   const checkOutDetail = await prisma.inventory.findUnique({
     where: {inv_id: parseInt(checkOutId)},
@@ -18,6 +18,8 @@ const PageFormCheckOut = async ({params}: Props) => {
       product: true,
     }
   })
+
+  // console.log("Check-out detail: ", checkOutDetail);
 
   return (
     <>

@@ -1,25 +1,17 @@
 "use client";
 import { Button } from '@radix-ui/themes';
-import React from 'react'
-import { Inventory } from '../../generated/prisma';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 
 interface Props {
-  itemId?: Inventory
+  itemId: number
 }
 
-const ButtonEditItem = ({itemId}:Props) => {
-  
-  const router = useRouter();
+const ButtonEditItem = ({ itemId }: Props) => {
 
-  const handleEditItem = (itemId:Inventory) => {
-    // console.log("FontEnd Id:", itemId);
-    router.push('/inventory/edit/' + itemId);
-  }
 
   return (
-    <Button size="1" color="blue" onClick={()=>handleEditItem(itemId)}>Edit</Button>
+    <Button size="1"><Link href={`/inventory/edit/${itemId}`}>Edit</Link></Button>
   )
 }
 

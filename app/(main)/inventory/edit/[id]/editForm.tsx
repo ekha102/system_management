@@ -3,6 +3,7 @@
 import { ValidationInventoryCreateItem } from '@/app/_components/ValidationInventoryCreate';
 import { Inventory, Bin, Location } from '@/app/generated/prisma';
 import { Product } from '@prisma/client';
+import { z } from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -43,7 +44,6 @@ const EditForm = ({ productItem, bins, locations, stores, products }: Props) => 
   const {
     inv_id,
     prod_id,
-    prod_name,
     inv_quantity,
     inv_trigger,
     store_id,
@@ -63,13 +63,11 @@ const EditForm = ({ productItem, bins, locations, stores, products }: Props) => 
   } = useForm({
     resolver: zodResolver(ValidationInventoryCreateItem),
     defaultValues: {
-      inv_id,
-      prod_id,
-      prod_name,
-      inv_trigger,
-      inv_restock,
-      inv_quantity,
-      store_id,
+      prod_id: prod_id || 1,
+      inv_trigger: inv_trigger || 0,
+      inv_restock: inv_restock || 0,
+      inv_quantity: inv_quantity || 0,
+      store_id: store_id || null,
       checkedBin: checkedBin ?? false,
       bin_id: bin_id ?? null,
       loc_id: loc_id ?? null,
@@ -108,11 +106,11 @@ const EditForm = ({ productItem, bins, locations, stores, products }: Props) => 
 
 
 
-  const onSubmit = async (values: Inventory) => {
+  const onSubmit = async (values: z.infer<typeof ValidationInventoryCreateItem>) => {
     console.log("Values data Edit:", values)
     try {
       setIsSubmiting(true);
-      await axios.put("/api/inventory/" + productItem?.inv_id, values);
+      await axios.put("/api/inventory/" + inv_id, values);
       router.push('/inventory');
     } catch (error) {
       setIsSubmiting(false);
@@ -175,26 +173,32 @@ const EditForm = ({ productItem, bins, locations, stores, products }: Props) => 
             {/* Trigger */}
             <Text align="right">Trigger</Text>
             <TextField.Root
+              type="number"
               placeholder="Trigger"
               disabled={isSubmiting}
               {...register("inv_trigger", { valueAsNumber: true })}
             />
+            {errors.inv_trigger && <Text color="red">{String(errors.inv_trigger.message)}</Text>}
 
             {/* Restock */}
             <Text align="right">Restock</Text>
             <TextField.Root
+              type="number"
               placeholder="Restock"
               disabled={isSubmiting}
               {...register("inv_restock", { valueAsNumber: true })}
             />
+            {errors.inv_restock && <Text color="red">{String(errors.inv_restock.message)}</Text>}
 
             {/* Quantity */}
             <Text align="right">Quantity</Text>
             <TextField.Root
+              type="number"
               placeholder="Quantity"
               disabled={isSubmiting}
               {...register("inv_quantity", { valueAsNumber: true })}
             />
+            {errors.inv_quantity && <Text color="red">{String(errors.inv_quantity.message)}</Text>}
 
             {/* Store */}
             <Text align="right">Store</Text>
